@@ -16,7 +16,7 @@ To host it, upload the `app` folder to any static host, such as GitHub Pages or 
 
 ## Working with versions
 
-Every version is listed in `CHANGELOG.md`, and on the repository's Releases page, where each one can be downloaded as a zip file.
+Every version is listed in `CHANGELOG.md`, and on the repository's Releases page, where each one can be downloaded as a zip file. The versions are `v1.0` and `v2.0` (both rebuilt copies), and `v3.0` onward.
 
 To see all versions:
 
