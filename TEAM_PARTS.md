@@ -22,14 +22,14 @@ Speaker 4 has the most time and risk, so choose your most confident presenter.
 
 ## Live demo steps (Speaker 4)
 
-1. **Open the site:** the before and after maps play 2008 to 2014 by themselves, then stop on 2011. Point at the left map jumping in 2012 while the right one stays steady. Drag the slider back to 2011 if needed.
-2. **Scroll once to Fire calendar by place, Kerala:** everything for Kerala is on one screen. Read the sentence: fires are detected most often from 12 Feb to 18 Mar. Then point to the two charts, "Why then?" and "How reliable is this?".
-3. **Punjab & Haryana:** press the place. The peak moves to 22 Oct – 11 Nov, and the reason changes to stubble burning. Say detections fell, and we do not claim burning fell equally.
-4. **Map:** tap near Kochi to show that any area works, and that its reliability changes to Low.
-5. **Detailed data:** open the tab, choose **Uttarakhand (approx.)**, press **Unusual weeks**, and hover over the week of 30 Apr in the 2024 row.
-6. **Central India:** choose **Central India** and press **All fires detected** to show the autumn band growing in later years.
+1. **Open the site:** the before and after maps play 2008 to 2014 by themselves, then stop on 2011. Point at the headline numbers: a 5.7× jump when the records are joined, 1.1× after correction. Then point at the trend line under the maps.
+2. **Scroll once to Fire calendar by place, Kerala:** read the sentence (fires are detected most often from 12 Feb to 18 Mar), then point to the two charts and the notes on the right.
+3. **Search:** type "Wayanad" or "Palakkad" in Town or district and pick it. Its calendar appears, with its accuracy.
+4. **Punjab & Haryana:** press the region. The peak moves to 22 Oct to 11 Nov. Say detections fell, and we do not claim burning fell equally.
+5. **Limits section:** show the by-region accuracy chart, where 1.00 is a perfect match.
+6. **Data page:** choose Uttarakhand, press **Unusual weeks**, and hover over the week of 30 Apr in the 2024 row.
 
-Direct links open a place in the overview, by adding `#kerala`, `#punjab_haryana`, `#odisha`, `#uttarakhand` or `#central` to the address. Adding `#details` opens Detailed data.
+Direct links open a place in the overview, by adding `#kerala`, `#punjab_haryana`, `#odisha`, `#uttarakhand` or `#central` to the address. `details.html` opens the week-by-week data, and `details.html#accuracy` its accuracy tests.
 
 ## Never say these
 

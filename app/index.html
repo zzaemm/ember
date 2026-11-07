@@ -1,303 +1,276 @@
-<title>Ember</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!doctype html>
+<html lang="en" data-type="software" data-radius="soft" data-buttons="tonal" data-motion>
+<head>
 <meta charset="utf-8">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ember: fire calendar for India from NASA satellite records</title>
+<meta name="description" content="See when fires are usually detected in any part of India, with 25 years of MODIS and VIIRS records corrected onto one scale.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ember: fire calendar for India">
+<meta property="og:description" content="25 years of NASA fire records on one scale, as a calendar for any place in India.">
+<meta property="og:image" content="share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#f8f8f8">
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..700&family=Figtree:wght@400..600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/ui/cards.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<link rel="stylesheet" href="assets/backgrounds/backgrounds.css">
+<link rel="stylesheet" href="assets/layout/layout.css">
+<link rel="stylesheet" href="assets/icons/icon.css">
 <style>
-/* Layout: one calm column that answers one question. Technical panels live behind the Detailed data tab. */
 :root {
-  --bg:#f7f7f4; --panel:#ffffff; --ink:#1c2430; --ink2:#4b5563; --ink3:#6b7280; --line:#e2e3dd; --chip:#ecece7;
-  --accent:#b4470f; --accent-ink:#fffaf5; --soft:#f3c49c; --bar:#dcdcd5; --land:#e1e1d9; --sea:#f0f2f1; --empty:#eeeee9; --few:#c6c9c2;
-  --s1:#fde3c2; --s2:#fbb871; --s3:#ef8a2e; --s4:#cc5a10; --s5:#973a09; --s6:#561e04;
-  --below:#2f6fb0; --below2:#a9c6e2; --normal:#e3e4dd; --above:#f3b27a; --unusual:#d9580f; --record:#7c2704;
-  --a:#b4470f; --b:#2f76b5; --c:#1c2430; --band:#e8e0d4;
-  --display:'Familjen Grotesk','Trebuchet MS',sans-serif; --body:'Source Sans 3','Segoe UI',Arial,sans-serif; --mono:'Source Sans 3','Segoe UI',Arial,sans-serif;
+  --p-bg: #f8f8f8; --p-surface: #eeeeee; --p-ink: #0a0a0a; --p-muted: #6a6a6a;
+  --p-accent: #1f6b3a; --p-accent-ink: #ffffff; --p-action: #1f6b3a; --p-action-ink: #ffffff;
+  --p-inv-bg: #0a0a0a; --p-inv-surface: #171717; --p-inv-ink: #f8f8f8; --p-inv-muted: #939393;
+  --p-inv-accent: #1f6b3a; --p-inv-accent-ink: #ffffff; --p-inv-action: #1f6b3a; --p-inv-action-ink: #ffffff;
+  --font-display: "Gabarito", system-ui, sans-serif;
+  --font-text: "Figtree", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 400;
+  --display-tracking: -0.03em;
+  --display-tracking-xl: -0.04em;
+  --ly-scale: 0.98;
 }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg:#12161c; --panel:#191f27; --ink:#eef0ea; --ink2:#b9c0c8; --ink3:#949da7; --line:#2a313b; --chip:#232a33;
-  --accent:#f0954a; --accent-ink:#1b1209; --soft:#7d4d28; --bar:#333b46; --land:#2b323c; --sea:#171c23; --empty:#20262f; --few:#566070;
-  --s1:#4a2a15; --s2:#7b3f15; --s3:#b4591a; --s4:#e07e24; --s5:#f8ab4b; --s6:#ffdf97;
-  --below:#6ea8dc; --below2:#2d4d6c; --normal:#2c333d; --above:#8a5125; --unusual:#ed8232; --record:#ffd08a;
-  --a:#f0954a; --b:#6db2e6; --c:#eef0ea; --band:#343036; color-scheme:dark } }
-:root[data-theme="dark"] {
-  --bg:#12161c; --panel:#191f27; --ink:#eef0ea; --ink2:#b9c0c8; --ink3:#949da7; --line:#2a313b; --chip:#232a33;
-  --accent:#f0954a; --accent-ink:#1b1209; --soft:#7d4d28; --bar:#333b46; --land:#2b323c; --sea:#171c23; --empty:#20262f; --few:#566070;
-  --s1:#4a2a15; --s2:#7b3f15; --s3:#b4591a; --s4:#e07e24; --s5:#f8ab4b; --s6:#ffdf97;
-  --below:#6ea8dc; --below2:#2d4d6c; --normal:#2c333d; --above:#8a5125; --unusual:#ed8232; --record:#ffd08a;
-  --a:#f0954a; --b:#6db2e6; --c:#eef0ea; --band:#343036; color-scheme:dark }
-[hidden] { display:none!important }
-* { box-sizing:border-box }
-html { -webkit-text-size-adjust:100% }
-body { background:var(--bg); color:var(--ink); font:18px/1.5 var(--body); margin:0 }
-a { color:var(--accent) }
-:focus-visible { outline:2px solid var(--accent); outline-offset:2px }
-button,select { font:inherit; color:var(--ink) }
-button { cursor:pointer }
-svg { display:block; width:100%; height:auto; overflow:visible }
-svg text { font:13px var(--body); fill:var(--ink2) }
-canvas { display:block; width:100%; touch-action:none }
-
-/* Shared frame */
-.bar-top { position:sticky; top:env(safe-area-inset-top, 0px); z-index:20; background:var(--bg); border-bottom:1px solid var(--line) }
-body::before { content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top, 0px); z-index:21; background:var(--bg) }
-.bar-in { max-width:1040px; margin:0 auto; padding-block:12px; padding-left:max(20px, env(safe-area-inset-left, 0px)); padding-right:max(20px, env(safe-area-inset-right, 0px)); display:flex; flex-wrap:wrap; gap:8px 24px; align-items:center; justify-content:space-between }
-.brand { font:700 24px/1 var(--display); letter-spacing:-.01em }
-.brand span { color:var(--accent) }
-.nav { display:flex; gap:4px }
-.nav button { background:transparent; border:none; border-radius:999px; padding:7px 15px; color:var(--ink2); font-size:16px; font-weight:600; min-height:38px }
-.nav button:hover { color:var(--ink) }
-.nav button[aria-current="page"] { background:var(--chip); color:var(--ink) }
-.page { max-width:1040px; margin:0 auto; padding-block:0 72px; padding-left:max(20px, env(safe-area-inset-left, 0px)); padding-right:max(20px, env(safe-area-inset-right, 0px)) }
-#loading { padding:72px 16px; text-align:center; color:var(--ink2) }
-
-/* Overview */
-.hero { padding-block:40px 28px; max-width:820px }
-.hero h1 { font:700 clamp(32px,5vw,48px)/1.08 var(--display); letter-spacing:-.02em; margin:0 0 12px; text-wrap:balance }
-.hero p { margin:0; font-size:18.5px; color:var(--ink2); max-width:70ch }
-.block { padding-block:44px; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:18px; min-width:0 }
-.block h2 { font:700 clamp(25px,3.5vw,32px)/1.15 var(--display); letter-spacing:-.01em; margin:0; text-wrap:balance }
-.lead { margin:0; color:var(--ink2); max-width:66ch }
-.pickhead { padding-block:0 28px; display:flex; flex-direction:column; gap:12px }
-.pickhead h2 { font:600 16px/1.3 var(--body); color:var(--ink2); margin:0 }
-.ansgrid { display:grid; grid-template-columns:minmax(0,1fr) 210px; gap:32px; align-items:start }
-.anstext { display:flex; flex-direction:column; gap:12px; min-width:0 }
-.chips { display:flex; flex-wrap:wrap; gap:8px }
-.chip { background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:8px 16px; min-height:42px; font-size:16.5px }
-.chip:hover { border-color:var(--ink3) }
-.chip[aria-pressed="true"] { background:var(--accent); border-color:var(--accent); color:var(--accent-ink); font-weight:600 }
-#smap { aspect-ratio:1/1; cursor:pointer }
-.maphint { font-size:14px; color:var(--ink2); margin:6px 0 0; line-height:1.3 }
-.eyebrow { font-size:16px; font-weight:600; color:var(--accent); margin:0 }
-.answer { font:700 clamp(30px,4.6vw,44px)/1.12 var(--display); letter-spacing:-.015em; margin:0; text-wrap:balance }
-.legend-plain { display:flex; flex-wrap:wrap; gap:6px 20px; font-size:15px; color:var(--ink2) }
-.sw { display:inline-block; width:13px; height:13px; border-radius:3px; margin-right:7px; vertical-align:-1px }
-.statusrow { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; margin-top:4px }
-.hero2 { padding-block:30px 30px; display:grid; grid-template-columns:minmax(0,400px) minmax(0,1fr); gap:20px 40px; align-items:start }
-.heroL,.heroR { display:flex; flex-direction:column; gap:14px; min-width:0 }
-.heroL .say { font-size:17px }
-.heroL .baspace { flex-direction:column; align-items:stretch; gap:6px }
-.heroL .baslider { flex:none }
-.hero2 h1 { font:700 clamp(30px,4.4vw,44px)/1.08 var(--display); letter-spacing:-.02em; margin:0; text-wrap:balance }
-.lead2 { margin:0; font-size:17px; color:var(--ink2) }
-.small { font-size:15px !important }
-.placehead { display:flex; flex-wrap:wrap; gap:4px 16px; align-items:baseline }
-#overview .block:nth-of-type(2) { padding-block:28px 36px; gap:14px }
-.dash { display:grid; grid-template-columns:minmax(0,250px) minmax(0,1fr); gap:32px; align-items:start; margin-top:4px }
-.dleft { display:flex; flex-direction:column; gap:9px; min-width:0 }
-.dleft .maphint { margin-top:-8px }
-.dleft #smap { max-width:170px }
-.dleft .status p { font-size:14.5px; line-height:1.4 }
-.dright { display:flex; flex-direction:column; gap:8px; min-width:0 }
-.dright .answer { font-size:clamp(24px,2.8vw,30px) }
-.dright > .lead { font-size:16px }
-.chartrow { display:flex; flex-wrap:wrap; gap:4px 18px; align-items:baseline; justify-content:space-between; margin-top:6px }
-.chartrow h3 { font:700 16px/1.3 var(--display); margin:0 }
-.chartrow .legend-plain { font-size:13.5px }
-.status h3 { font-size:14px; font-weight:600; color:var(--ink2); margin:0 0 3px }
-.status p { margin:0; font-size:16px }
-.baspace { display:flex; flex-wrap:wrap; gap:14px 24px; align-items:center }
-.bactl { display:flex; align-items:center; gap:16px }
-.bayear { font:700 40px/1 var(--display); font-variant-numeric:tabular-nums; min-width:92px }
-.baslider { flex:1 1 300px; min-width:0; padding-bottom:22px }
-#ba-slider { width:100%; accent-color:var(--accent); margin:0; height:28px }
-.baticks { position:relative; height:20px; font-size:14px; color:var(--ink2) } .baticks span { position:absolute; white-space:nowrap } .tick12 { transform:translateX(-50%); font-weight:600; color:var(--ink) }
-.bamaps { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px }
-.bamaps figure { margin:0; display:flex; flex-direction:column; gap:8px; min-width:0 } .bamaps figcaption { font:700 18px/1.2 var(--display) }
-.bamaps canvas { aspect-ratio:1/1.02; border-radius:10px; max-width:min(100%, calc(100vh - 230px)); margin-inline:auto } .bamaps .lead { font-size:15.5px }
-.seg { display:inline-flex; background:var(--chip); border-radius:999px; padding:3px; align-self:flex-start; max-width:100% }
-.seg button { background:transparent; border:none; border-radius:999px; padding:7px 15px; font-size:16px; min-height:38px; color:var(--ink2) }
-.seg button[aria-pressed="true"] { background:var(--panel); color:var(--ink); font-weight:600 }
-.say { font-size:20px; margin:0; max-width:64ch }
-.know { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px }
-.know h3 { font:700 18px/1.25 var(--display); margin:0 0 5px }
-.know p { margin:0; font-size:16.5px; color:var(--ink2) }
-.cta { display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between; background:var(--chip); padding:22px 24px; border-radius:12px; margin-top:12px }
-.cta p { margin:0; flex:1 1 300px; min-width:0 }
-.btn { background:var(--ink); color:var(--bg); border:none; border-radius:999px; padding:10px 20px; font-weight:600; font-size:16.5px; min-height:44px }
-.foot { font-size:14.5px; color:var(--ink2); margin:24px 0 0 }
-
-/* Detailed data */
-.dhead { padding-block:40px 18px; display:flex; flex-direction:column; gap:8px }
-.dhead h1 { font:700 clamp(30px,4.5vw,40px)/1.1 var(--display); letter-spacing:-.015em; margin:0 }
-.dhead p { margin:0; color:var(--ink2); max-width:68ch }
-.dtools { display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center; justify-content:space-between; padding-block:10px 22px }
-.dtabs { display:flex; flex-wrap:wrap; gap:0 22px; border-bottom:1px solid var(--line); margin-bottom:24px }
-.dtabs button { background:none; border:none; border-bottom:2px solid transparent; padding:10px 0; margin-bottom:-1px; color:var(--ink2); font-weight:600; font-size:17px; min-height:44px }
-.dtabs button[aria-selected="true"] { color:var(--ink); border-color:var(--accent) }
-label.f { display:flex; align-items:center; gap:8px; font-size:15px; color:var(--ink2); min-width:0; flex-wrap:wrap }
-select { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:7px 10px; min-height:40px; font-size:16px; max-width:100% }
-.dgrid { display:grid; grid-template-columns:minmax(0,300px) minmax(0,1fr); gap:32px; align-items:start }
-.dside,.dstack { display:flex; flex-direction:column; gap:28px; min-width:0 }
-.dpanel { display:flex; flex-direction:column; gap:10px; min-width:0 }
-.dpanel h2 { font:700 21px/1.2 var(--display); margin:0 }
-.sub { color:var(--ink2); margin:0; font-size:15.5px; max-width:75ch }
-.row { display:flex; flex-wrap:wrap; gap:10px; align-items:center }
-.spread { justify-content:space-between }
-.two { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:40px }
-.txtbtn { background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:7px 15px; min-height:40px; font-size:15.5px }
-#map { cursor:crosshair; border-radius:8px; aspect-ratio:1/1.02; max-width:100% }
-.facts { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:24px }
-.fact { min-width:0 }
-.fact .k { font-size:14px; color:var(--ink2) }
-.fact .v { font:700 20px/1.2 var(--display); margin-top:2px; text-wrap:balance }
-.fact .n { font-size:14px; color:var(--ink2); margin-top:3px }
-.scrollx { overflow-x:auto }
-#cal { min-width:680px; cursor:crosshair; touch-action:pan-x pan-y }
-.legend { display:flex; flex-wrap:wrap; gap:4px 14px; font-size:14px; color:var(--ink2); align-items:center }
-.legend .sw { width:13px; height:13px; border:1px solid var(--line) }
-.ln { display:inline-block; width:18px; height:0; border-top:2px solid; margin-right:5px; vertical-align:4px }
-.pill { display:inline-block; font-size:14px; font-weight:600; padding:3px 11px; border-radius:999px; background:var(--chip); color:var(--ink) }
-.mono { font-variant-numeric:tabular-nums }
-ul.list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; font-size:15.5px }
-ul.list li { display:flex; gap:10px; justify-content:space-between; border-bottom:1px solid var(--line); padding-block:6px; min-width:0 }
-ul.list li:last-child { border-bottom:none }
-.tbl { border-collapse:collapse; width:100%; min-width:620px } .tbl th,.tbl td { text-align:right; padding:6px 8px; border-bottom:1px solid var(--line); font-variant-numeric:tabular-nums; font-size:15px; color:var(--ink) } .tbl th:first-child,.tbl td:first-child { text-align:left } .tbl th { color:var(--ink2); font-weight:600 }
-.best td { font-weight:600 }
-#method { font-size:16px } #method li { margin-block:6px } #method ol { padding-left:22px; margin:0 } #method p { max-width:80ch }
-.tip { position:fixed; z-index:50; pointer-events:none; background:var(--ink); color:var(--bg); padding:7px 11px; border-radius:6px; font-size:14px; line-height:1.35; max-width:290px; display:none }
-.tip b { display:block; font-weight:600 }
-@media (max-width:640px) { .ansgrid { grid-template-columns:minmax(0,1fr) } .ansgrid > div:last-child { max-width:220px } }
-@media (max-width:860px) { .dgrid { grid-template-columns:minmax(0,1fr) } #map { max-width:520px } .facts { grid-template-columns:repeat(2,minmax(0,1fr)) } .two { grid-template-columns:minmax(0,1fr) } }
-@media (max-width:980px) { .hero2 { grid-template-columns:minmax(0,1fr) } .heroL .baspace { flex-direction:row; align-items:center; flex-wrap:wrap } .heroL .baslider { flex:1 1 300px } }
-@media (max-width:860px) { .dash { grid-template-columns:minmax(0,1fr) } .dleft { order:2 } .dleft { display:grid; grid-template-columns:minmax(0,180px) minmax(0,1fr); gap:6px 18px } .dleft canvas { grid-row:span 5 } }
-@media (max-width:520px) { .dleft { display:flex } #smap { max-width:220px } }
-@media (max-width:640px) { .know { grid-template-columns:minmax(0,1fr); gap:22px } .tick12 { font-size:12.5px } .hero { padding-block:40px 32px } .block { padding-block:34px } }
-@media (max-width:440px) { .facts { grid-template-columns:minmax(0,1fr) } }
-@media (prefers-reduced-motion: reduce) { * { transition:none!important; animation:none!important } }
 </style>
+<link rel="stylesheet" href="assets/ui/base.css">
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+<script src="assets/backgrounds/backgrounds.js"></script>
+<script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
+<link rel="modulepreload" href="assets/moments/moments.js">
+<link rel="modulepreload" href="assets/moments/lib.js">
+<link rel="modulepreload" href="assets/moments/word-highlight/moment.js">
+<!-- page CSS: inside the visuals only (the map window, the charts, the place panel) -->
+<style>
+  /* data colours: the heat ramp for fire detections, and the two satellite records */
+  :root { --s1:#fde3c2; --s2:#fbb871; --s3:#ef8a2e; --s4:#cc5a10; --s5:#973a09; --s6:#561e04;
+          --sea:#eef1f0; --land:#dfe2dd; --older:#2f6fb0; --newer:#c2560f; --viirs:#4a4f57; --quiet:#dcdcd5; --soft:#f1c49c; }
+  .win.frame { display:flex; flex-direction:column; align-items:stretch; justify-content:flex-start; overflow:visible; isolation:auto }
+  .win.frame::before { display:none }
+  .win { background:#fff; border:1px solid color-mix(in srgb, var(--p-ink) 13%, transparent); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:10px; min-width:0 }
+  .win__bar { display:flex; align-items:center; gap:12px }
+  .win__stats { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding-bottom:12px; border-bottom:1px solid color-mix(in srgb, var(--p-ink) 10%, transparent) }
+  .win__stats p { margin:0; display:flex; align-items:baseline; gap:10px; font:15px/1.35 var(--font-text); color:var(--p-ink) }
+  .win__stats b { color:var(--p-ink); font-weight:600 }
+  .win__num { font:500 28px/1 var(--font-display); letter-spacing:-.03em; font-variant-numeric:tabular-nums; flex:none }
+  .win__year { font:500 28px/1 var(--font-display); font-variant-numeric:tabular-nums; min-width:64px }
+  .win__slider { flex:1; min-width:0 }
+  .win__slider input { width:100%; accent-color:var(--p-action); height:44px; margin:0 }
+  .win__ticks { position:relative; height:16px; font:500 13px/1 var(--font-text); color:var(--p-muted) }
+  .win__ticks span { position:absolute; top:0; white-space:nowrap }
+  .maps { display:grid; grid-template-columns:1fr 1fr; gap:12px }
+  .maps figure { margin:0; display:flex; flex-direction:column; gap:6px; min-width:0 }
+  .maps p { margin:0; font:500 13px/1.3 var(--font-text); color:var(--p-muted); font-variant-numeric:tabular-nums }
+  .maps .maps__name { color:var(--p-ink); font-size:14px }
+  .maps canvas { width:100%; aspect-ratio:1.18/1; border-radius:10px; display:block }
+  .win .maps__name { margin:0; font:500 14px/1.3 var(--font-text); color:var(--p-ink) }
+  .trend svg { display:block; width:100%; height:auto; overflow:visible }
+  .trend text { font:500 12px var(--font-text); fill:var(--p-muted) }
+  .key { display:flex; flex-wrap:wrap; gap:4px 16px; font:500 13px/1.3 var(--font-text); color:var(--p-muted) }
+  .key i { display:inline-block; width:12px; height:12px; border-radius:3px; margin-right:6px; vertical-align:-1px }
+  .hero-facts dd { font-variant-numeric:tabular-nums }
 
-<header class="bar-top"><div class="bar-in">
-  <div class="brand">Ember</div>
-  <nav class="nav" aria-label="Views">
-    <button id="nav-overview" type="button" aria-current="page">Overview</button>
-    <button id="nav-details" type="button">Detailed data</button>
-  </nav>
-</div></header>
+  /* the place panel */
+  .finder { display:flex; flex-wrap:wrap; gap:12px 24px; align-items:flex-end; margin-bottom:24px }
+  .search { position:relative; flex:0 1 340px; min-width:0 }
+  .search label { display:block; font:500 14px/1.3 var(--font-text); margin-bottom:6px }
+  .search input { width:100%; height:44px; padding:0 14px; font:16px var(--font-text); color:var(--p-ink); background:#fff; border:1px solid color-mix(in srgb, var(--p-ink) 22%, transparent); border-radius:8px }
+  .search ul { position:absolute; z-index:5; left:0; right:0; top:100%; margin:4px 0 0; padding:4px; list-style:none; background:#fff; border:1px solid color-mix(in srgb, var(--p-ink) 13%, transparent); border-radius:12px }
+  .search li button { width:100%; min-height:44px; text-align:left; background:none; border:0; border-radius:8px; padding:6px 10px; font:16px var(--font-text); color:var(--p-ink); cursor:pointer }
+  .search li button span { color:var(--p-muted); font-size:14px }
+  .search li button:hover, .search li button[aria-selected="true"] { background:var(--p-surface) }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; flex:1 1 400px; min-width:0 }
+  .chip { min-height:44px; padding:0 16px; border-radius:999px; border:1px solid color-mix(in srgb, var(--p-ink) 15%, transparent); background:#fff; font:500 15px var(--font-text); color:var(--p-ink); cursor:pointer }
+  .chip[aria-pressed="true"] { background:var(--p-ink); color:var(--p-bg); border-color:var(--p-ink) }
+  .dash { align-items:start }
+  .dash__side { display:flex; flex-direction:column; gap:14px; min-width:0 }
+  .dash__side canvas { width:100%; max-width:180px; aspect-ratio:1/1; border-radius:10px; cursor:pointer; display:block }
+  .note .t-label { margin:0 0 4px }
+  .note p { margin:0; font-size:16px; line-height:1.5 }
+  .dash__main { display:flex; flex-direction:column; gap:8px; min-width:0 }
+  .answer { font:var(--display-weight) clamp(24px,2.2vw,32px)/1.15 var(--font-display); letter-spacing:var(--display-tracking); margin:0; text-wrap:balance }
+  .chart-head { display:flex; flex-wrap:wrap; gap:4px 16px; justify-content:space-between; align-items:baseline; margin-top:8px }
+  .chart-head h3 { font:500 14px/1.3 var(--font-text); margin:0 }
+  .chart svg { display:block; width:100%; height:auto; overflow:visible }
+  .chart text { font:500 12px var(--font-text); fill:var(--p-muted) }
+  .tip { position:fixed; z-index:50; pointer-events:none; background:var(--p-ink); color:var(--p-bg); padding:7px 11px; border-radius:8px; font:14px/1.35 var(--font-text); max-width:280px; display:none }
+  .tip b { display:block; font-weight:600 }
+  @media (max-width:639px) { #places { --hm: 2 } .win__bar { flex-wrap:wrap } .win__slider { flex-basis:100% } .hide-sm { display:none } .win__stats { grid-template-columns:1fr } .win__stats p { font-size:14px } .trend, .win > .key { display:none } .win { padding:12px; gap:8px } .maps p { font-size:13px } .maps figure p:last-child { display:none } }
+  @media (max-width:1023px) and (min-width:640px) { .trend { display:none } }
+  @media (max-width:639px) { .hero-split > .hero-visual { flex:none; height:auto; min-height:0 } }
+  @media (max-width:379px) { .closing__cta .btn--xl { font-size:16px; letter-spacing:-.01em; padding-inline:16px } }
+</style>
+</head>
+<body data-page="overview">
+<!-- type: software (a public data tool)
+     deal: hero split (the dealt triptych gave way to the owner's brief: the before and after maps lead), nav nav-centre, close close-type,
+     footer footer-dark, rhythm surface-pairs, buttons tonal, mark initial, grounds none, effect none (the maps are the visual)
+     moments: word-highlight in #method -->
+<header class="nav nav--centre">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Skip to content</a>
+    <a class="nav__logo" href="#top"><span class="mark mark--initial" aria-hidden="true">E</span>Ember</a>
+    <nav class="nav__links" aria-label="Main">
+      <div class="nav__item"><a class="nav__link" href="#places">Calendar</a></div>
+      <div class="nav__item"><a class="nav__link" href="#method">Method</a></div>
+      <div class="nav__item"><a class="nav__link" href="#notes">Limits</a></div>
+      <div class="nav__item"><a class="nav__link" href="details.html">Data</a></div>
+    </nav>
+    <div class="nav__actions">
+      <a class="btn btn--primary" href="#places">See your area’s calendar</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
 
-<div id="loading" role="status">Loading 25 years of satellite records…</div>
-
-<div id="app" hidden>
-  <!-- OVERVIEW -->
-  <main id="overview" class="page">
-    <section class="hero2" aria-labelledby="h-hero">
-      <div class="heroL">
-      <h1 id="h-hero">One fire record from two NASA satellites</h1>
-      <p class="lead2">MODIS, the older satellite instrument, mostly sees larger fires. VIIRS, the newer one from 2012, is sharper and also sees small ones. Joined as they are, the record jumps in 2012 even though the fires barely changed. Ember corrects the older record so all 25 years can be compared.</p>
-      <div class="baspace">
-        <div class="bactl"><button id="ba-play" class="btn" type="button" aria-pressed="false">Play years</button><div class="bayear" id="ba-year">2011</div></div>
-        <div class="baslider"><input id="ba-slider" type="range" min="2001" max="2025" step="1" value="2011" aria-label="Choose a year"><div class="baticks"><span>2001</span><span style="left:45.83%" class="tick12">2012: sharper satellite starts</span><span style="right:0;left:auto">2025</span></div></div>
-      </div>
-      <p class="say" id="ba-say"></p>
-      </div>
-      <div class="heroR">
-      <div class="bamaps">
-        <figure><figcaption>Before correction</figcaption><canvas id="ba-before" aria-label="Map of fires detected in the chosen year, before correction"></canvas><p class="lead" id="ba-before-n"></p></figure>
-        <figure><figcaption>After correction</figcaption><canvas id="ba-after" aria-label="Map of fires detected in the chosen year, after correction"></canvas><p class="lead" id="ba-after-n"></p></figure>
-      </div>
-      <p class="lead small">Stronger colour means more fires detected, on the same colour scale in both maps. No boundaries are drawn. <span id="prob-how"></span></p>
-      </div>
-    </section>
-
-    <section class="block" aria-labelledby="h-place">
-      <div class="placehead">
-        <h2 id="h-place">Fire calendar by place</h2>
-        <p class="lead">Choose a place to see when its fires are usually detected.</p>
-      </div>
-      <div class="chips" id="chips" role="group" aria-label="Places"></div>
-      <div class="dash" aria-live="polite">
-        <div class="dleft">
-          <canvas id="smap" aria-label="Map of South Asia with the chosen place highlighted. Select a location to see its fire calendar."></canvas>
-          <p class="maphint">Or tap the map to choose the area around any spot.</p>
-          <div class="status"><h3>Why then?</h3><p id="ans-why"></p></div>
-          <div class="status"><h3>Right now</h3><p id="ans-now"></p></div>
-          <div class="status"><h3>How reliable is this?</h3><p id="ans-rel"></p></div>
+<main id="top">
+  <section class="hero hero--split" data-enter aria-labelledby="hero-h">
+    <div class="wrap">
+      <div class="hero-text grid hero-split">
+        <div class="hero-copy span-6">
+          <h1 id="hero-h">Fire calendar for India from NASA satellites</h1>
+          <p class="t-lead">The newer NASA satellite, flying from 2012, also sees small fires, so the raw counts jump. Ember corrects the older record so 25 years of fires compare.</p>
+          <div class="btn-row">
+            <a class="btn btn--primary" href="#places">See your area’s calendar<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+            <a class="btn btn--secondary" href="details.html">Open the full data</a>
+          </div>
+          <dl class="hero-facts">
+            <div><dt>Years covered</dt><dd>2001 to 2025</dd></div>
+            <div><dt>Detections, corrected</dt><dd id="fact-n">9.2 million</dd></div>
+            <div><dt>Map grid</dt><dd>27 km squares</dd></div>
+          </dl>
         </div>
-        <div class="dright">
-          <p class="eyebrow" id="ans-place"></p>
-          <p class="answer" id="ans-title"></p>
-          <p class="lead" id="ans-sub"></p>
-          <div class="chartrow"><h3>A typical year, week by week</h3><div class="legend-plain" id="weekleg"></div></div>
-          <div id="weekchart"></div>
-          <div class="chartrow"><h3>Each year, 2001–2025</h3><div class="legend-plain"><span><span class="sw" style="background:var(--b)"></span>Estimated, older satellite</span><span><span class="sw" style="background:var(--accent)"></span>Newer satellite</span></div></div>
-          <div id="yearchart"></div>
-          <p class="lead small" id="yr-say"></p>
-        </div>
-      </div>
-    </section>
-
-    <section class="block">
-      <h2>Good to know</h2>
-      <div class="know">
-        <div><h3>What is a “detected fire”?</h3><p>A spot that a satellite saw as unusually hot. It is usually a fire, but not always. We remove spots that stay hot all year, such as coal fields.</p></div>
-        <div><h3>This shows the past</h3><p>It is not a forecast or a live alert. For fires happening now, use <a href="https://firms.modaps.eosdis.nasa.gov/" target="_blank" rel="noopener">NASA FIRMS</a> or <a href="https://fsiforestfire.gov.in/" target="_blank" rel="noopener">Forest Survey of India</a>.</p></div>
-        <div><h3>Satellites can miss fires</h3><p>They pass only at set times and can miss small fires, or fires under cloud, thick smoke or trees. No detection does not mean no fire.</p></div>
-      </div>
-      <div class="cta">
-        <p><b>Want the full numbers?</b> See week-by-week records, draw your own area, compare places and check the accuracy tests.</p>
-        <button class="btn" id="cta-details" type="button">Open detailed data</button>
-      </div>
-      <p class="foot">Data: NASA FIRMS, India, 2001–2025. Place areas are approximate and are not official boundaries.</p>
-    </section>
-  </main>
-
-<!-- DETAILED DATA -->
-  <main id="details" class="page" hidden>
-    <div class="dhead">
-      <h1>Detailed data</h1>
-      <p>For analysts, researchers and fire planners. These are the same records as the overview, shown week by week. They show past satellite detections, not forecasts or live alerts.</p>
-    </div>
-    <div class="dtools">
-      <label class="f" for="region">Area<select id="region"></select></label>
-      <label class="f" for="year">Focus year<select id="year"></select></label>
-    </div>
-    <div class="dtabs" role="tablist" aria-label="Detailed data sections">
-      <button type="button" role="tab" data-d="d-cal" aria-selected="true">Calendar</button>
-      <button type="button" role="tab" data-d="d-trend" aria-selected="false">Trends</button>
-      <button type="button" role="tab" data-d="d-acc" aria-selected="false">Accuracy and method</button>
-    </div>
-
-    <section id="d-cal" class="dstack">
-      <div class="facts" id="facts"></div>
-      <div class="dgrid">
-        <div class="dside">
-          <div class="dpanel">
-            <div class="row spread"><h2>Choose an area</h2><button id="zoom" class="txtbtn" type="button">Zoom to area</button></div>
-            <canvas id="map" aria-label="Map of detections on a quarter-degree grid. Drag to draw an area or click one grid cell."></canvas>
-            <p class="sub" id="mapcap"></p>
-            <p class="sub" style="font-size:14px">Drag to draw an area, or click for a square about 27 km across. No administrative or national boundaries are drawn.</p>
+        <div class="hero-visual span-6 start-7">
+          <div class="win frame" data-visual role="group" aria-label="Fire detections across India, before and after correction">
+            <div class="win__stats">
+              <p><span class="win__num" style="color:var(--older)" id="fact-raw">5.7×</span><span>jump in 2012, records joined as they are</span></p>
+              <p><span class="win__num" style="color:var(--newer)" id="fact-fix">1.1×</span><span>after correction; MODIS alone shows <b id="fact-modis">1.0×</b></span></p>
+            </div>
+            <div class="win__bar">
+              <button id="ba-play" class="btn btn--secondary" type="button" aria-pressed="false">Play the years</button>
+              <label class="win__year" for="ba-slider"><span class="sr-only">Year </span><span id="ba-year">2011</span></label>
+              <div class="win__slider">
+                <input id="ba-slider" type="range" min="2001" max="2025" step="1" value="2011" aria-label="Year shown on both maps">
+                <div class="win__ticks" aria-hidden="true"><span style="left:0">2001</span><span style="left:45.8%;transform:translateX(-50%)">2012<span class="hide-sm"> newer satellite</span></span><span style="right:0">2025</span></div>
+              </div>
+            </div>
+            <div class="maps">
+              <figure><p class="maps__name">Before correction</p><canvas id="ba-before" aria-label="Map of fires detected in the chosen year before correction"></canvas><p id="ba-before-n"></p></figure>
+              <figure><p class="maps__name">After correction</p><canvas id="ba-after" aria-label="Map of fires detected in the chosen year after correction"></canvas><p id="ba-after-n"></p></figure>
+            </div>
+            <div class="trend" id="ba-trend"></div>
+            <div class="key"><span><i style="background:var(--older)"></i>Joined as they are</span><span><i style="background:var(--newer)"></i>After correction</span></div>
           </div>
         </div>
-        <div class="dpanel">
-          <h2 id="h-cal">Week-by-week calendar</h2>
-          <p class="sub" id="calsub"></p>
-          <div class="seg" role="group" aria-label="What the calendar shows" id="modes"></div>
-          <div class="scrollx"><canvas id="cal" aria-label="Calendar heatmap with one row per year and one column per week"></canvas></div>
-          <div class="legend" id="callegend"></div>
-          <div class="row"><button class="txtbtn" id="copybrief" type="button">Copy readiness brief</button><button class="txtbtn" id="copycsv" type="button">Copy weekly data (CSV)</button><span id="copied" class="sub" role="status"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="places" aria-labelledby="places-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="places-h">Fire calendar by place</h2>
+      </div>
+      <div class="finder">
+        <div class="search">
+          <label for="place-q">Town or district</label>
+          <input id="place-q" type="text" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="place-list" aria-autocomplete="list">
+          <ul id="place-list" role="listbox" aria-label="Matching places" hidden></ul>
+        </div>
+        <div class="chips" id="chips" role="group" aria-label="Regions"></div>
+      </div>
+      <div class="grid grid--top dash" aria-live="polite">
+        <div class="dash__main span-6">
+          <p class="t-label muted" id="ans-place"></p>
+          <p class="answer" id="ans-title"></p>
+          <p id="ans-sub" class="measure"></p>
+          <div class="chart-head"><h3>A typical year, week by week</h3><div class="key" id="weekleg"></div></div>
+          <div class="chart" id="weekchart"></div>
+          <div class="chart-head"><h3>Each year, 2001 to 2025</h3><div class="key"><span><i style="background:var(--older)"></i>Estimated from MODIS</span><span><i style="background:var(--viirs)"></i>Measured by VIIRS</span></div></div>
+          <div class="chart" id="yearchart"></div>
+          <p class="t-small" id="yr-say"></p>
+        </div>
+        <div class="dash__side span-6 start-7">
+          <canvas id="smap" data-visual aria-label="Map of South Asia with the chosen area marked. Select a spot to see its calendar."></canvas>
+          <div class="note"><p class="t-label muted">Why fires happen then</p><p id="ans-why"></p></div>
+          <div class="note"><p class="t-label muted">This time of year</p><p id="ans-now"></p></div>
+          <div class="note"><p class="t-label muted">Accuracy in this area</p><p id="ans-rel"></p></div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="d-trend" class="dstack" hidden>
-      <div class="two">
-        <div class="dpanel"><h2 id="yrh">Focus year against the normal range</h2><p class="sub">The band shows what 8 of 10 other years recorded. Dots mark weeks above what 9 of 10 other years showed.</p><div id="yrchart"></div><div class="legend" id="yrleg"></div></div>
-        <div class="dpanel"><h2>Has the season moved?</h2><p class="sub" id="shiftsub"></p><div id="shiftchart"></div><div class="legend" id="shiftleg"></div></div>
-      </div>
-      <div class="two">
-        <div class="dpanel"><div class="row spread"><h2>Compare areas</h2><label class="f" for="cmp">With<select id="cmp"></select></label></div><p class="sub">Each area’s share of its own yearly detections, so busy and quiet areas can share one chart.</p><div id="cmpchart"></div><div class="legend" id="cmpleg"></div></div>
-        <div class="dpanel"><h2>Most unusual weeks</h2><p class="sub">Weeks furthest above the normal ceiling for that time of year. Weeks with only one MODIS satellite are left out.</p><div id="unusual"></div></div>
-      </div>
-    </section>
+  <section class="section statement" id="method" data-moment="word-highlight" aria-label="Method">
+    <div class="wrap">
+      <p class="t-label">Method</p>
+      <p class="mo-wh__text">MODIS sees mostly large fires, and VIIRS sees small ones too. We learned the gap for each place and month from 2012 to 2019, tested it on six years it never saw, and put all 25 years on <strong>one scale</strong>.</p>
+    </div>
+  </section>
 
-    <section id="d-acc" class="dstack" hidden>
-      <div class="two">
-        <div class="dpanel"><h2>Can you trust this area?</h2><div id="trust"></div></div>
-        <div class="dpanel"><h2>Before and after, yearly totals</h2><p class="sub" id="seamsub"></p><div id="seamchart"></div><div class="legend" id="seamleg"></div></div>
+  <section class="section" id="notes" aria-labelledby="notes-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="notes-h">Limits of the fire record</h2>
       </div>
-      <div class="dpanel"><h2>Test on years the method never saw</h2><p class="sub" id="proofsub"></p><div class="scrollx" id="proof"></div></div>
-      <div class="dpanel"><h2>Method and limits</h2><div id="method"></div></div>
-    </section>
-  </main>
-</div>
+      <div class="grid grid--top">
+        <ul class="rows span-6">
+          <li><span class="rows__name">Counts detections, not fires</span><p>Spots a satellite saw as unusually hot. Year-round heat such as coal fields is removed: <span id="stat-mask">4%</span> of the record.</p></li>
+          <li><span class="rows__name">Shows the past, not a forecast</span><p>For fires burning now, see <a href="https://firms.modaps.eosdis.nasa.gov/" target="_blank" rel="noopener">NASA FIRMS</a>.</p></li>
+          <li><span class="rows__name">Misses some fires</span><p>Satellites pass at set times and miss fires under cloud, smoke or trees.</p></li>
+        </ul>
+        <div class="span-6 start-7">
+          <div class="win frame" data-visual role="group" aria-label="Accuracy of the correction by region, 2020 to 2025">
+            <p class="maps__name">Corrected total compared with the real VIIRS count, 2020 to 2025</p>
+            <div class="chart" id="acc-chart"></div>
+            <p class="t-small" style="margin:0">1.00 is a perfect match. Each bar is a region; its weekly error is on the right.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer closing footer--dark ground-inverse" id="contact" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="closing__cta close--type">
+      <div class="section-head">
+        <h2 id="close-h">See your area’s fire calendar</h2>
+        <p>Free to use. NASA FIRMS records for India, 2001 to 2025.</p>
+      </div>
+      <a class="btn btn--primary btn--xl btn--wide" href="#places">See your area’s calendar<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+    </div>
+    <div class="closing__links">
+      <div class="grid">
+        <div class="span-4 stack-4">
+          <a class="footer__mark" href="#top"><span class="mark mark--initial" aria-hidden="true">E</span>Ember</a>
+          <p class="footer__lede">A fire calendar for India built from NASA MODIS and VIIRS records.</p>
+        </div>
+        <div class="span-2 footer__col"><h3>Calendar</h3><ul><li><a href="#places">By place</a></li><li><a href="#top">Before and after</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Method</h3><ul><li><a href="#method">How it works</a></li><li><a href="#notes">Limits</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Data</h3><ul><li><a href="details.html">Week by week</a></li><li><a href="details.html#accuracy">Accuracy tests</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Sources</h3><ul><li><a href="https://firms.modaps.eosdis.nasa.gov/" target="_blank" rel="noopener">NASA FIRMS</a></li><li><a href="https://www.geonames.org/" target="_blank" rel="noopener">GeoNames</a></li></ul></div>
+      </div>
+      <div class="footer__legal">
+        <span>&copy; 2026 Ember</span>
+        <span class="credits">Maps: Natural Earth, GeoNames</span>
+      </div>
+    </div>
+  </div>
+</footer>
+<nav class="actionbar" aria-label="Quick actions">
+  <a class="btn btn--primary" href="#places">See your area’s calendar</a>
+</nav>
 <div class="tip" id="tip" role="tooltip"></div>
-<script src="app.js?v=4.0"></script>
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script type="module" src="assets/layout/layout.js"></script>
+<script src="app.js?v=5.3"></script>
+</body>
+</html>

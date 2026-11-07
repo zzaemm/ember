@@ -59,6 +59,12 @@ The land map comes from `land-50m.json` in the world-atlas package on jsDelivr (
 python -I 03_landmap.py path/to/land-50m.json ../app/data
 ```
 
+The town search list comes from GeoNames (`IN.zip` from download.geonames.org, CC BY 4.0). To rebuild it:
+
+```bash
+python -I 04_places.py path/to/IN.txt ../app/data
+```
+
 ## Files
 
 - `pipeline/03_landmap.py` trims the land outline to South Asia. It holds land and coastlines only, with no borders.
@@ -66,7 +72,9 @@ python -I 03_landmap.py path/to/land-50m.json ../app/data
 - `pipeline/01_ingest.py` filters the CSV files and packs them into one NumPy file.
 - `pipeline/02_harmonize.py` applies the mask, learns the correction, validates it and exports the app data.
 - `pipeline/regions.json` holds the preset areas. These are approximate and are not official boundaries.
-- `app/index.html` and `app/app.js` are the web app.
+- `app/index.html` is the overview, `app/details.html` the week-by-week data, and `app/app.js` runs both.
+- `app/assets/` holds the design kit's styles and scripts (design-taste-frontend).
+- `pipeline/04_places.py` builds `app/data/places.json`, the town and district search list.
 - `app/data/grid.txt` holds gzip plus base64 columns, sorted by cell and week: `frp:u32`, then `week`, `m`, `v`, `p×10` and `h×10` as `u16`.
 - `app/data/validation.json` holds every validation result.
 - `TEAM_PARTS.md` is the presenter guide.

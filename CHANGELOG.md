@@ -2,6 +2,17 @@
 
 Each version below has a Git tag and a GitHub release. See "Working with versions" in `README.md` for how to open one.
 
+## v5.0: Redesign, search and the headline numbers
+
+Tag: `v5.0`.
+
+- Redesigned with the design-taste-frontend kit: a light, minimal layout with one section per screen, Gabarito and Figtree type and a green accent.
+- The before and after window now opens with the headline numbers (a 5.7× jump in 2012 when the records are joined, 1.1× after correction) and a yearly trend line under the maps.
+- New search for any Indian town, district or state, from GeoNames (CC BY 4.0).
+- New chart of how closely the corrected record matches the newer satellite in each region.
+- Detailed data moved to its own page, `details.html`.
+- Not done: "2026 so far". NASA's public archive has no 2026 file for India yet.
+
 ## v4.0: Problem first, one-screen places
 
 Tag: `v4.0`.

@@ -8,7 +8,8 @@ const S = { mode:'h', year:YN, mapWeek:null, zoomed:false, compare:'punjab_harya
 let M, V, C, cellSum, nCells, aoiSet, stats, cmpStats;
 
 /* ---------- helpers ---------- */
-const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const PAGE = document.body.dataset.page || 'overview';
+const css = n => getComputedStyle(document.getElementById('details') || document.documentElement).getPropertyValue(n).trim();
 const binDate = b => { const d = new Date(Date.UTC(2001,0,1+7*((b%W+W)%W))); return d.getUTCDate()+' '+MON[d.getUTCMonth()]; };
 const binEnd = b => { const bb=(b%W+W)%W; const d = new Date(Date.UTC(2001,0,bb===51?365:7*bb+7)); return d.getUTCDate()+' '+MON[d.getUTCMonth()]; };
 const fmt = x => x>=1e6 ? (x/1e6).toFixed(1)+' M' : x>=1e4 ? Math.round(x/1e3)+' k' : x>=100 ? Math.round(x).toLocaleString('en-IN') : x>=10 ? x.toFixed(0) : x>0 ? x.toFixed(1) : '0';
@@ -97,7 +98,7 @@ function setAOI(cells,name,id,shape){
   S.cells=cells; S.name=name; S.id=id||null; aoiSet=new Set(cells); S.shape=shape||(id?(M.regions.find(r=>r.id===id)||{}).poly||null:null);
   stats = id && S.cache.has(id) ? S.cache.get(id) : compute(cells,name);
   if(id) S.cache.set(id,stats);
-  if(id&&S.view==='overview'){ try{ history.replaceState(null,'',location.search+'#'+id); }catch(e){} }
+  if(id){ try{ history.replaceState(null,'',location.search+'#'+id); }catch(e){} }
   const sel=$('region'); if(sel) sel.value=id||'';
   renderAll();
 }
@@ -313,7 +314,7 @@ function renderProof(){
   const A=V.agreement.india; $('proofsub').innerHTML=`The correction was learned from 2012–2019 only, then tested on 2020–2025. A total ratio near 1.00 and a lower error are better. Across India, joining the raw records makes 2012–2016 look ${A.step_raw} times busier than 2007–2011. After correction, that step is ${A.step_harmonized}, close to the ${A.step_modis_only} that MODIS shows alone.`;
   $('method').innerHTML=`<ol><li><b>Clean.</b> Keep presumed vegetation fires (type 0), MODIS confidence of 30 or more, and VIIRS nominal or high confidence. Then remove ~2 km spots that show detections in the July–September monsoon in 4 or more years, which catches persistent heat sources such as coal fields and industrial plants. This removes ${V.persistent_mask.removed_share_pct}% of detections.</li><li><b>Fill single-platform days.</b> On days with only one MODIS satellite, including before Aqua began on ${V.aqua_first}, estimate two-satellite coverage from a factor learned in 2003–2011.</li><li><b>Learn the correction.</b> In 2012–2019, compute k = VIIRS ÷ MODIS for each 0.25° cell, month and day/night overpass. Cells with little data lean on the wider 1° and national values (shrinkage λ = ${V.lambda}).</li><li><b>Build one record.</b> Use VIIRS where it operated and corrected MODIS elsewhere, including VIIRS outages. A fire neither sensor saw stays invisible, and zeros stay zero.</li><li><b>Test it.</b> Measure against 2020–2025 VIIRS, which the correction never saw, and repeat leaving out each year of 2012–2019 in turn. The test years also check for MODIS orbit drift. Records before 2012 cannot be tested directly because VIIRS was not yet flying.</li><li><b>Build the calendar.</b> The critical period is the shortest run of weeks holding 50% of detections and the fire season holds 80%. A week is unusual when it exceeds the 90th percentile of the same three-week part of the year in all other years. Fewer than ${FEW} detections reads as too few to say.</li></ol><p><b>Known limits.</b> The correction uses fixed ratios, so it cannot recover yearly changes in fire size or burning time. Reports of Punjab burning moving later in the day could lower detections without less burning. In ${V.modis_blind.cellmonths_share_pct}% of active grid-cell months MODIS saw nothing while VIIRS did, and those months hold ${V.modis_blind.viirs_share_pct}% of VIIRS detections, so corrected MODIS cannot place those small fires correctly. One MODIS detection becomes several VIIRS-equivalent detections, so quiet weeks before 2012 look lumpier than quiet weeks after. The 2001 to mid-2002 record rests on Terra alone and is the least certain. MODIS product versions in the FIRMS archive also change over time. Reliability is lowest in small areas and quiet seasons. Grid cells are about 27 km, so small features blur. This release covers India; the same pipeline can process other FIRMS country files. Data: NASA FIRMS, MCD14ML and VNP14IMG, through ${YN}.</p>`;
 }
-function renderAll(){ renderFacts(); renderOverview(); drawMap(); drawCal(); chartYear(); chartShift(); chartCompare(); chartSeam(); renderUnusual(); renderTrust(); }
+function renderAll(){ if(PAGE==='overview'){ renderOverview(); return; } renderFacts(); drawMap(); drawCal(); chartYear(); chartShift(); chartCompare(); chartSeam(); renderUnusual(); renderTrust(); }
 
 /* ---------- overview: the plain-language page ---------- */
 const HIDDEN = ['wayanad','tarn_taran'];
@@ -326,23 +327,23 @@ function drawSmallMap(){
   else { let mx=0; for(const x of cellSum) if(x>mx) mx=x; paintHeat(g,P,path,heatField(cellSum,mx)); }
 }
 function chartWeeks(){
-  const box=$('weekchart'), Wd=box.clientWidth; box.innerHTML=''; if(!Wd) return; const st=stats, H=Wd<520?110:116, T=18, B=22;
+  const box=$('weekchart'), Wd=box.clientWidth; box.innerHTML=''; if(!Wd) return; const st=stats, H=Wd<520?110:104, T=18, B=22;
   if(!st.core||st.total<30){ $('weekleg').innerHTML=''; return; }
   const root=svg('svg',{viewBox:`0 0 ${Wd} ${H}`,width:Wd,height:H,role:'img','aria-label':`Typical year in ${shortName(S.name)}. The busiest period is ${binDate(st.core.start)} to ${binEnd(st.core.start+st.core.len-1)}.`},box);
   const mx=Math.max(...st.clim)||1, step=Wd/W, gap=Math.min(2,step*.25), bw=Math.max(1,step-gap), y=v=>T+(H-T-B)*(1-v/mx), inWin=(w,b)=>w&&((b-w.start+W)%W)<w.len, nw=nowWeek();
-  for(let b=0;b<W;b++){ const v=st.clim[b], top=Math.min(y(v),H-B-1.5), fill=inWin(st.core,b)?'var(--accent)':inWin(st.season,b)?'var(--soft)':'var(--bar)';
+  for(let b=0;b<W;b++){ const v=st.clim[b], top=Math.min(y(v),H-B-1.5), fill=inWin(st.core,b)?'var(--s4)':inWin(st.season,b)?'var(--soft)':'var(--quiet)';
     svg('rect',{x:b*step,y:top,width:bw,height:H-B-top,rx:Math.min(2,bw/2),fill},root);
     const hit=svg('rect',{x:b*step,y:0,width:step,height:H,fill:'transparent'},root); hit.addEventListener('pointermove',e=>showTip(e,`<b>Week of ${binDate(b)}</b>About ${fmt(v)} fires detected in a typical year`)); hit.addEventListener('pointerleave',hideTip); }
   const every=Wd<520?2:1; for(let m=0;m<12;m+=every){ const b=(Date.UTC(2001,m,1)-Date.UTC(2001,0,1))/864e5/7, t=svg('text',{x:b*step,y:H-7},root); t.textContent=MON[m]; }
   const nx=nw.b*step+bw/2, anchor=nx>Wd-40?'end':nx<40?'start':'middle'; svg('line',{x1:nx,x2:nx,y1:15,y2:H-B,stroke:'var(--ink)','stroke-width':1.5,'stroke-dasharray':'3 3'},root); const nt=svg('text',{x:nx,y:11,'text-anchor':anchor,style:'font-weight:600;fill:var(--ink)'},root); nt.textContent='Now';
-  $('weekleg').innerHTML=`<span><span class="sw" style="background:var(--accent)"></span>Busiest period</span><span><span class="sw" style="background:var(--soft)"></span>Rest of the fire season</span><span><span class="sw" style="background:var(--bar)"></span>Quieter time</span>`;
+  $('weekleg').innerHTML=`<span><i style="background:var(--s4)"></i>Busiest period</span><span><i style="background:var(--soft)"></i>Rest of the season</span><span><i style="background:var(--quiet)"></i>Quieter</span>`;
 }
 function yearBars(box,vals,opts={}){
   const Wd=box.clientWidth; box.innerHTML=''; if(!Wd) return; const H=opts.height||120, T=20, B=22, mx=Math.max(...vals)||1, step=Wd/NY, gap=Math.min(4,step*.22), bw=step-gap, y=v=>T+(H-T-B)*(1-v/mx);
   const root=svg('svg',{viewBox:`0 0 ${Wd} ${H}`,width:Wd,height:H,role:'img','aria-label':opts.label||'Fires detected each year'},box);
   if(opts.usual){ const uy=y(opts.usual); svg('line',{x1:0,x2:Wd,y1:uy,y2:uy,stroke:'var(--ink3)','stroke-width':1,'stroke-dasharray':'3 4'},root); }
   vals.forEach((v,i)=>{ const Y=Y0+i, top=Math.min(y(v),H-B-1.5);
-    svg('rect',{x:i*step,y:top,width:bw,height:H-B-top,rx:Math.min(3,bw/2),fill:Y<VIIRS_Y?'var(--b)':'var(--accent)'},root);
+    svg('rect',{x:i*step,y:top,width:bw,height:H-B-top,rx:Math.min(3,bw/2),fill:Y<VIIRS_Y?'var(--older)':'var(--viirs)'},root);
     if(opts.mark&&opts.mark.includes(Y)){ const t=svg('text',{x:Math.min(Wd-16,Math.max(16,i*step+bw/2)),y:top-5,'text-anchor':'middle',style:'font-weight:700;fill:var(--ink)'},root); t.textContent=Y; }
     const hit=svg('rect',{x:i*step,y:0,width:step,height:H,fill:'transparent'},root); hit.addEventListener('pointermove',e=>showTip(e,`<b>${Y}</b>About ${fmt(v)} fires detected${Y<VIIRS_Y?'<br>Estimated from the older satellite':''}`)); hit.addEventListener('pointerleave',hideTip); });
   for(const Y of [2001,VIIRS_Y,YN]){ const t=svg('text',{x:Y===Y0?0:Y===YN?Wd:(Y-Y0)*step+bw/2,y:H-5,'text-anchor':Y===YN?'end':Y===Y0?'start':'middle'},root); t.textContent=Y; }
@@ -358,7 +359,7 @@ function renderYears(){
   const st=stats, name=shortName(S.name), pool=st.annual.filter(r=>r.y>=2003), usual=median(pool.map(r=>r.h)), box=$('yearchart');
   if(!(usual>0)){ $('yr-say').textContent='Too few fires were detected here to compare years.'; box.innerHTML=''; return; }
   const sorted=[...pool].sort((a,b)=>b.h-a.h), hi=sorted[0], lo=sorted[sorted.length-1], last=st.annual[NY-1], rel=last.h/usual, lastTxt= rel>1.25?`${YN} was above usual.`:rel<.75?`${YN} was below usual.`:`${YN} was close to usual.`;
-  $('yr-say').textContent=`Busiest: ${hi.y}, about ${(hi.h/usual).toFixed(1)} times a usual year. Quietest: ${lo.y}. ${lastTxt} The dotted line marks a usual year.${reliability(st,S.cells)==='Low'?' Few records here, so treat these as rough.':''}`;
+  $('yr-say').textContent=`Busiest: ${hi.y}, ${(hi.h/usual).toFixed(1)} times a usual year. Quietest: ${lo.y}. ${lastTxt}${reliability(st,S.cells)==='Low'?' Few records here, so treat these as rough.':''}`;
   yearBars(box,st.annual.map(r=>r.h),{mark:[hi.y,lo.y],usual,height:box.clientWidth<520?90:96,label:`Fires detected each year in ${name}. Busiest ${hi.y}, quietest ${lo.y}.`});
 }
 function renderWhy(){
@@ -369,9 +370,43 @@ function drawBA(){
   const y=S.baYear, i=(y-Y0)*nCells, raw=S.yrRaw.subarray(i,i+nCells), fix=S.yrFix.subarray(i,i+nCells), mx=S.yrMax;
   for(const [id,vals] of [['ba-before',raw],['ba-after',fix]]){ const B=baseMap($(id),VB0); if(B) paintHeat(B.g,B.P,B.path,heatField(vals,mx,true)); }
   $('ba-year').textContent=y; $('ba-slider').value=y;
-  $('ba-before-n').textContent=`About ${fmt(S.yrRawTotal[y-Y0])} fires detected`; $('ba-after-n').textContent=`About ${fmt(S.yrFixTotal[y-Y0])} fires detected`;
-  const j=V.agreement.india.step_raw.toFixed(1);
-  $('ba-say').textContent= y<VIIRS_Y ? `In ${y}, only the older satellite was flying. Before correction, India looks quiet because small fires go uncounted. After correction, we estimate what the sharper satellite would have seen.` : y===VIIRS_Y ? `In 2012 the sharper satellite starts. Compared with earlier years, the left map suddenly jumps. Over five years either side, it looks ${j} times busier. The right map stays steady.` : `From 2012 onward, both maps use the sharper satellite, so they match. Move back before 2012 to see the difference.`;
+  $('ba-before-n').textContent=`About ${fmt(S.yrRawTotal[y-Y0])} fires detected in ${y}`; $('ba-after-n').textContent=`About ${fmt(S.yrFixTotal[y-Y0])} fires detected in ${y}`;
+  drawTrend();
+}
+/* Yearly totals for India: the records joined as they are, and after correction, with the shown year marked. */
+function drawTrend(){
+  const box=$('ba-trend'), Wd=box.clientWidth; if(!Wd) return; box.innerHTML='';
+  const H=Wd<480?84:84, L=4, R=4, T=12, B=20, raw=[...S.yrRawTotal], fix=[...S.yrFixTotal], mx=Math.max(...raw,...fix)||1;
+  const x=i=>L+i/(NY-1)*(Wd-L-R), y=v=>T+(H-T-B)*(1-v/mx);
+  const root=svg('svg',{viewBox:`0 0 ${Wd} ${H}`,width:Wd,height:H,role:'img','aria-label':`Yearly fires detected across India. Joined as they are, the count jumps ${V.agreement.india.step_raw.toFixed(1)} times at 2012; after correction the step is ${V.agreement.india.step_harmonized.toFixed(1)} times.`},box);
+  const path=a=>'M'+a.map((v,i)=>x(i).toFixed(1)+','+y(v).toFixed(1)).join('L');
+  const sx=x(VIIRS_Y-Y0-.5); svg('line',{x1:sx,x2:sx,y1:T-6,y2:H-B,stroke:'var(--p-muted)','stroke-width':1,'stroke-dasharray':'3 3'},root);
+  svg('path',{d:path(raw),fill:'none',stroke:'var(--older)','stroke-width':2},root);
+  svg('path',{d:path(fix),fill:'none',stroke:'var(--newer)','stroke-width':2.5},root);
+  const k=S.baYear-Y0; svg('line',{x1:x(k),x2:x(k),y1:T-6,y2:H-B,stroke:'var(--p-ink)','stroke-width':1.5},root);
+  for(const [a,c] of [[raw,'var(--older)'],[fix,'var(--newer)']]) svg('circle',{cx:x(k),cy:y(a[k]),r:4,fill:c,stroke:'#fff','stroke-width':2},root);
+  for(const Y of [Y0,VIIRS_Y,YN]){ const t=svg('text',{x:Y===Y0?0:Y===YN?Wd:x(Y-Y0),y:H-4,'text-anchor':Y===YN?'end':Y===Y0?'start':'middle'},root); t.textContent=Y; }
+  raw.forEach((v,i)=>{ const hit=svg('rect',{x:x(i)-Wd/NY/2,y:0,width:Wd/NY,height:H,fill:'transparent'},root); hit.addEventListener('pointermove',e=>showTip(e,`<b>${Y0+i}</b>Joined as they are: ${fmt(v)}<br>After correction: ${fmt(fix[i])}`)); hit.addEventListener('pointerleave',hideTip); hit.addEventListener('click',()=>{ baPlay(false); S.baYear=Y0+i; drawBA(); }); });
+}
+function heroFacts(){
+  const A=V.agreement.india; $('fact-raw').textContent=`${A.step_raw.toFixed(1)}×`; $('fact-fix').textContent=`${A.step_harmonized.toFixed(1)}×`; $('fact-modis').textContent=`${A.step_modis_only.toFixed(1)}×`;
+  const m=$('stat-mask'); if(m) m.textContent=`${Math.round(V.persistent_mask.removed_share_pct)}%`;
+  let n=0; for(let i=0;i<NY;i++) n+=S.yrFixTotal[i]; const f=$('fact-n'); if(f) f.textContent=`${(n/1e6).toFixed(1)} million`;
+  accuracyChart();
+}
+/* Corrected MODIS total divided by the real VIIRS total, 2020 to 2025, for each preset region. */
+function accuracyChart(){
+  const box=$('acc-chart'); if(!box) return; const Wd=box.clientWidth; if(!Wd) return; box.innerHTML='';
+  const ids=['india','northeast','central','odisha','uttarakhand','punjab_haryana','kerala'], rows=ids.map(id=>({id,name:shortName(M.regions.find(r=>r.id===id).name),m:V.levels.week[id]['Ember stratified']}));
+  const rh=Wd<480?28:34, L=Math.min(150,Wd*.34), R=86, H=rows.length*rh+22, lo=0.6, hi=1.4, x=v=>L+(Math.min(hi,Math.max(lo,v))-lo)/(hi-lo)*(Wd-L-R);
+  const root=svg('svg',{viewBox:`0 0 ${Wd} ${H}`,width:Wd,height:H,role:'img','aria-label':'Corrected total divided by real VIIRS total for each region: '+rows.map(r=>`${r.name} ${r.m.bias_ratio.toFixed(2)}`).join(', ')},box);
+  for(const v of [0.8,1,1.2]){ const xx=x(v); svg('line',{x1:xx,x2:xx,y1:0,y2:H-20,stroke:v===1?'var(--p-ink)':'color-mix(in srgb, var(--p-ink) 12%, transparent)','stroke-width':v===1?1.5:1},root); const t=svg('text',{x:xx,y:H-4,'text-anchor':'middle'},root); t.textContent=v.toFixed(2); }
+  rows.forEach((r,i)=>{ const y=i*rh+6, b=r.m.bias_ratio, x0=x(1), x1=x(b);
+    const n=svg('text',{x:0,y:y+17},root); n.textContent=r.name; n.setAttribute('style','fill:var(--p-ink)');
+    svg('rect',{x:Math.min(x0,x1),y:y+5,width:Math.max(2,Math.abs(x1-x0)),height:16,rx:3,fill:'var(--newer)'},root);
+    svg('circle',{cx:x1,cy:y+13,r:4.5,fill:'var(--newer)',stroke:'#fff','stroke-width':2},root);
+    const e=svg('text',{x:Wd,y:y+17,'text-anchor':'end'},root); e.textContent=`${Math.round(r.m.nmae*100)}% weekly`;
+    const hit=svg('rect',{x:0,y,width:Wd,height:rh,fill:'transparent'},root); hit.addEventListener('pointermove',ev=>showTip(ev,`<b>${esc(r.name)}</b>Corrected ÷ real: ${b.toFixed(2)}<br>Typical weekly error: ${Math.round(r.m.nmae*100)}%`)); hit.addEventListener('pointerleave',hideTip); });
 }
 /* On arrival, play 2008 to 2014 once so the 2012 jump is seen, then rest on 2011. */
 function baIntro(){
@@ -381,23 +416,20 @@ function baIntro(){
   $('ba-play').textContent='Pause'; $('ba-play').setAttribute('aria-pressed',true);
 }
 function baPlay(on){
-  clearInterval(S.baTimer); S.baTimer=null; const btn=$('ba-play'); btn.textContent=on?'Pause':'Play years'; btn.setAttribute('aria-pressed',on);
+  clearInterval(S.baTimer); S.baTimer=null; const btn=$('ba-play'); btn.textContent=on?'Pause':'Play the years'; btn.setAttribute('aria-pressed',on);
   if(!on) return; if(S.baYear>=YN) { S.baYear=2008; drawBA(); }
   S.baTimer=setInterval(()=>{ if(S.baYear>=YN){ baPlay(false); return; } S.baYear++; drawBA(); },800);
 }
-function renderProblem(){
-  $('prob-how').textContent=`The correction was learned from 2012–2019, when both satellites flew, and tested on 2020–2025, where it came within ${Math.round(Math.abs(V.levels.week.india['Ember stratified'].bias_ratio-1)*100)}% of the newer satellite’s total for India.`;
-}
 function renderOverview(){
-  if(S.view!=='overview'||!stats) return;
+  if(PAGE!=='overview'||!stats) return;
   const st=stats, name=shortName(S.name), nw=nowWeek(), enough=st.core&&st.total>=30;
   [...$('chips').children].forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===S.id));
-  drawSmallMap(); renderWhy(); drawBA(); renderProblem();
+  drawSmallMap(); renderWhy();
   $('ans-place').textContent=`Fire calendar for ${name}`;
   if(!enough){ $('ans-title').textContent='Too few fires were detected here to build a calendar.'; $('ans-sub').textContent='Try a larger or different area.'; $('ans-now').textContent='Not enough records to say.'; $('ans-rel').textContent='Not enough records to say.'; $('weekchart').innerHTML=''; $('weekleg').innerHTML=''; }
   else {
     $('ans-title').textContent=`Fires are detected most often from ${binDate(st.core.start)} to ${binEnd(st.core.start+st.core.len-1)}`;
-    $('ans-sub').textContent=`About half of a typical year’s fire detections happen in these ${st.core.len} weeks, so this is the time to be most prepared. The wider fire season runs from ${binDate(st.season.start)} to ${binEnd(st.season.start+st.season.len-1)}.`;
+    $('ans-sub').textContent=`Half of a typical year’s detections fall in these ${st.core.len} weeks. The wider season runs from ${binDate(st.season.start)} to ${binEnd(st.season.start+st.season.len-1)}.`;
     const inW=w=>((nw.b-w.start+W)%W)<w.len, until=(st.season.start-nw.b+W)%W;
     $('ans-now').textContent= inW(st.core)?`It’s ${nw.month}, which is usually the busiest time here.`:inW(st.season)?`It’s ${nw.month}, which is usually within the fire season here.`:`It’s ${nw.month}, usually a quiet time here. The fire season usually starts in about ${until} ${until===1?'week':'weeks'}.`;
     const g=reliability(st,S.cells); $('ans-rel').innerHTML=`<b>${g}.</b> `+({High:'The method matched real records closely here.',Moderate:'The timing is dependable, but treat exact numbers with caution.',Low:'This area has few records, so use it as a rough guide to timing only.'}[g]);
@@ -411,23 +443,36 @@ function pickAround(lat,lon){
   let best=null,bd=1.6; for(const [n,la,lo] of CITIES){ const d=Math.hypot(la-lat,lo-lon); if(d<bd){bd=d;best=n;} }
   setAOI(cells, best?`the area around ${best}`:`the area around ${lat.toFixed(1)}°N, ${lon.toFixed(1)}°E`, null, rectPoly(lat-r,lat+r,lon-r,lon+r));
 }
-function setView(v){
-  if(v!=='overview') baPlay(false);
-  S.view=v; $('overview').hidden=v!=='overview'; $('details').hidden=v!=='details';
-  $('nav-overview').toggleAttribute('aria-current',false); $('nav-details').toggleAttribute('aria-current',false);
-  $('nav-'+v).setAttribute('aria-current','page');
-  try{ history.replaceState(null,'',location.search+(v==='details'?'#details':(S.id?'#'+S.id:''))); }catch(e){}
-  scrollTo(0,0); if(!stats) return;
-  if(v==='overview') renderOverview(); else { drawMap(); drawCal(); }
-}
 function setDetailTab(id){ document.querySelectorAll('.dtabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.d===id)); ['d-cal','d-trend','d-acc'].forEach(s=>{ $(s).hidden=s!==id; }); if(id==='d-cal'){ drawMap(); drawCal(); } }
+/* Town and district search, from the GeoNames list (loaded on first use). */
+const PRESET_STATE={'Kerala':'kerala','Odisha':'odisha','Uttarakhand':'uttarakhand','Punjab':'punjab_haryana','Haryana':'punjab_haryana'};
+async function loadPlaces(){ if(!S.places) S.places=fetch('data/places.json').then(r=>r.json()).then(d=>d.places); return S.places; }
+function pickPlace(p){
+  const [name,lat,lon,kind,state]=p, preset=kind==='state'&&PRESET_STATE[name];
+  if(preset){ const r=M.regions.find(x=>x.id===preset); setAOI(r.cells,r.name,r.id); return; }
+  const rad=kind==='state'?1.0:kind==='district'?.45:.3, cells=[]; for(let i=0;i<nCells;i++) if(Math.abs(C.lat[i]-lat)<=rad&&Math.abs(C.lon[i]-lon)<=rad) cells.push(i);
+  if(!cells.length){ $('ans-place').textContent=`No satellite records near ${name}`; return; }
+  setAOI(cells, kind==='town'?`the area around ${name}`:kind==='district'?`${name} district (approx.)`:`${name} (approx.)`, null, rectPoly(lat-rad,lat+rad,lon-rad,lon+rad));
+}
+function initSearch(){
+  const q=$('place-q'), list=$('place-list'); let hits=[], sel=-1;
+  const close=()=>{ list.hidden=true; q.setAttribute('aria-expanded','false'); sel=-1; };
+  const show=()=>{ list.innerHTML=hits.map((p,i)=>`<li role="presentation"><button type="button" role="option" id="opt-${i}" aria-selected="${i===sel}" data-i="${i}">${esc(p[0])} <span>${p[3]==='town'?'town':p[3]}${p[4]&&p[3]!=='state'?', '+esc(p[4]):''}</span></button></li>`).join(''); list.hidden=!hits.length; q.setAttribute('aria-expanded',String(!!hits.length)); if(sel>=0) q.setAttribute('aria-activedescendant','opt-'+sel); else q.removeAttribute('aria-activedescendant'); };
+  q.addEventListener('focus',loadPlaces,{once:true});
+  q.addEventListener('input',async()=>{ const t=q.value.trim().toLowerCase(); if(t.length<2){ hits=[]; close(); return; } const all=await loadPlaces(), rank={district:0,state:0,town:1};
+    const starts=all.filter(p=>p[0].toLowerCase().startsWith(t)), inside=all.filter(p=>!p[0].toLowerCase().startsWith(t)&&p[0].toLowerCase().includes(t));
+    hits=[...starts.sort((a,b)=>rank[a[3]]-rank[b[3]]),...inside].slice(0,6); sel=-1; show(); });
+  q.addEventListener('keydown',e=>{ if(list.hidden) return; if(e.key==='ArrowDown'){ sel=Math.min(hits.length-1,sel+1); show(); e.preventDefault(); } else if(e.key==='ArrowUp'){ sel=Math.max(0,sel-1); show(); e.preventDefault(); } else if(e.key==='Enter'&&hits.length){ const p=hits[Math.max(0,sel)]; q.value=p[0]; close(); pickPlace(p); e.preventDefault(); } else if(e.key==='Escape'){ close(); } });
+  list.addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; const p=hits[+b.dataset.i]; q.value=p[0]; close(); pickPlace(p); });
+  document.addEventListener('click',e=>{ if(!e.target.closest('.search')) close(); });
+}
 function initOverview(){
   $('chips').innerHTML=CHIPS.map(id=>{ const r=M.regions.find(x=>x.id===id); return `<button class="chip" type="button" data-id="${id}" aria-pressed="false">${esc(shortName(r.name))}</button>`; }).join('');
-  $('chips').onclick=e=>{ const id=e.target.dataset&&e.target.dataset.id; if(!id) return; const r=M.regions.find(x=>x.id===id); setAOI(r.cells,r.name,r.id); };
+  $('chips').onclick=e=>{ const id=e.target.dataset&&e.target.dataset.id; if(!id) return; $('place-q').value=''; const r=M.regions.find(x=>x.id===id); setAOI(r.cells,r.name,r.id); };
   $('smap').addEventListener('click',e=>{ const cv=$('smap'), rect=cv.getBoundingClientRect(), P=mapProj(cv,VB0); pickAround(P.ilat(e.clientY-rect.top),P.ilon(e.clientX-rect.left)); });
   S.baYear=2011; $('ba-slider').addEventListener('input',e=>{ baPlay(false); S.baYear=+e.target.value; drawBA(); }); $('ba-play').onclick=()=>baPlay(!S.baTimer);
-  $('nav-overview').onclick=()=>setView('overview'); $('nav-details').onclick=()=>setView('details'); $('cta-details').onclick=()=>setView('details');
-  document.querySelector('.dtabs').onclick=e=>{ const d=e.target.dataset&&e.target.dataset.d; if(d) setDetailTab(d); };
+  heroFacts(); initSearch();
+  addEventListener('resize',()=>{ clearTimeout(S.rt); S.rt=setTimeout(()=>{ drawBA(); renderOverview(); accuracyChart(); },150); });
 }
 
 /* ---------- export ---------- */
@@ -452,19 +497,18 @@ function initControls(){
   seg.onclick=e=>{ const m=e.target.dataset&&e.target.dataset.m; if(!m) return; S.mode=m; [...seg.children].forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===m)); drawCal(); };
   $('zoom').onclick=()=>{ S.zoomed=!S.zoomed; $('zoom').textContent=S.zoomed?'Show all India':'Zoom to area'; drawMap(); };
   $('copybrief').onclick=()=>copy(brief(),'Brief copied.'); $('copycsv').onclick=()=>copy(csv(),'Weekly data copied.');
-  addEventListener('resize',()=>{ clearTimeout(S.rt); S.rt=setTimeout(()=>{ renderOverview(); drawMap(); drawCal(); },120); });
-  const redraw=()=>{ if(stats){ drawMap(); drawCal(); renderOverview(); } };
-  if(matchMedia) matchMedia('(prefers-color-scheme: dark)').addEventListener('change',redraw);
-  new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-  addEventListener('hashchange',()=>{ const id=location.hash.slice(1); if(id==='details'){ setView('details'); return; } const r=M.regions.find(x=>x.id===id); if(r){ if(S.view!=='overview') setView('overview'); if(r.id!==S.id) setAOI(r.cells,r.name,r.id); } });
+  addEventListener('resize',()=>{ clearTimeout(S.rt); S.rt=setTimeout(()=>{ drawMap(); drawCal(); },120); });
+  document.querySelector('.dtabs').onclick=e=>{ const d=e.target.dataset&&e.target.dataset.d; if(d) setDetailTab(d); };
 }
 load().then(()=>{
-  $('loading').hidden=true; $('app').hidden=false;
-  S.view='overview'; initControls(); initOverview(); initMap(); initCal(); renderProof();
-  const q=new URLSearchParams(location.search), id=location.hash.slice(1), r=M.regions.find(x=>x.id===id)||M.regions.find(x=>x.id===q.get('area'))||M.regions.find(x=>x.id==='kerala');
-  setAOI(r.cells,r.name,r.id);
-  if(id==='details'||q.get('view')==='details') setView('details');
-  const t=q.get('tab'); if(t) setDetailTab(t);
-  if(S.view==='overview'&&!q.get('focus')&&!q.get('still')) baIntro();
-  const fo=q.get('focus'); if(fo) { const el=$(fo); if(el){ const sec=el.closest('section'); document.querySelectorAll('#overview > section').forEach(s=>{ s.hidden=s!==sec; }); } }
-}).catch(e=>{ console.error(e); $('loading').innerHTML='The hotspot data could not load. If you opened this file directly, start a local server in the <code>app</code> folder with <code>python -m http.server 8000</code>, then open <code>http://localhost:8000</code>.'; });
+  const q=new URLSearchParams(location.search), id=location.hash.slice(1);
+  addEventListener('hashchange',()=>{ const h=location.hash.slice(1), r=M.regions.find(x=>x.id===h); if(r&&r.id!==S.id) setAOI(r.cells,r.name,r.id); if(h==='accuracy'&&PAGE==='details') setDetailTab('d-acc'); });
+  const r=M.regions.find(x=>x.id===id)||M.regions.find(x=>x.id===q.get('area'))||M.regions.find(x=>x.id==='kerala');
+  if(PAGE==='overview'){
+    S.view='overview'; initOverview(); setAOI(r.cells,r.name,r.id); drawBA();
+    if(!q.get('still')) baIntro();
+  } else {
+    S.view='details'; initControls(); initMap(); initCal(); renderProof(); setAOI(r.cells,r.name,r.id);
+    if(id==='accuracy') setDetailTab('d-acc'); const t=q.get('tab'); if(t) setDetailTab(t);
+  }
+}).catch(e=>{ console.error(e); const el=$('ans-title')||$('h-cal'); if(el) el.innerHTML='The hotspot data could not load. If you opened this file directly, start a local server in the <code>app</code> folder with <code>python -m http.server 8000</code>, then open <code>http://localhost:8000</code>.'; });

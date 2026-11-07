@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en" data-type="software" data-radius="soft" data-buttons="tonal" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ember data: week-by-week fire records for India</title>
+<meta name="description" content="Week-by-week fire detections for any area of India, 2001 to 2025, with trends, comparisons and the accuracy tests behind Ember.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ember: fire calendar for India">
+<meta property="og:description" content="25 years of NASA fire records on one scale, as a calendar for any place in India.">
+<meta property="og:image" content="share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#f8f8f8">
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..700&family=Figtree:wght@400..600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/ui/cards.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<link rel="stylesheet" href="assets/backgrounds/backgrounds.css">
+<link rel="stylesheet" href="assets/layout/layout.css">
+<link rel="stylesheet" href="assets/icons/icon.css">
+<style>
+:root {
+  --p-bg: #f8f8f8; --p-surface: #eeeeee; --p-ink: #0a0a0a; --p-muted: #6a6a6a;
+  --p-accent: #1f6b3a; --p-accent-ink: #ffffff; --p-action: #1f6b3a; --p-action-ink: #ffffff;
+  --p-inv-bg: #0a0a0a; --p-inv-surface: #171717; --p-inv-ink: #f8f8f8; --p-inv-muted: #939393;
+  --p-inv-accent: #1f6b3a; --p-inv-accent-ink: #ffffff; --p-inv-action: #1f6b3a; --p-inv-action-ink: #ffffff;
+  --font-display: "Gabarito", system-ui, sans-serif;
+  --font-text: "Figtree", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 400;
+  --display-tracking: -0.03em;
+  --display-tracking-xl: -0.04em;
+  --ly-scale: 0.98;
+}
+</style>
+<link rel="stylesheet" href="assets/ui/base.css">
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+<script src="assets/backgrounds/backgrounds.js"></script>
+<style>
+#details {
+  --bg:#f7f7f4; --panel:#ffffff; --ink:#1c2430; --ink2:#4b5563; --ink3:#6b7280; --line:#e2e3dd; --chip:#ecece7;
+  --accent:#b4470f; --accent-ink:#fffaf5; --soft:#f3c49c; --bar:#dcdcd5; --land:#e1e1d9; --sea:#f0f2f1; --empty:#eeeee9; --few:#c6c9c2;
+  --s1:#fde3c2; --s2:#fbb871; --s3:#ef8a2e; --s4:#cc5a10; --s5:#973a09; --s6:#561e04;
+  --below:#2f6fb0; --below2:#a9c6e2; --normal:#e3e4dd; --above:#f3b27a; --unusual:#d9580f; --record:#7c2704;
+  --a:#b4470f; --b:#2f76b5; --c:#1c2430; --band:#e8e0d4;
+  --x-display:'Familjen Grotesk','Trebuchet MS',sans-serif; --x-body:'Source Sans 3','Segoe UI',Arial,sans-serif; --x-mono:'Source Sans 3','Segoe UI',Arial,sans-serif;
+  color:var(--ink) }
+/* Detailed data */
+.dhead { padding-block:40px 18px; display:flex; flex-direction:column; gap:8px }
+.dhead h1 { font:700 clamp(30px,4.5vw,40px)/1.1 var(--font-display); letter-spacing:-.015em; margin:0 }
+.dhead p { margin:0; color:var(--ink2); max-width:68ch }
+.dtools { display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center; justify-content:space-between; padding-block:10px 22px }
+.dtabs { display:flex; flex-wrap:wrap; gap:0 22px; border-bottom:1px solid var(--line); margin-bottom:24px }
+.dtabs button { background:none; border:none; border-bottom:2px solid transparent; padding:10px 0; margin-bottom:-1px; color:var(--ink2); font-weight:600; font-size:17px; min-height:44px }
+.dtabs button[aria-selected="true"] { color:var(--ink); border-color:var(--accent) }
+label.f { display:flex; align-items:center; gap:8px; font-size:15px; color:var(--ink2); min-width:0; flex-wrap:wrap }
+select { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:7px 10px; min-height:40px; font-size:16px; max-width:100% }
+.dgrid { display:grid; grid-template-columns:minmax(0,300px) minmax(0,1fr); gap:32px; align-items:start }
+.dside,.dstack { display:flex; flex-direction:column; gap:28px; min-width:0 }
+.dpanel { display:flex; flex-direction:column; gap:10px; min-width:0 }
+.dpanel h2 { font:700 21px/1.2 var(--font-display); margin:0 }
+.sub { color:var(--ink2); margin:0; font-size:15.5px; max-width:75ch }
+.row { display:flex; flex-wrap:wrap; gap:10px; align-items:center }
+.spread { justify-content:space-between }
+.two { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:40px }
+.txtbtn { background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:7px 15px; min-height:40px; font-size:15.5px }
+#map { cursor:crosshair; border-radius:8px; aspect-ratio:1/1.02; max-width:100% }
+.facts { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:24px }
+.fact { min-width:0 }
+.fact .k { font-size:14px; color:var(--ink2) }
+.fact .v { font:700 20px/1.2 var(--font-display); margin-top:2px; text-wrap:balance }
+.fact .n { font-size:14px; color:var(--ink2); margin-top:3px }
+.scrollx { overflow-x:auto }
+#cal { min-width:680px; cursor:crosshair; touch-action:pan-x pan-y }
+.legend { display:flex; flex-wrap:wrap; gap:4px 14px; font-size:14px; color:var(--ink2); align-items:center }
+.legend .sw { width:13px; height:13px; border:1px solid var(--line) }
+.ln { display:inline-block; width:18px; height:0; border-top:2px solid; margin-right:5px; vertical-align:4px }
+.pill { display:inline-block; font-size:14px; font-weight:600; padding:3px 11px; border-radius:999px; background:var(--chip); color:var(--ink) }
+.mono { font-variant-numeric:tabular-nums }
+ul.list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; font-size:15.5px }
+ul.list li { display:flex; gap:10px; justify-content:space-between; border-bottom:1px solid var(--line); padding-block:6px; min-width:0 }
+ul.list li:last-child { border-bottom:none }
+.tbl { border-collapse:collapse; width:100%; min-width:620px } .tbl th,.tbl td { text-align:right; padding:6px 8px; border-bottom:1px solid var(--line); font-variant-numeric:tabular-nums; font-size:15px; color:var(--ink) } .tbl th:first-child,.tbl td:first-child { text-align:left } .tbl th { color:var(--ink2); font-weight:600 }
+.best td { font-weight:600 }
+#method { font-size:16px } #method li { margin-block:6px } #method ol { padding-left:22px; margin:0 } #method p { max-width:80ch }
+.legend-plain { display:flex; flex-wrap:wrap; gap:6px 20px; font-size:15px; color:var(--ink2) }
+.sw { display:inline-block; width:13px; height:13px; border-radius:3px; margin-right:7px; vertical-align:-1px }
+.seg { display:inline-flex; background:var(--chip); border-radius:999px; padding:3px; align-self:flex-start; max-width:100% }
+.seg button { background:transparent; border:none; border-radius:999px; padding:7px 15px; font-size:16px; min-height:38px; color:var(--ink2) }
+.seg button[aria-pressed="true"] { background:var(--panel); color:var(--ink); font-weight:600 }
+#details { padding-block: calc(var(--nav, 72px) + 8px) 64px }
+#details svg { display:block; width:100%; height:auto; overflow:visible }
+#details svg text { font:13px var(--font-text); fill:var(--ink2) }
+#details canvas { display:block; width:100%; touch-action:none }
+#details button, #details select { font:inherit; color:var(--ink) }
+#details .seg button { cursor:pointer }
+#details [hidden] { display:none !important }
+#details .dhead h1 { font-weight:var(--display-weight); letter-spacing:var(--display-tracking) }
+.tip { position:fixed; z-index:50; pointer-events:none; background:var(--p-ink); color:var(--p-bg); padding:7px 11px; border-radius:8px; font:14px/1.35 var(--font-text); max-width:290px; display:none }
+.tip b { display:block; font-weight:600 }
+
+</style>
+</head>
+<body data-page="details">
+<header class="nav nav--centre">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Skip to content</a>
+    <a class="nav__logo" href="index.html"><span class="mark mark--initial" aria-hidden="true">E</span>Ember</a>
+    <nav class="nav__links" aria-label="Main">
+      <div class="nav__item"><a class="nav__link" href="index.html#places">Calendar</a></div>
+      <div class="nav__item"><a class="nav__link" href="index.html#method">Method</a></div>
+      <div class="nav__item"><a class="nav__link" href="index.html#notes">Limits</a></div>
+      <div class="nav__item"><a class="nav__link" href="details.html" aria-current="page">Data</a></div>
+    </nav>
+    <div class="nav__actions">
+      <a class="btn btn--primary" href="index.html#places">See your area’s calendar</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+<main id="top"><div class="wrap" id="details">
+    <div class="dhead">
+      <h1>Fire records for India, week by week</h1>
+      <p>For analysts, researchers and fire planners. These are the same records as the overview, shown week by week. They show past satellite detections, not forecasts or live alerts.</p>
+    </div>
+    <div class="dtools">
+      <label class="f" for="region">Area<select id="region"></select></label>
+      <label class="f" for="year">Focus year<select id="year"></select></label>
+    </div>
+    <div class="dtabs" role="tablist" aria-label="Detailed data sections">
+      <button type="button" role="tab" data-d="d-cal" aria-selected="true">Calendar</button>
+      <button type="button" role="tab" data-d="d-trend" aria-selected="false">Trends</button>
+      <button type="button" role="tab" data-d="d-acc" id="accuracy" aria-selected="false">Accuracy and method</button>
+    </div>
+
+    <section id="d-cal" class="dstack">
+      <div class="facts" id="facts"></div>
+      <div class="dgrid">
+        <div class="dside">
+          <div class="dpanel">
+            <div class="row spread"><h2>Choose an area</h2><button id="zoom" class="txtbtn" type="button">Zoom to area</button></div>
+            <canvas id="map" aria-label="Map of detections on a quarter-degree grid. Drag to draw an area or click one grid cell."></canvas>
+            <p class="sub" id="mapcap"></p>
+            <p class="sub" style="font-size:14px">Drag to draw an area, or click for a square about 27 km across. No administrative or national boundaries are drawn.</p>
+          </div>
+        </div>
+        <div class="dpanel">
+          <h2 id="h-cal">Week-by-week calendar</h2>
+          <p class="sub" id="calsub"></p>
+          <div class="seg" role="group" aria-label="What the calendar shows" id="modes"></div>
+          <div class="scrollx"><canvas id="cal" aria-label="Calendar heatmap with one row per year and one column per week"></canvas></div>
+          <div class="legend" id="callegend"></div>
+          <div class="row"><button class="txtbtn" id="copybrief" type="button">Copy readiness brief</button><button class="txtbtn" id="copycsv" type="button">Copy weekly data (CSV)</button><span id="copied" class="sub" role="status"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="d-trend" class="dstack" hidden>
+      <div class="two">
+        <div class="dpanel"><h2 id="yrh">Focus year against the normal range</h2><p class="sub">The band shows what 8 of 10 other years recorded. Dots mark weeks above what 9 of 10 other years showed.</p><div id="yrchart"></div><div class="legend" id="yrleg"></div></div>
+        <div class="dpanel"><h2>Has the season moved?</h2><p class="sub" id="shiftsub"></p><div id="shiftchart"></div><div class="legend" id="shiftleg"></div></div>
+      </div>
+      <div class="two">
+        <div class="dpanel"><div class="row spread"><h2>Compare areas</h2><label class="f" for="cmp">With<select id="cmp"></select></label></div><p class="sub">Each area’s share of its own yearly detections, so busy and quiet areas can share one chart.</p><div id="cmpchart"></div><div class="legend" id="cmpleg"></div></div>
+        <div class="dpanel"><h2>Most unusual weeks</h2><p class="sub">Weeks furthest above the normal ceiling for that time of year. Weeks with only one MODIS satellite are left out.</p><div id="unusual"></div></div>
+      </div>
+    </section>
+
+    <section id="d-acc" class="dstack" hidden>
+      <div class="two">
+        <div class="dpanel"><h2>Can you trust this area?</h2><div id="trust"></div></div>
+        <div class="dpanel"><h2>Before and after, yearly totals</h2><p class="sub" id="seamsub"></p><div id="seamchart"></div><div class="legend" id="seamleg"></div></div>
+      </div>
+      <div class="dpanel"><h2>Test on years the method never saw</h2><p class="sub" id="proofsub"></p><div class="scrollx" id="proof"></div></div>
+      <div class="dpanel"><h2>Method and limits</h2><div id="method"></div></div>
+    </section>
+  </div></main>
+<footer class="footer closing footer--dark ground-inverse" id="contact" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="closing__cta close--type">
+      <div class="section-head">
+        <h2 id="close-h">See your area’s fire calendar</h2>
+        <p>Free to use. NASA FIRMS records for India, 2001 to 2025.</p>
+      </div>
+      <a class="btn btn--primary btn--xl btn--wide" href="index.html#places">See your area’s calendar<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+    </div>
+    <div class="closing__links">
+      <div class="grid">
+        <div class="span-4 stack-4">
+          <a class="nav__logo" href="index.html"><span class="mark mark--initial" aria-hidden="true">E</span>Ember</a>
+          <p class="footer__lede">A fire calendar for India built from NASA MODIS and VIIRS records.</p>
+        </div>
+        <div class="span-2 footer__col"><h3>Calendar</h3><ul><li><a href="index.html#places">By place</a></li><li><a href="index.html">Before and after</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Method</h3><ul><li><a href="index.html#method">How it works</a></li><li><a href="index.html#notes">Limits</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Data</h3><ul><li><a href="details.html">Week by week</a></li><li><a href="#accuracy">Accuracy tests</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Sources</h3><ul><li><a href="https://firms.modaps.eosdis.nasa.gov/" target="_blank" rel="noopener">NASA FIRMS</a></li><li><a href="https://www.geonames.org/" target="_blank" rel="noopener">GeoNames</a></li></ul></div>
+      </div>
+      <div class="footer__legal">
+        <span>&copy; 2026 Ember</span>
+        <span class="credits">Maps: Natural Earth, GeoNames</span>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="tip" id="tip" role="tooltip"></div>
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script src="app.js?v=5.3"></script>
+</body>
+</html>
