@@ -94,7 +94,7 @@ const series = (st,mode) => { if(mode==='frp') return st.frp; if(mode==='raw'){ 
 
 /* ---------- AOI ---------- */
 function setAOI(cells,name,id,shape){
-  S.cells=cells; S.name=name; S.id=id||null; aoiSet=new Set(cells); S.selYear=null; S.shape=shape||(id?(M.regions.find(r=>r.id===id)||{}).poly||null:null);
+  S.cells=cells; S.name=name; S.id=id||null; aoiSet=new Set(cells); S.shape=shape||(id?(M.regions.find(r=>r.id===id)||{}).poly||null:null);
   stats = id && S.cache.has(id) ? S.cache.get(id) : compute(cells,name);
   if(id) S.cache.set(id,stats);
   if(id&&S.view==='overview'){ try{ history.replaceState(null,'',location.search+'#'+id); }catch(e){} }
@@ -326,7 +326,7 @@ function drawSmallMap(){
   else { let mx=0; for(const x of cellSum) if(x>mx) mx=x; paintHeat(g,P,path,heatField(cellSum,mx)); }
 }
 function chartWeeks(){
-  const box=$('weekchart'), Wd=box.clientWidth; box.innerHTML=''; if(!Wd) return; const st=stats, H=Wd<520?170:220, T=22, B=26;
+  const box=$('weekchart'), Wd=box.clientWidth; box.innerHTML=''; if(!Wd) return; const st=stats, H=Wd<520?110:116, T=18, B=22;
   if(!st.core||st.total<30){ $('weekleg').innerHTML=''; return; }
   const root=svg('svg',{viewBox:`0 0 ${Wd} ${H}`,width:Wd,height:H,role:'img','aria-label':`Typical year in ${shortName(S.name)}. The busiest period is ${binDate(st.core.start)} to ${binEnd(st.core.start+st.core.len-1)}.`},box);
   const mx=Math.max(...st.clim)||1, step=Wd/W, gap=Math.min(2,step*.25), bw=Math.max(1,step-gap), y=v=>T+(H-T-B)*(1-v/mx), inWin=(w,b)=>w&&((b-w.start+W)%W)<w.len, nw=nowWeek();
@@ -338,49 +338,28 @@ function chartWeeks(){
   $('weekleg').innerHTML=`<span><span class="sw" style="background:var(--accent)"></span>Busiest period</span><span><span class="sw" style="background:var(--soft)"></span>Rest of the fire season</span><span><span class="sw" style="background:var(--bar)"></span>Quieter time</span>`;
 }
 function yearBars(box,vals,opts={}){
-  const Wd=box.clientWidth; box.innerHTML=''; if(!Wd) return; const H=Wd<520?180:230, T=26, B=24, mx=Math.max(...vals)||1, step=Wd/NY, gap=Math.min(5,step*.25), bw=step-gap, y=v=>T+(H-T-B)*(1-v/mx);
+  const Wd=box.clientWidth; box.innerHTML=''; if(!Wd) return; const H=opts.height||120, T=20, B=22, mx=Math.max(...vals)||1, step=Wd/NY, gap=Math.min(4,step*.22), bw=step-gap, y=v=>T+(H-T-B)*(1-v/mx);
   const root=svg('svg',{viewBox:`0 0 ${Wd} ${H}`,width:Wd,height:H,role:'img','aria-label':opts.label||'Fires detected each year'},box);
   if(opts.usual){ const uy=y(opts.usual); svg('line',{x1:0,x2:Wd,y1:uy,y2:uy,stroke:'var(--ink3)','stroke-width':1,'stroke-dasharray':'3 4'},root); }
-  vals.forEach((v,i)=>{ const Y=Y0+i, top=Math.min(y(v),H-B-1.5), sel=opts.selected===Y;
-    svg('rect',{x:i*step,y:top,width:bw,height:H-B-top,rx:Math.min(3,bw/2),fill:Y<VIIRS_Y?'var(--b)':'var(--accent)',opacity:opts.selected&&!sel?.55:1},root);
-    if(sel){ const t=svg('text',{x:Math.min(Wd-16,Math.max(16,i*step+bw/2)),y:top-7,'text-anchor':'middle',style:'font-weight:700;fill:var(--ink)'},root); t.textContent=Y; }
-    else if(opts.dots&&opts.dots.includes(Y)) svg('circle',{cx:i*step+bw/2,cy:top-8,r:Math.min(3.5,bw/2.5),fill:'var(--ink)'},root);
-    const hit=svg('rect',{x:i*step,y:0,width:step,height:H,fill:'transparent',style:'cursor:pointer'},root); hit.addEventListener('pointermove',e=>showTip(e,`<b>${Y}</b>About ${fmt(v)} fires detected${opts.dots&&opts.dots.includes(Y)?'<br>News story available':''}<br>Tap to see this year`)); hit.addEventListener('pointerleave',hideTip); if(opts.onPick) hit.addEventListener('click',()=>{ hideTip(); opts.onPick(Y); }); });
-  for(const Y of [2001,VIIRS_Y,YN]){ const t=svg('text',{x:Y===Y0?0:Y===YN?Wd:(Y-Y0)*step+bw/2,y:H-6,'text-anchor':Y===YN?'end':Y===Y0?'start':'middle'},root); t.textContent=Y; }
+  vals.forEach((v,i)=>{ const Y=Y0+i, top=Math.min(y(v),H-B-1.5);
+    svg('rect',{x:i*step,y:top,width:bw,height:H-B-top,rx:Math.min(3,bw/2),fill:Y<VIIRS_Y?'var(--b)':'var(--accent)'},root);
+    if(opts.mark&&opts.mark.includes(Y)){ const t=svg('text',{x:Math.min(Wd-16,Math.max(16,i*step+bw/2)),y:top-5,'text-anchor':'middle',style:'font-weight:700;fill:var(--ink)'},root); t.textContent=Y; }
+    const hit=svg('rect',{x:i*step,y:0,width:step,height:H,fill:'transparent'},root); hit.addEventListener('pointermove',e=>showTip(e,`<b>${Y}</b>About ${fmt(v)} fires detected${Y<VIIRS_Y?'<br>Estimated from the older satellite':''}`)); hit.addEventListener('pointerleave',hideTip); });
+  for(const Y of [2001,VIIRS_Y,YN]){ const t=svg('text',{x:Y===Y0?0:Y===YN?Wd:(Y-Y0)*step+bw/2,y:H-5,'text-anchor':Y===YN?'end':Y===Y0?'start':'middle'},root); t.textContent=Y; }
 }
 function inPoly(lat,lon,poly){ let c=false; for(let i=0,j=poly.length-1;i<poly.length;j=i++){ const [yi,xi]=poly[i],[yj,xj]=poly[j]; if((yi>lat)!==(yj>lat)&&lon<(xj-xi)*(lat-yi)/(yj-yi)+xi) c=!c; } return c; }
-/* A place's reasons. A custom area borrows the reasons of the preset place around its centre. */
+/* A place's reason. A custom area borrows the reason of the preset place around its centre. */
 function placeInfo(){
   const E=S.events.regions; if(S.id&&E[S.id]) return {id:S.id,own:true,...E[S.id]};
   if(S.cells&&S.cells.length){ const la=S.cells.reduce((s,i)=>s+C.lat[i],0)/S.cells.length, lo=S.cells.reduce((s,i)=>s+C.lon[i],0)/S.cells.length; for(const id of ['kerala','punjab_haryana','northeast','central','odisha','uttarakhand']){ const r=M.regions.find(x=>x.id===id); if(r.poly&&inPoly(la,lo,r.poly)) return {id,own:false,...E[id]}; } }
   return {id:'india',own:false,...E.india};
 }
-function eventStat(st,ev){
-  const bin=([m,d])=>Math.min(51,Math.floor((Date.UTC(2001,m-1,d)-Date.UTC(2001,0,1))/864e5/7)), a=bin(ev.from), z=bin(ev.to), sum=y=>{ let s=0; for(let b=a;b<=z;b++) s+=st.h[(y-Y0)*W+b]; return s; };
-  const me=sum(ev.year), others=[]; for(let y=2003;y<=YN;y++) if(y!==ev.year) others.push(sum(y));
-  const usual=median(others), ratio=usual>0?me/usual:0, rank=1+others.filter(x=>x>me).length;
-  return {me,usual,ratio,top:rank===1};
-}
-function satLine(s){ if(s.usual<10) return 'Too few fires detected here to compare.'; if(s.ratio>=1.25) return `Satellites saw about ${s.ratio.toFixed(1)} times a usual year in these weeks${s.top?', the highest since 2003':''}.`; if(s.ratio>=.75) return 'Satellites saw about a usual amount across this whole area.'; return `Satellites saw about ${Math.round((1-s.ratio)*100)}% less than a usual year in these weeks.`; }
-function newsUrl(y){
-  const st=stats, place=S.name.replace('the area around ','').replace(' (approx.)','').replace('Central India: MP & Chhattisgarh','Madhya Pradesh Chhattisgarh').replace('All India','India').replace(' & ',' ');
-  const wrap=st.season&&st.season.start+st.season.len>W, iso=b=>{ const d=new Date(Date.UTC(y,0,1+7*b)); return d.toISOString().slice(0,10); };
-  const after=st.season&&!wrap?iso(st.season.start):`${y}-01-01`, before=st.season&&!wrap?iso(st.season.start+st.season.len):`${y+1}-01-01`;
-  return 'https://news.google.com/search?q='+encodeURIComponent(`${place} fire after:${after} before:${before}`);
-}
 function renderYears(){
-  const st=stats, name=shortName(S.name), pool=st.annual.filter(r=>r.y>=2003), usual=median(pool.map(r=>r.h)), box=$('yearchart'), info=placeInfo(), events=info.own?info.events:[];
-  if(!(usual>0)){ $('yr-say').textContent='Too few fires were detected here to compare years.'; box.innerHTML=''; $('yr-detail').innerHTML=''; return; }
-  const sorted=[...pool].sort((a,b)=>b.h-a.h), hi=sorted[0], lo=sorted[sorted.length-1], last=st.annual[NY-1], rel=last.h/usual, lastTxt= rel>1.25?`${YN} was above a usual year.`:rel<.75?`${YN} was below a usual year.`:`${YN} was close to a usual year.`;
-  $('yr-say').textContent=`${hi.y} was the busiest year, with about ${(hi.h/usual).toFixed(1)} times as many fires detected as a usual year. ${lo.y} was the quietest. ${lastTxt}${reliability(st,S.cells)==='Low'?' This area has few records, so treat these comparisons as rough.':''}`;
-  if(!S.selYear){ let best=null,bv=-1; for(const ev of events){ const s=eventStat(st,ev); if(s.ratio>bv){bv=s.ratio;best=ev.year;} } S.selYear=best||hi.y; }
-  const y=S.selYear, pick=Y=>{ S.selYear=Y; renderYears(); };
-  yearBars(box,st.annual.map(r=>r.h),{selected:y,usual,dots:[...new Set(events.map(e=>e.year))],onPick:pick,label:`Fires detected each year in ${name}. Busiest ${hi.y}, quietest ${lo.y}.`});
-  const sel=$('yr-pick'); if(sel.options.length===0) for(let Y=YN;Y>=Y0;Y--) sel.add(new Option(Y,Y)); sel.value=y; sel.onchange=()=>pick(+sel.value);
-  const row=st.annual[y-Y0], ratio=row.h/usual, evs=events.filter(e=>e.year===y);
-  const cards=evs.map(ev=>`<article class="event"><p class="when">${esc(ev.when)}</p><h4>${esc(ev.title)}</h4><p>${esc(ev.summary)}</p><p class="sat">${satLine(eventStat(st,ev))}</p><a href="${esc(ev.url)}" target="_blank" rel="noopener">Read at ${esc(ev.outlet)}</a></article>`).join('');
-  const est=y<VIIRS_Y?' This is an estimate from the older satellite.':'';
-  $('yr-detail').innerHTML=`<h3>${y} in ${esc(name)}</h3><p class="lead">About ${fmt(row.h)} fires detected, ${ratio.toFixed(1)} times a usual year.${est}</p>${cards||`<p class="lead">We have not added a news story for this year.</p>`}<a class="newslink" href="${newsUrl(y)}" target="_blank" rel="noopener">Search Google News for fires in ${esc(name)} in ${y}</a>`;
+  const st=stats, name=shortName(S.name), pool=st.annual.filter(r=>r.y>=2003), usual=median(pool.map(r=>r.h)), box=$('yearchart');
+  if(!(usual>0)){ $('yr-say').textContent='Too few fires were detected here to compare years.'; box.innerHTML=''; return; }
+  const sorted=[...pool].sort((a,b)=>b.h-a.h), hi=sorted[0], lo=sorted[sorted.length-1], last=st.annual[NY-1], rel=last.h/usual, lastTxt= rel>1.25?`${YN} was above usual.`:rel<.75?`${YN} was below usual.`:`${YN} was close to usual.`;
+  $('yr-say').textContent=`Busiest: ${hi.y}, about ${(hi.h/usual).toFixed(1)} times a usual year. Quietest: ${lo.y}. ${lastTxt} The dotted line marks a usual year.${reliability(st,S.cells)==='Low'?' Few records here, so treat these as rough.':''}`;
+  yearBars(box,st.annual.map(r=>r.h),{mark:[hi.y,lo.y],usual,height:box.clientWidth<520?90:96,label:`Fires detected each year in ${name}. Busiest ${hi.y}, quietest ${lo.y}.`});
 }
 function renderWhy(){
   const info=placeInfo(), prefix=info.own?'':(info.id==='india'?'Across India: ':`Across ${shortName(M.regions.find(r=>r.id===info.id).name)}: `);
@@ -394,20 +373,26 @@ function drawBA(){
   const j=V.agreement.india.step_raw.toFixed(1);
   $('ba-say').textContent= y<VIIRS_Y ? `In ${y}, only the older satellite was flying. Before correction, India looks quiet because small fires go uncounted. After correction, we estimate what the sharper satellite would have seen.` : y===VIIRS_Y ? `In 2012 the sharper satellite starts. Compared with earlier years, the left map suddenly jumps. Over five years either side, it looks ${j} times busier. The right map stays steady.` : `From 2012 onward, both maps use the sharper satellite, so they match. Move back before 2012 to see the difference.`;
 }
+/* On arrival, play 2008 to 2014 once so the 2012 jump is seen, then rest on 2011. */
+function baIntro(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const seq=[2008,2009,2010,2011,2012,2013,2014]; let i=0;
+  S.baTimer=setInterval(()=>{ if(i<seq.length){ S.baYear=seq[i++]; drawBA(); } else { baPlay(false); S.baYear=2011; drawBA(); } },750);
+  $('ba-play').textContent='Pause'; $('ba-play').setAttribute('aria-pressed',true);
+}
 function baPlay(on){
   clearInterval(S.baTimer); S.baTimer=null; const btn=$('ba-play'); btn.textContent=on?'Pause':'Play years'; btn.setAttribute('aria-pressed',on);
   if(!on) return; if(S.baYear>=YN) { S.baYear=2008; drawBA(); }
   S.baTimer=setInterval(()=>{ if(S.baYear>=YN){ baPlay(false); return; } S.baYear++; drawBA(); },800);
 }
 function renderProblem(){
-  drawBA();
-  $('prob-how').textContent=`How it works: in 2012–2019 both satellites were flying, so we learned how their counts differ for each place and month. We then tested on 2020–2025, years the method had never seen. For all of India, the corrected older record came within ${Math.round(Math.abs(V.levels.week.india['Ember stratified'].bias_ratio-1)*100)}% of the newer satellite’s total. Years before 2012 are estimates and can’t be checked this way.`;
+  $('prob-how').textContent=`The correction was learned from 2012–2019, when both satellites flew, and tested on 2020–2025, where it came within ${Math.round(Math.abs(V.levels.week.india['Ember stratified'].bias_ratio-1)*100)}% of the newer satellite’s total for India.`;
 }
 function renderOverview(){
   if(S.view!=='overview'||!stats) return;
   const st=stats, name=shortName(S.name), nw=nowWeek(), enough=st.core&&st.total>=30;
   [...$('chips').children].forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===S.id));
-  drawSmallMap(); renderWhy();
+  drawSmallMap(); renderWhy(); drawBA(); renderProblem();
   $('ans-place').textContent=`Fire calendar for ${name}`;
   if(!enough){ $('ans-title').textContent='Too few fires were detected here to build a calendar.'; $('ans-sub').textContent='Try a larger or different area.'; $('ans-now').textContent='Not enough records to say.'; $('ans-rel').textContent='Not enough records to say.'; $('weekchart').innerHTML=''; $('weekleg').innerHTML=''; }
   else {
@@ -419,7 +404,6 @@ function renderOverview(){
     chartWeeks();
   }
   renderYears();
-  renderProblem();
 }
 function pickAround(lat,lon){
   const id=nearest(lat,lon); if(id<0) return;
@@ -481,6 +465,6 @@ load().then(()=>{
   setAOI(r.cells,r.name,r.id);
   if(id==='details'||q.get('view')==='details') setView('details');
   const t=q.get('tab'); if(t) setDetailTab(t);
-  const fy=q.get('year'); if(fy) { S.selYear=+fy; renderOverview(); }
+  if(S.view==='overview'&&!q.get('focus')&&!q.get('still')) baIntro();
   const fo=q.get('focus'); if(fo) { const el=$(fo); if(el){ const sec=el.closest('section'); document.querySelectorAll('#overview > section').forEach(s=>{ s.hidden=s!==sec; }); } }
 }).catch(e=>{ console.error(e); $('loading').innerHTML='The hotspot data could not load. If you opened this file directly, start a local server in the <code>app</code> folder with <code>python -m http.server 8000</code>, then open <code>http://localhost:8000</code>.'; });

@@ -71,15 +71,30 @@ body::before { content:""; position:fixed; inset:0 0 auto; height:env(safe-area-
 .answer { font:700 clamp(30px,4.6vw,44px)/1.12 var(--display); letter-spacing:-.015em; margin:0; text-wrap:balance }
 .legend-plain { display:flex; flex-wrap:wrap; gap:6px 20px; font-size:15px; color:var(--ink2) }
 .sw { display:inline-block; width:13px; height:13px; border-radius:3px; margin-right:7px; vertical-align:-1px }
-.statusrow { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr); gap:32px; margin-top:6px }
-.status h3 { font-size:15px; font-weight:600; color:var(--ink2); margin:0 0 3px }
-.status p { margin:0; font-size:17px }
-.yrdetail { display:flex; flex-direction:column; gap:12px; background:var(--chip); border-radius:12px; padding:20px 22px }
-.yrdetail h3 { font:700 21px/1.2 var(--display); margin:0 }
-.event { display:flex; flex-direction:column; gap:4px; background:var(--panel); border-radius:10px; padding:14px 16px }
-.event p { margin:0; font-size:16px } .event h4 { font:700 18px/1.25 var(--display); margin:0 }
-.event .when { font-size:14px; font-weight:600; color:var(--accent) } .event .sat { color:var(--ink2); font-size:15px }
-.newslink { font-weight:600 }
+.statusrow { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; margin-top:4px }
+.hero2 { padding-block:30px 30px; display:grid; grid-template-columns:minmax(0,400px) minmax(0,1fr); gap:20px 40px; align-items:start }
+.heroL,.heroR { display:flex; flex-direction:column; gap:14px; min-width:0 }
+.heroL .say { font-size:17px }
+.heroL .baspace { flex-direction:column; align-items:stretch; gap:6px }
+.heroL .baslider { flex:none }
+.hero2 h1 { font:700 clamp(30px,4.4vw,44px)/1.08 var(--display); letter-spacing:-.02em; margin:0; text-wrap:balance }
+.lead2 { margin:0; font-size:17px; color:var(--ink2) }
+.small { font-size:15px !important }
+.placehead { display:flex; flex-wrap:wrap; gap:4px 16px; align-items:baseline }
+#overview .block:nth-of-type(2) { padding-block:28px 36px; gap:14px }
+.dash { display:grid; grid-template-columns:minmax(0,250px) minmax(0,1fr); gap:32px; align-items:start; margin-top:4px }
+.dleft { display:flex; flex-direction:column; gap:9px; min-width:0 }
+.dleft .maphint { margin-top:-8px }
+.dleft #smap { max-width:170px }
+.dleft .status p { font-size:14.5px; line-height:1.4 }
+.dright { display:flex; flex-direction:column; gap:8px; min-width:0 }
+.dright .answer { font-size:clamp(24px,2.8vw,30px) }
+.dright > .lead { font-size:16px }
+.chartrow { display:flex; flex-wrap:wrap; gap:4px 18px; align-items:baseline; justify-content:space-between; margin-top:6px }
+.chartrow h3 { font:700 16px/1.3 var(--display); margin:0 }
+.chartrow .legend-plain { font-size:13.5px }
+.status h3 { font-size:14px; font-weight:600; color:var(--ink2); margin:0 0 3px }
+.status p { margin:0; font-size:16px }
 .baspace { display:flex; flex-wrap:wrap; gap:14px 24px; align-items:center }
 .bactl { display:flex; align-items:center; gap:16px }
 .bayear { font:700 40px/1 var(--display); font-variant-numeric:tabular-nums; min-width:92px }
@@ -88,7 +103,7 @@ body::before { content:""; position:fixed; inset:0 0 auto; height:env(safe-area-
 .baticks { position:relative; height:20px; font-size:14px; color:var(--ink2) } .baticks span { position:absolute; white-space:nowrap } .tick12 { transform:translateX(-50%); font-weight:600; color:var(--ink) }
 .bamaps { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px }
 .bamaps figure { margin:0; display:flex; flex-direction:column; gap:8px; min-width:0 } .bamaps figcaption { font:700 18px/1.2 var(--display) }
-.bamaps canvas { aspect-ratio:1/1.02; border-radius:10px } .bamaps .lead { font-size:15.5px }
+.bamaps canvas { aspect-ratio:1/1.02; border-radius:10px; max-width:min(100%, calc(100vh - 230px)); margin-inline:auto } .bamaps .lead { font-size:15.5px }
 .seg { display:inline-flex; background:var(--chip); border-radius:999px; padding:3px; align-self:flex-start; max-width:100% }
 .seg button { background:transparent; border:none; border-radius:999px; padding:7px 15px; font-size:16px; min-height:38px; color:var(--ink2) }
 .seg button[aria-pressed="true"] { background:var(--panel); color:var(--ink); font-weight:600 }
@@ -143,7 +158,9 @@ ul.list li:last-child { border-bottom:none }
 .tip b { display:block; font-weight:600 }
 @media (max-width:640px) { .ansgrid { grid-template-columns:minmax(0,1fr) } .ansgrid > div:last-child { max-width:220px } }
 @media (max-width:860px) { .dgrid { grid-template-columns:minmax(0,1fr) } #map { max-width:520px } .facts { grid-template-columns:repeat(2,minmax(0,1fr)) } .two { grid-template-columns:minmax(0,1fr) } }
-@media (max-width:860px) { .statusrow { grid-template-columns:minmax(0,1fr); gap:20px } }
+@media (max-width:980px) { .hero2 { grid-template-columns:minmax(0,1fr) } .heroL .baspace { flex-direction:row; align-items:center; flex-wrap:wrap } .heroL .baslider { flex:1 1 300px } }
+@media (max-width:860px) { .dash { grid-template-columns:minmax(0,1fr) } .dleft { order:2 } .dleft { display:grid; grid-template-columns:minmax(0,180px) minmax(0,1fr); gap:6px 18px } .dleft canvas { grid-row:span 5 } }
+@media (max-width:520px) { .dleft { display:flex } #smap { max-width:220px } }
 @media (max-width:640px) { .know { grid-template-columns:minmax(0,1fr); gap:22px } .tick12 { font-size:12.5px } .hero { padding-block:40px 32px } .block { padding-block:34px } }
 @media (max-width:440px) { .facts { grid-template-columns:minmax(0,1fr) } }
 @media (prefers-reduced-motion: reduce) { * { transition:none!important; animation:none!important } }
@@ -162,61 +179,50 @@ ul.list li:last-child { border-bottom:none }
 <div id="app" hidden>
   <!-- OVERVIEW -->
   <main id="overview" class="page">
-    <section class="hero">
-      <h1>See when fires usually burn, anywhere in India</h1>
-      <p>NASA satellites have recorded fires for 25 years, but older and newer satellites count them differently, so their records can’t be compared directly. Ember puts them on one scale and turns them into a simple fire calendar.</p>
-    </section>
-
-    <section class="pickhead" aria-labelledby="h-pick">
-      <h2 id="h-pick">Choose a place</h2>
-      <div class="chips" id="chips" role="group" aria-label="Places"></div>
-    </section>
-
-    <section class="block" aria-live="polite">
-      <div class="ansgrid">
-        <div class="anstext">
-          <p class="eyebrow" id="ans-place"></p>
-          <p class="answer" id="ans-title"></p>
-          <p class="lead" id="ans-sub"></p>
-        </div>
-        <div>
-          <canvas id="smap" aria-label="Map of South Asia with the chosen place highlighted. Select a location to see its fire calendar."></canvas>
-          <p class="maphint">Tap the map to choose the area around any spot.</p>
-        </div>
-      </div>
-      <div id="weekchart"></div>
-      <div class="legend-plain" id="weekleg"></div>
-      <p class="lead" style="font-size:16px">How to read this: each bar is one week of a typical year, January to December. Taller bars mean satellites detected more fires that week.</p>
-      <div class="statusrow">
-        <div class="status"><h3>Why then?</h3><p id="ans-why"></p></div>
-        <div class="status"><h3>Right now</h3><p id="ans-now"></p></div>
-        <div class="status"><h3>How reliable is this?</h3><p id="ans-rel"></p></div>
-      </div>
-    </section>
-
-    <section class="block">
-      <h2>Which years stood out?</h2>
-      <p class="say" id="yr-say"></p>
-      <div id="yearchart"></div>
-      <div class="legend-plain"><span><span class="sw" style="background:var(--b)"></span>Estimated from the older satellite</span><span><span class="sw" style="background:var(--accent)"></span>Measured by the newer satellite</span><span><span class="sw" style="background:var(--ink);border-radius:50%"></span>News story available</span></div>
-      <div class="row spread"><p class="lead" style="font-size:16px">Each bar is one year, and the dotted line marks a usual year. Tap a bar to see what was reported.</p><label class="f" for="yr-pick">Year<select id="yr-pick"></select></label></div>
-      <div class="yrdetail" id="yr-detail"></div>
-    </section>
-
-    <section class="block">
-      <h2>See the problem on a map</h2>
-      <p class="lead">Two NASA instruments watch for fires. MODIS, the older one, mostly sees larger fires. VIIRS, the newer one from 2012, is sharper and also sees small ones. It is like swapping a blurry camera for a sharp one: you suddenly count more, even if little has changed.</p>
+    <section class="hero2" aria-labelledby="h-hero">
+      <div class="heroL">
+      <h1 id="h-hero">One fire record from two NASA satellites</h1>
+      <p class="lead2">MODIS, the older satellite instrument, mostly sees larger fires. VIIRS, the newer one from 2012, is sharper and also sees small ones. Joined as they are, the record jumps in 2012 even though the fires barely changed. Ember corrects the older record so all 25 years can be compared.</p>
       <div class="baspace">
-        <div class="bactl"><button id="ba-play" class="btn" type="button" aria-pressed="false">Play years</button><div class="bayear" id="ba-year" aria-live="off">2011</div></div>
+        <div class="bactl"><button id="ba-play" class="btn" type="button" aria-pressed="false">Play years</button><div class="bayear" id="ba-year">2011</div></div>
         <div class="baslider"><input id="ba-slider" type="range" min="2001" max="2025" step="1" value="2011" aria-label="Choose a year"><div class="baticks"><span>2001</span><span style="left:45.83%" class="tick12">2012: sharper satellite starts</span><span style="right:0;left:auto">2025</span></div></div>
       </div>
       <p class="say" id="ba-say"></p>
+      </div>
+      <div class="heroR">
       <div class="bamaps">
         <figure><figcaption>Before correction</figcaption><canvas id="ba-before" aria-label="Map of fires detected in the chosen year, before correction"></canvas><p class="lead" id="ba-before-n"></p></figure>
         <figure><figcaption>After correction</figcaption><canvas id="ba-after" aria-label="Map of fires detected in the chosen year, after correction"></canvas><p class="lead" id="ba-after-n"></p></figure>
       </div>
-      <p class="lead" style="font-size:15px">Stronger colour means more fires detected. Both maps use the same colour scale. No boundaries are drawn.</p>
-      <p class="lead" style="font-size:16px" id="prob-how"></p>
+      <p class="lead small">Stronger colour means more fires detected, on the same colour scale in both maps. No boundaries are drawn. <span id="prob-how"></span></p>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="h-place">
+      <div class="placehead">
+        <h2 id="h-place">Fire calendar by place</h2>
+        <p class="lead">Choose a place to see when its fires are usually detected.</p>
+      </div>
+      <div class="chips" id="chips" role="group" aria-label="Places"></div>
+      <div class="dash" aria-live="polite">
+        <div class="dleft">
+          <canvas id="smap" aria-label="Map of South Asia with the chosen place highlighted. Select a location to see its fire calendar."></canvas>
+          <p class="maphint">Or tap the map to choose the area around any spot.</p>
+          <div class="status"><h3>Why then?</h3><p id="ans-why"></p></div>
+          <div class="status"><h3>Right now</h3><p id="ans-now"></p></div>
+          <div class="status"><h3>How reliable is this?</h3><p id="ans-rel"></p></div>
+        </div>
+        <div class="dright">
+          <p class="eyebrow" id="ans-place"></p>
+          <p class="answer" id="ans-title"></p>
+          <p class="lead" id="ans-sub"></p>
+          <div class="chartrow"><h3>A typical year, week by week</h3><div class="legend-plain" id="weekleg"></div></div>
+          <div id="weekchart"></div>
+          <div class="chartrow"><h3>Each year, 2001–2025</h3><div class="legend-plain"><span><span class="sw" style="background:var(--b)"></span>Estimated, older satellite</span><span><span class="sw" style="background:var(--accent)"></span>Newer satellite</span></div></div>
+          <div id="yearchart"></div>
+          <p class="lead small" id="yr-say"></p>
+        </div>
+      </div>
     </section>
 
     <section class="block">
@@ -234,7 +240,7 @@ ul.list li:last-child { border-bottom:none }
     </section>
   </main>
 
-  <!-- DETAILED DATA -->
+<!-- DETAILED DATA -->
   <main id="details" class="page" hidden>
     <div class="dhead">
       <h1>Detailed data</h1>
@@ -294,4 +300,4 @@ ul.list li:last-child { border-bottom:none }
   </main>
 </div>
 <div class="tip" id="tip" role="tooltip"></div>
-<script src="app.js"></script>
+<script src="app.js?v=4.0"></script>

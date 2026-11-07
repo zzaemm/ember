@@ -4,7 +4,7 @@
   "lists": "css",
   "title": "Ember: One Fire Calendar from Two Satellite Records",
   "cover": "cover",
-  "order": ["cover", "plain", "gap", "bamap", "users", "views", "sensors", "method", "proof", "regions", "kerala", "punjab", "reasons", "unusual", "central", "arch", "limits", "close", "qa", "sources"],
+  "order": ["cover", "plain", "gap", "bamap", "users", "views", "sensors", "method", "proof", "regions", "kerala", "punjab", "unusual", "central", "arch", "limits", "close", "qa", "sources"],
   "sections": {
     "s1": {"description": "Speaker 1: the problem, the people who need the answer, and our three perspectives.", "start": "cover"},
     "s2": {"description": "Speaker 2: why the sensors disagree and how we harmonize them.", "start": "sensors"},

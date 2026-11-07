@@ -2,6 +2,15 @@
 
 Each version below has a Git tag and a GitHub release. See "Working with versions" in `README.md` for how to open one.
 
+## v4.0: Problem first, one-screen places
+
+Tag: `v4.0`.
+
+- The page now opens on the before and after correction maps, with the explanation beside them. The maps play 2008 to 2014 once on arrival, then stop on 2011.
+- Each place's summary fits on one laptop screen: map, reason, right now and reliability on the left, and the answer, a typical year and each year on the right.
+- Removed the news stories and news search links. The short reason for each place stays.
+- Deck: the news slide was removed and screenshots were updated, leaving 19 slides.
+
 ## v3.0: Ember
 
 Tag: `v3.0`. The `main` branch starts here.
