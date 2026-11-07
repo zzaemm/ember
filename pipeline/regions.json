@@ -1,0 +1,22 @@
+{
+  "_note": "Approximate analysis areas, drawn by hand as simple polygons of [lat, lon]. They are not official administrative or national boundaries. FIRMS country files already limit detections to the country.",
+  "regions": [
+    {"id": "india", "name": "All India", "poly": null, "story": "Every grid cell in the FIRMS India country files."},
+    {"id": "kerala", "name": "Kerala (approx.)", "story": "Western Ghats forest and plantation fires.",
+     "poly": [[12.79,74.86],[12.60,75.25],[12.00,75.90],[11.65,76.45],[11.50,76.90],[10.80,76.90],[10.30,77.25],[10.10,77.28],[9.60,77.22],[9.40,77.28],[8.90,77.22],[8.40,77.18],[8.28,77.05],[8.70,76.62],[9.50,76.28],[10.20,76.12],[11.00,75.82],[11.80,75.32],[12.40,74.95]]},
+    {"id": "wayanad", "name": "Wayanad area (approx.)", "story": "Forest and plantation fires in the northern Western Ghats of Kerala.",
+     "poly": [[12.00,75.70],[12.00,76.50],[11.40,76.50],[11.40,75.70]]},
+    {"id": "tarn_taran", "name": "Amritsar & Tarn Taran area (approx.)", "story": "An intense paddy residue burning belt in Punjab.",
+     "poly": [[32.00,74.45],[32.00,75.45],[31.10,75.45],[31.10,74.45]]},
+    {"id": "punjab_haryana", "name": "Punjab & Haryana (approx.)", "story": "Paddy and wheat residue burning.",
+     "poly": [[32.45,75.20],[31.50,76.40],[30.90,77.00],[30.40,77.55],[29.20,77.25],[28.20,77.55],[27.70,77.00],[28.40,76.20],[28.90,75.50],[29.50,74.60],[29.60,73.85],[30.90,74.45],[31.60,74.55]]},
+    {"id": "northeast", "name": "Northeast India (approx.)", "story": "Shifting cultivation and forest fires.",
+     "poly": [[29.60,91.50],[29.60,97.50],[21.90,97.50],[21.90,91.50],[24.00,91.50],[25.00,89.70],[27.00,89.70]]},
+    {"id": "central", "name": "Central India: MP & Chhattisgarh (approx.)", "story": "Dry deciduous forest fires, with some crop residue burning.",
+     "poly": [[26.80,78.20],[25.20,82.30],[24.00,83.60],[22.00,84.40],[18.00,82.20],[19.50,80.30],[21.40,78.50],[21.40,76.00],[22.50,74.20],[24.50,74.80],[25.60,77.40]]},
+    {"id": "odisha", "name": "Odisha (approx.)", "story": "Forest fires in the Eastern Ghats and Similipal area.",
+     "poly": [[22.55,84.30],[22.40,86.60],[21.50,87.50],[20.20,86.80],[19.10,85.10],[17.85,82.50],[18.40,81.40],[20.00,82.20],[21.50,83.30]]},
+    {"id": "uttarakhand", "name": "Uttarakhand (approx.)", "story": "Himalayan pine forest fires before the monsoon.",
+     "poly": [[31.45,78.30],[30.40,81.05],[29.00,80.25],[28.75,79.50],[29.40,78.50],[29.95,77.60],[30.90,77.60]]}
+  ]
+}

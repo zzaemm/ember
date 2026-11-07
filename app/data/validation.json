@@ -1,0 +1,2172 @@
+{
+ "lambda": 50.0,
+ "k_global": 5.62,
+ "kfrp_global": 1.3,
+ "aqua_first": "2002-07-04",
+ "levels": {
+  "cell_month": {
+   "india": {
+    "no correction": {
+     "n": 138404,
+     "bias_ratio": 0.182,
+     "mae": 15.0,
+     "nmae": 0.829,
+     "r_log": 0.756,
+     "r": 0.903
+    },
+    "single national ratio": {
+     "n": 138404,
+     "bias_ratio": 1.02,
+     "mae": 10.91,
+     "nmae": 0.602,
+     "r_log": 0.708,
+     "r": 0.903
+    },
+    "national by month": {
+     "n": 138404,
+     "bias_ratio": 1.077,
+     "mae": 12.18,
+     "nmae": 0.672,
+     "r_log": 0.704,
+     "r": 0.873
+    },
+    "Ember stratified": {
+     "n": 138404,
+     "bias_ratio": 1.028,
+     "mae": 10.15,
+     "nmae": 0.561,
+     "r_log": 0.713,
+     "r": 0.924
+    }
+   }
+  },
+  "week": {
+   "india": {
+    "no correction": {
+     "n": 311,
+     "bias_ratio": 0.182,
+     "mae": 6594.17,
+     "nmae": 0.818,
+     "r_log": 0.984,
+     "r": 0.974
+    },
+    "single national ratio": {
+     "n": 311,
+     "bias_ratio": 1.02,
+     "mae": 1323.0,
+     "nmae": 0.164,
+     "r_log": 0.984,
+     "r": 0.974
+    },
+    "national by month": {
+     "n": 311,
+     "bias_ratio": 1.077,
+     "mae": 1357.05,
+     "nmae": 0.168,
+     "r_log": 0.985,
+     "r": 0.981
+    },
+    "Ember stratified": {
+     "n": 311,
+     "bias_ratio": 1.028,
+     "mae": 998.6,
+     "nmae": 0.124,
+     "r_log": 0.986,
+     "r": 0.989
+    }
+   },
+   "kerala": {
+    "no correction": {
+     "n": 206,
+     "bias_ratio": 0.147,
+     "mae": 35.56,
+     "nmae": 0.856,
+     "r_log": 0.881,
+     "r": 0.951
+    },
+    "single national ratio": {
+     "n": 206,
+     "bias_ratio": 0.825,
+     "mae": 13.65,
+     "nmae": 0.329,
+     "r_log": 0.859,
+     "r": 0.951
+    },
+    "national by month": {
+     "n": 206,
+     "bias_ratio": 1.114,
+     "mae": 20.6,
+     "nmae": 0.496,
+     "r_log": 0.854,
+     "r": 0.938
+    },
+    "Ember stratified": {
+     "n": 206,
+     "bias_ratio": 1.111,
+     "mae": 19.69,
+     "nmae": 0.474,
+     "r_log": 0.857,
+     "r": 0.937
+    }
+   },
+   "wayanad": {
+    "no correction": {
+     "n": 93,
+     "bias_ratio": 0.156,
+     "mae": 4.3,
+     "nmae": 0.866,
+     "r_log": 0.497,
+     "r": 0.75
+    },
+    "single national ratio": {
+     "n": 93,
+     "bias_ratio": 0.875,
+     "mae": 4.65,
+     "nmae": 0.937,
+     "r_log": 0.457,
+     "r": 0.75
+    },
+    "national by month": {
+     "n": 93,
+     "bias_ratio": 1.003,
+     "mae": 5.68,
+     "nmae": 1.143,
+     "r_log": 0.446,
+     "r": 0.725
+    },
+    "Ember stratified": {
+     "n": 93,
+     "bias_ratio": 0.965,
+     "mae": 5.61,
+     "nmae": 1.129,
+     "r_log": 0.436,
+     "r": 0.719
+    }
+   },
+   "tarn_taran": {
+    "no correction": {
+     "n": 259,
+     "bias_ratio": 0.222,
+     "mae": 135.85,
+     "nmae": 0.778,
+     "r_log": 0.93,
+     "r": 0.958
+    },
+    "single national ratio": {
+     "n": 259,
+     "bias_ratio": 1.246,
+     "mae": 70.68,
+     "nmae": 0.405,
+     "r_log": 0.908,
+     "r": 0.958
+    },
+    "national by month": {
+     "n": 259,
+     "bias_ratio": 1.092,
+     "mae": 57.98,
+     "nmae": 0.332,
+     "r_log": 0.904,
+     "r": 0.956
+    },
+    "Ember stratified": {
+     "n": 259,
+     "bias_ratio": 1.019,
+     "mae": 55.25,
+     "nmae": 0.317,
+     "r_log": 0.903,
+     "r": 0.956
+    }
+   },
+   "punjab_haryana": {
+    "no correction": {
+     "n": 306,
+     "bias_ratio": 0.229,
+     "mae": 821.39,
+     "nmae": 0.771,
+     "r_log": 0.943,
+     "r": 0.983
+    },
+    "single national ratio": {
+     "n": 306,
+     "bias_ratio": 1.289,
+     "mae": 405.57,
+     "nmae": 0.381,
+     "r_log": 0.931,
+     "r": 0.983
+    },
+    "national by month": {
+     "n": 306,
+     "bias_ratio": 1.174,
+     "mae": 317.58,
+     "nmae": 0.298,
+     "r_log": 0.931,
+     "r": 0.984
+    },
+    "Ember stratified": {
+     "n": 306,
+     "bias_ratio": 1.091,
+     "mae": 287.52,
+     "nmae": 0.27,
+     "r_log": 0.933,
+     "r": 0.982
+    }
+   },
+   "northeast": {
+    "no correction": {
+     "n": 284,
+     "bias_ratio": 0.286,
+     "mae": 778.91,
+     "nmae": 0.714,
+     "r_log": 0.971,
+     "r": 0.987
+    },
+    "single national ratio": {
+     "n": 284,
+     "bias_ratio": 1.606,
+     "mae": 686.12,
+     "nmae": 0.629,
+     "r_log": 0.963,
+     "r": 0.987
+    },
+    "national by month": {
+     "n": 284,
+     "bias_ratio": 1.418,
+     "mae": 491.0,
+     "nmae": 0.45,
+     "r_log": 0.961,
+     "r": 0.992
+    },
+    "Ember stratified": {
+     "n": 284,
+     "bias_ratio": 1.046,
+     "mae": 154.28,
+     "nmae": 0.141,
+     "r_log": 0.959,
+     "r": 0.993
+    }
+   },
+   "central": {
+    "no correction": {
+     "n": 306,
+     "bias_ratio": 0.163,
+     "mae": 1763.86,
+     "nmae": 0.837,
+     "r_log": 0.966,
+     "r": 0.98
+    },
+    "single national ratio": {
+     "n": 306,
+     "bias_ratio": 0.916,
+     "mae": 397.38,
+     "nmae": 0.189,
+     "r_log": 0.955,
+     "r": 0.98
+    },
+    "national by month": {
+     "n": 306,
+     "bias_ratio": 1.075,
+     "mae": 587.85,
+     "nmae": 0.279,
+     "r_log": 0.95,
+     "r": 0.959
+    },
+    "Ember stratified": {
+     "n": 306,
+     "bias_ratio": 0.989,
+     "mae": 323.18,
+     "nmae": 0.153,
+     "r_log": 0.952,
+     "r": 0.987
+    }
+   },
+   "odisha": {
+    "no correction": {
+     "n": 287,
+     "bias_ratio": 0.111,
+     "mae": 616.37,
+     "nmae": 0.889,
+     "r_log": 0.949,
+     "r": 0.96
+    },
+    "single national ratio": {
+     "n": 287,
+     "bias_ratio": 0.625,
+     "mae": 272.23,
+     "nmae": 0.393,
+     "r_log": 0.935,
+     "r": 0.96
+    },
+    "national by month": {
+     "n": 287,
+     "bias_ratio": 0.608,
+     "mae": 280.35,
+     "nmae": 0.404,
+     "r_log": 0.919,
+     "r": 0.975
+    },
+    "Ember stratified": {
+     "n": 287,
+     "bias_ratio": 0.971,
+     "mae": 184.41,
+     "nmae": 0.266,
+     "r_log": 0.926,
+     "r": 0.975
+    }
+   },
+   "uttarakhand": {
+    "no correction": {
+     "n": 264,
+     "bias_ratio": 0.131,
+     "mae": 242.48,
+     "nmae": 0.87,
+     "r_log": 0.931,
+     "r": 0.982
+    },
+    "single national ratio": {
+     "n": 264,
+     "bias_ratio": 0.737,
+     "mae": 89.44,
+     "nmae": 0.321,
+     "r_log": 0.914,
+     "r": 0.982
+    },
+    "national by month": {
+     "n": 264,
+     "bias_ratio": 0.825,
+     "mae": 72.87,
+     "nmae": 0.261,
+     "r_log": 0.915,
+     "r": 0.977
+    },
+    "Ember stratified": {
+     "n": 264,
+     "bias_ratio": 0.886,
+     "mae": 66.17,
+     "nmae": 0.237,
+     "r_log": 0.913,
+     "r": 0.98
+    }
+   }
+  },
+  "month": {
+   "india": {
+    "no correction": {
+     "n": 72,
+     "bias_ratio": 0.182,
+     "mae": 28483.17,
+     "nmae": 0.818,
+     "r_log": 0.991,
+     "r": 0.986
+    },
+    "single national ratio": {
+     "n": 72,
+     "bias_ratio": 1.02,
+     "mae": 4390.3,
+     "nmae": 0.126,
+     "r_log": 0.991,
+     "r": 0.986
+    },
+    "national by month": {
+     "n": 72,
+     "bias_ratio": 1.077,
+     "mae": 4834.74,
+     "nmae": 0.139,
+     "r_log": 0.994,
+     "r": 0.988
+    },
+    "Ember stratified": {
+     "n": 72,
+     "bias_ratio": 1.028,
+     "mae": 3586.61,
+     "nmae": 0.103,
+     "r_log": 0.995,
+     "r": 0.993
+    }
+   },
+   "kerala": {
+    "no correction": {
+     "n": 66,
+     "bias_ratio": 0.147,
+     "mae": 110.77,
+     "nmae": 0.854,
+     "r_log": 0.93,
+     "r": 0.97
+    },
+    "single national ratio": {
+     "n": 66,
+     "bias_ratio": 0.825,
+     "mae": 31.55,
+     "nmae": 0.243,
+     "r_log": 0.901,
+     "r": 0.97
+    },
+    "national by month": {
+     "n": 66,
+     "bias_ratio": 1.114,
+     "mae": 43.07,
+     "nmae": 0.332,
+     "r_log": 0.903,
+     "r": 0.972
+    },
+    "Ember stratified": {
+     "n": 66,
+     "bias_ratio": 1.111,
+     "mae": 43.43,
+     "nmae": 0.335,
+     "r_log": 0.908,
+     "r": 0.958
+    }
+   },
+   "wayanad": {
+    "no correction": {
+     "n": 34,
+     "bias_ratio": 0.156,
+     "mae": 11.47,
+     "nmae": 0.844,
+     "r_log": 0.808,
+     "r": 0.923
+    },
+    "single national ratio": {
+     "n": 34,
+     "bias_ratio": 0.875,
+     "mae": 5.42,
+     "nmae": 0.399,
+     "r_log": 0.779,
+     "r": 0.923
+    },
+    "national by month": {
+     "n": 34,
+     "bias_ratio": 1.003,
+     "mae": 8.05,
+     "nmae": 0.592,
+     "r_log": 0.755,
+     "r": 0.883
+    },
+    "Ember stratified": {
+     "n": 34,
+     "bias_ratio": 0.965,
+     "mae": 7.64,
+     "nmae": 0.562,
+     "r_log": 0.744,
+     "r": 0.879
+    }
+   },
+   "tarn_taran": {
+    "no correction": {
+     "n": 69,
+     "bias_ratio": 0.222,
+     "mae": 509.79,
+     "nmae": 0.778,
+     "r_log": 0.966,
+     "r": 0.976
+    },
+    "single national ratio": {
+     "n": 69,
+     "bias_ratio": 1.246,
+     "mae": 227.39,
+     "nmae": 0.347,
+     "r_log": 0.961,
+     "r": 0.976
+    },
+    "national by month": {
+     "n": 69,
+     "bias_ratio": 1.092,
+     "mae": 162.73,
+     "nmae": 0.248,
+     "r_log": 0.958,
+     "r": 0.972
+    },
+    "Ember stratified": {
+     "n": 69,
+     "bias_ratio": 1.019,
+     "mae": 155.9,
+     "nmae": 0.238,
+     "r_log": 0.954,
+     "r": 0.967
+    }
+   },
+   "punjab_haryana": {
+    "no correction": {
+     "n": 72,
+     "bias_ratio": 0.229,
+     "mae": 3490.32,
+     "nmae": 0.771,
+     "r_log": 0.966,
+     "r": 0.989
+    },
+    "single national ratio": {
+     "n": 72,
+     "bias_ratio": 1.289,
+     "mae": 1473.76,
+     "nmae": 0.325,
+     "r_log": 0.967,
+     "r": 0.989
+    },
+    "national by month": {
+     "n": 72,
+     "bias_ratio": 1.174,
+     "mae": 1127.23,
+     "nmae": 0.249,
+     "r_log": 0.971,
+     "r": 0.987
+    },
+    "Ember stratified": {
+     "n": 72,
+     "bias_ratio": 1.091,
+     "mae": 1058.43,
+     "nmae": 0.234,
+     "r_log": 0.975,
+     "r": 0.983
+    }
+   },
+   "northeast": {
+    "no correction": {
+     "n": 72,
+     "bias_ratio": 0.286,
+     "mae": 3072.22,
+     "nmae": 0.714,
+     "r_log": 0.976,
+     "r": 0.995
+    },
+    "single national ratio": {
+     "n": 72,
+     "bias_ratio": 1.606,
+     "mae": 2638.85,
+     "nmae": 0.613,
+     "r_log": 0.973,
+     "r": 0.995
+    },
+    "national by month": {
+     "n": 72,
+     "bias_ratio": 1.418,
+     "mae": 1838.75,
+     "nmae": 0.427,
+     "r_log": 0.972,
+     "r": 0.998
+    },
+    "Ember stratified": {
+     "n": 72,
+     "bias_ratio": 1.046,
+     "mae": 354.56,
+     "nmae": 0.082,
+     "r_log": 0.972,
+     "r": 0.999
+    }
+   },
+   "central": {
+    "no correction": {
+     "n": 72,
+     "bias_ratio": 0.163,
+     "mae": 7495.5,
+     "nmae": 0.837,
+     "r_log": 0.98,
+     "r": 0.981
+    },
+    "single national ratio": {
+     "n": 72,
+     "bias_ratio": 0.916,
+     "mae": 1423.25,
+     "nmae": 0.159,
+     "r_log": 0.98,
+     "r": 0.981
+    },
+    "national by month": {
+     "n": 72,
+     "bias_ratio": 1.075,
+     "mae": 1930.38,
+     "nmae": 0.216,
+     "r_log": 0.979,
+     "r": 0.963
+    },
+    "Ember stratified": {
+     "n": 72,
+     "bias_ratio": 0.989,
+     "mae": 979.89,
+     "nmae": 0.109,
+     "r_log": 0.983,
+     "r": 0.99
+    }
+   },
+   "odisha": {
+    "no correction": {
+     "n": 72,
+     "bias_ratio": 0.111,
+     "mae": 2456.79,
+     "nmae": 0.889,
+     "r_log": 0.974,
+     "r": 0.981
+    },
+    "single national ratio": {
+     "n": 72,
+     "bias_ratio": 0.625,
+     "mae": 1045.1,
+     "nmae": 0.378,
+     "r_log": 0.962,
+     "r": 0.981
+    },
+    "national by month": {
+     "n": 72,
+     "bias_ratio": 0.608,
+     "mae": 1093.72,
+     "nmae": 0.396,
+     "r_log": 0.95,
+     "r": 0.994
+    },
+    "Ember stratified": {
+     "n": 72,
+     "bias_ratio": 0.971,
+     "mae": 504.37,
+     "nmae": 0.182,
+     "r_log": 0.954,
+     "r": 0.989
+    }
+   },
+   "uttarakhand": {
+    "no correction": {
+     "n": 69,
+     "bias_ratio": 0.131,
+     "mae": 927.05,
+     "nmae": 0.869,
+     "r_log": 0.971,
+     "r": 0.99
+    },
+    "single national ratio": {
+     "n": 69,
+     "bias_ratio": 0.737,
+     "mae": 310.02,
+     "nmae": 0.291,
+     "r_log": 0.957,
+     "r": 0.99
+    },
+    "national by month": {
+     "n": 69,
+     "bias_ratio": 0.825,
+     "mae": 239.12,
+     "nmae": 0.224,
+     "r_log": 0.955,
+     "r": 0.987
+    },
+    "Ember stratified": {
+     "n": 69,
+     "bias_ratio": 0.886,
+     "mae": 166.0,
+     "nmae": 0.156,
+     "r_log": 0.955,
+     "r": 0.994
+    }
+   }
+  }
+ },
+ "frp_week_india": {
+  "no correction": {
+   "n": 311,
+   "bias_ratio": 0.745,
+   "mae": 16005.81,
+   "nmae": 0.292,
+   "r_log": 0.98,
+   "r": 0.96
+  },
+  "Ember stratified": {
+   "n": 311,
+   "bias_ratio": 1.078,
+   "mae": 9763.54,
+   "nmae": 0.178,
+   "r_log": 0.986,
+   "r": 0.978
+  }
+ },
+ "yearly": [
+  {
+   "year": 2012,
+   "viirs": 431716,
+   "modis": 82200,
+   "predicted": 438413,
+   "ratio": 5.25
+  },
+  {
+   "year": 2013,
+   "viirs": 344735,
+   "modis": 63314,
+   "predicted": 315279,
+   "ratio": 5.44
+  },
+  {
+   "year": 2014,
+   "viirs": 381428,
+   "modis": 67135,
+   "predicted": 337526,
+   "ratio": 5.68
+  },
+  {
+   "year": 2015,
+   "viirs": 332577,
+   "modis": 59605,
+   "predicted": 290757,
+   "ratio": 5.58
+  },
+  {
+   "year": 2016,
+   "viirs": 486931,
+   "modis": 79622,
+   "predicted": 421717,
+   "ratio": 6.12
+  },
+  {
+   "year": 2017,
+   "viirs": 415546,
+   "modis": 72514,
+   "predicted": 386061,
+   "ratio": 5.73
+  },
+  {
+   "year": 2018,
+   "viirs": 451397,
+   "modis": 79675,
+   "predicted": 433467,
+   "ratio": 5.67
+  },
+  {
+   "year": 2019,
+   "viirs": 360922,
+   "modis": 64804,
+   "predicted": 343734,
+   "ratio": 5.57
+  },
+  {
+   "year": 2020,
+   "viirs": 336408,
+   "modis": 65837,
+   "predicted": 333513,
+   "ratio": 5.11
+  },
+  {
+   "year": 2021,
+   "viirs": 562060,
+   "modis": 99558,
+   "predicted": 588277,
+   "ratio": 5.65
+  },
+  {
+   "year": 2022,
+   "viirs": 404252,
+   "modis": 76532,
+   "predicted": 425840,
+   "ratio": 5.28
+  },
+  {
+   "year": 2023,
+   "viirs": 391260,
+   "modis": 68144,
+   "predicted": 383367,
+   "ratio": 5.74
+  },
+  {
+   "year": 2024,
+   "viirs": 368291,
+   "modis": 61958,
+   "predicted": 361725,
+   "ratio": 5.94
+  },
+  {
+   "year": 2025,
+   "viirs": 443715,
+   "modis": 83168,
+   "predicted": 482544,
+   "ratio": 5.34
+  }
+ ],
+ "period_bias": {
+  "2020-2021": 1.026,
+  "2022-2023": 1.017,
+  "2024-2025": 1.04
+ },
+ "calendar": {
+  "india": {
+   "raw_splice": 89.1,
+   "harmonized": 31.1,
+   "modis_only": 33.3,
+   "season_start_bin": 43,
+   "season_len": 27,
+   "capture80": 88.2,
+   "capture80_by_year": [
+    82.4,
+    93.8,
+    88.5,
+    85.8,
+    83.9,
+    91.3
+   ],
+   "core_start_bin": 8,
+   "core_len": 9,
+   "capture50": 52.7,
+   "uniform80": 51.9,
+   "annual_h": [
+    318186,
+    222153,
+    249644,
+    279435,
+    277418,
+    281226,
+    338654,
+    340371,
+    445513,
+    357815,
+    335288,
+    446096,
+    344735,
+    381428,
+    332577,
+    486931,
+    415546,
+    451397,
+    363765,
+    336408,
+    562188,
+    404453,
+    391580,
+    383854,
+    447678
+   ],
+   "annual_m": [
+    16783,
+    23333,
+    50983,
+    58815,
+    57335,
+    59500,
+    68040,
+    64334,
+    82022,
+    68691,
+    64457,
+    84578,
+    63314,
+    67135,
+    59605,
+    78999,
+    72514,
+    79675,
+    65533,
+    65837,
+    99580,
+    71650,
+    68199,
+    64288,
+    83874
+   ],
+   "annual_v": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    431716,
+    344735,
+    381428,
+    332577,
+    486931,
+    415546,
+    451397,
+    360937,
+    336408,
+    562068,
+    404252,
+    391291,
+    368363,
+    444074
+   ],
+   "cells": 4618
+  },
+  "kerala": {
+   "raw_splice": 29.5,
+   "harmonized": 5.4,
+   "modis_only": 3.2,
+   "season_start_bin": 4,
+   "season_len": 10,
+   "capture80": 75.8,
+   "capture80_by_year": [
+    74.0,
+    82.9,
+    75.9,
+    79.7,
+    67.7,
+    80.0
+   ],
+   "core_start_bin": 6,
+   "core_len": 5,
+   "capture50": 49.3,
+   "uniform80": 19.2,
+   "annual_h": [
+    1041,
+    3088,
+    1451,
+    5773,
+    1173,
+    1145,
+    3808,
+    1278,
+    4700,
+    1341,
+    1285,
+    4493,
+    1989,
+    1976,
+    1430,
+    2988,
+    3137,
+    1369,
+    2524,
+    1517,
+    503,
+    877,
+    2478,
+    1963,
+    1228
+   ],
+   "annual_m": [
+    55,
+    168,
+    191,
+    858,
+    179,
+    176,
+    535,
+    212,
+    650,
+    184,
+    185,
+    663,
+    231,
+    274,
+    201,
+    371,
+    419,
+    218,
+    361,
+    242,
+    81,
+    118,
+    342,
+    273,
+    202
+   ],
+   "annual_v": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    4199,
+    1989,
+    1976,
+    1430,
+    2988,
+    3137,
+    1369,
+    2524,
+    1517,
+    503,
+    877,
+    2478,
+    1957,
+    1228
+   ],
+   "cells": 63
+  },
+  "wayanad": {
+   "raw_splice": 5.4,
+   "harmonized": 0.6,
+   "modis_only": 0.6,
+   "season_start_bin": 5,
+   "season_len": 7,
+   "capture80": 65.4,
+   "capture80_by_year": [
+    54.2,
+    50.0,
+    81.1,
+    73.8,
+    55.6,
+    60.5
+   ],
+   "core_start_bin": 6,
+   "core_len": 4,
+   "capture50": 45.9,
+   "uniform80": 13.5,
+   "annual_h": [
+    118,
+    211,
+    157,
+    1266,
+    404,
+    292,
+    422,
+    347,
+    773,
+    129,
+    279,
+    579,
+    108,
+    201,
+    134,
+    297,
+    423,
+    84,
+    142,
+    59,
+    38,
+    53,
+    168,
+    63,
+    81
+   ],
+   "annual_m": [
+    6,
+    11,
+    37,
+    227,
+    77,
+    57,
+    89,
+    75,
+    135,
+    23,
+    45,
+    143,
+    15,
+    55,
+    25,
+    55,
+    54,
+    19,
+    29,
+    9,
+    5,
+    9,
+    31,
+    7,
+    11
+   ],
+   "annual_v": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    569,
+    108,
+    201,
+    134,
+    297,
+    423,
+    84,
+    142,
+    59,
+    38,
+    53,
+    168,
+    63,
+    81
+   ],
+   "cells": 6
+  },
+  "tarn_taran": {
+   "raw_splice": 53.2,
+   "harmonized": 14.7,
+   "modis_only": 13.1,
+   "season_start_bin": 18,
+   "season_len": 27,
+   "capture80": 85.4,
+   "capture80_by_year": [
+    96.1,
+    88.6,
+    68.1,
+    83.3,
+    86.6,
+    86.8
+   ],
+   "core_start_bin": 40,
+   "core_len": 5,
+   "capture50": 55.4,
+   "uniform80": 51.9,
+   "annual_h": [
+    5865,
+    7853,
+    6556,
+    5941,
+    7727,
+    5784,
+    7862,
+    7298,
+    8931,
+    7578,
+    8906,
+    9191,
+    8615,
+    10723,
+    8223,
+    11612,
+    8711,
+    7857,
+    9301,
+    10809,
+    10849,
+    8728,
+    5914,
+    4949,
+    4657
+   ],
+   "annual_m": [
+    509,
+    1265,
+    1553,
+    1380,
+    1806,
+    1320,
+    1782,
+    1691,
+    2039,
+    1759,
+    1976,
+    2366,
+    1971,
+    2054,
+    1536,
+    2587,
+    1813,
+    1831,
+    2150,
+    2265,
+    2305,
+    2168,
+    1298,
+    1060,
+    1021
+   ],
+   "annual_v": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    9191,
+    8615,
+    10723,
+    8223,
+    11612,
+    8711,
+    7857,
+    8889,
+    10809,
+    10849,
+    8728,
+    5904,
+    4586,
+    4370
+   ],
+   "cells": 16
+  },
+  "punjab_haryana": {
+   "raw_splice": 67.9,
+   "harmonized": 9.6,
+   "modis_only": 17.6,
+   "season_start_bin": 38,
+   "season_len": 23,
+   "capture80": 73.6,
+   "capture80_by_year": [
+    85.0,
+    85.2,
+    75.0,
+    70.7,
+    44.5,
+    33.8
+   ],
+   "core_start_bin": 42,
+   "core_len": 3,
+   "capture50": 50.2,
+   "uniform80": 44.2,
+   "annual_h": [
+    62038,
+    65736,
+    61018,
+    52701,
+    85830,
+    57012,
+    82517,
+    84894,
+    78826,
+    74515,
+    79109,
+    84913,
+    79068,
+    88851,
+    76051,
+    101392,
+    73099,
+    75180,
+    65815,
+    81683,
+    91106,
+    59627,
+    43287,
+    31819,
+    25437
+   ],
+   "annual_m": [
+    4661,
+    13036,
+    14792,
+    12979,
+    19513,
+    13402,
+    18754,
+    18503,
+    17735,
+    16496,
+    17658,
+    20591,
+    18290,
+    18430,
+    14919,
+    21485,
+    14564,
+    17078,
+    14445,
+    18032,
+    20106,
+    14056,
+    9900,
+    7413,
+    6409
+   ],
+   "annual_v": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    84721,
+    79068,
+    88851,
+    76051,
+    101392,
+    73099,
+    75180,
+    63199,
+    81683,
+    91101,
+    59623,
+    43249,
+    27552,
+    23124
+   ],
+   "cells": 150
+  },
+  "northeast": {
+   "raw_splice": 53.8,
+   "harmonized": 2.9,
+   "modis_only": 4.8,
+   "season_start_bin": 6,
+   "season_len": 9,
+   "capture80": 83.8,
+   "capture80_by_year": [
+    89.2,
+    81.6,
+    84.1,
+    81.5,
+    78.1,
+    87.3
+   ],
+   "core_start_bin": 9,
+   "core_len": 4,
+   "capture50": 57.9,
+   "uniform80": 17.3,
+   "annual_h": [
+    90586,
+    34696,
+    59175,
+    72268,
+    57040,
+    105912,
+    82177,
+    52804,
+    116044,
+    94331,
+    51852,
+    71743,
+    62302,
+    81467,
+    60257,
+    47127,
+    41616,
+    41015,
+    43654,
+    49220,
+    67281,
+    45416,
+    51678,
+    38690,
+    57548
+   ],
+   "annual_m": [
+    3913,
+    2044,
+    17415,
+    21144,
+    16417,
+    26678,
+    22259,
+    14615,
+    26910,
+    23032,
+    14653,
+    21053,
+    17603,
+    19995,
+    16954,
+    13178,
+    11516,
+    12807,
+    12461,
+    14911,
+    19750,
+    13246,
+    13464,
+    11145,
+    15040
+   ],
+   "annual_v": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    70282,
+    62302,
+    81467,
+    60257,
+    47127,
+    41616,
+    41015,
+    43651,
+    49220,
+    67276,
+    45412,
+    51673,
+    38671,
+    57517
+   ],
+   "cells": 409
+  },
+  "central": {
+   "raw_splice": 83.7,
+   "harmonized": 52.2,
+   "modis_only": 50.3,
+   "season_start_bin": 7,
+   "season_len": 12,
+   "capture80": 68.1,
+   "capture80_by_year": [
+    62.2,
+    82.7,
+    73.7,
+    56.4,
+    54.7,
+    67.8
+   ],
+   "core_start_bin": 11,
+   "core_len": 5,
+   "capture50": 43.7,
+   "uniform80": 23.1,
+   "annual_h": [
+    39023,
+    25316,
+    25618,
+    30260,
+    27950,
+    20440,
+    35666,
+    50232,
+    75216,
+    57535,
+    66168,
+    77472,
+    53208,
+    49489,
+    53517,
+    100410,
+    117077,
+    110769,
+    81311,
+    69528,
+    143248,
+    110610,
+    94316,
+    85550,
+    144902
+   ],
+   "annual_m": [
+    1852,
+    1532,
+    3603,
+    5457,
+    4387,
+    3617,
+    5744,
+    8661,
+    11758,
+    9296,
+    11299,
+    12178,
+    7833,
+    7604,
+    8221,
+    13286,
+    19304,
+    18004,
+    12921,
+    13022,
+    22912,
+    16239,
+    14368,
+    12415,
+    24665
+   ],
+   "annual_v": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    73021,
+    53208,
+    49489,
+    53517,
+    100410,
+    117077,
+    110769,
+    81209,
+    69528,
+    143243,
+    110602,
+    94307,
+    82349,
+    144853
+   ],
+   "cells": 760
+  },
+  "odisha": {
+   "raw_splice": 74.7,
+   "harmonized": 39.7,
+   "modis_only": 28.5,
+   "season_start_bin": 7,
+   "season_len": 9,
+   "capture80": 74.4,
+   "capture80_by_year": [
+    52.4,
+    88.8,
+    68.6,
+    72.7,
+    59.0,
+    71.5
+   ],
+   "core_start_bin": 9,
+   "core_len": 5,
+   "capture50": 50.9,
+   "uniform80": 17.3,
+   "annual_h": [
+    24429,
+    11060,
+    21755,
+    19265,
+    19414,
+    16343,
+    23138,
+    14578,
+    32082,
+    26328,
+    20357,
+    37122,
+    31260,
+    30949,
+    26501,
+    42859,
+    38251,
+    43011,
+    18153,
+    13258,
+    65242,
+    23163,
+    41580,
+    23009,
+    32966
+   ],
+   "annual_m": [
+    735,
+    294,
+    2912,
+    2855,
+    2745,
+    2476,
+    3306,
+    1959,
+    3903,
+    3359,
+    2374,
+    4250,
+    3191,
+    2720,
+    2595,
+    4274,
+    4938,
+    4649,
+    2292,
+    1697,
+    6702,
+    2541,
+    5052,
+    2279,
+    3699
+   ],
+   "annual_v": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    35089,
+    31260,
+    30949,
+    26501,
+    42859,
+    38251,
+    43011,
+    18153,
+    13258,
+    65243,
+    23157,
+    41583,
+    22843,
+    32967
+   ],
+   "cells": 244
+  },
+  "uttarakhand": {
+   "raw_splice": 56.1,
+   "harmonized": 19.2,
+   "modis_only": 16.0,
+   "season_start_bin": 9,
+   "season_len": 15,
+   "capture80": 71.8,
+   "capture80_by_year": [
+    11.4,
+    79.9,
+    89.1,
+    50.3,
+    82.5,
+    44.4
+   ],
+   "core_start_bin": 16,
+   "core_len": 6,
+   "capture50": 28.4,
+   "uniform80": 28.8,
+   "annual_h": [
+    6400,
+    5357,
+    10397,
+    13484,
+    9301,
+    4095,
+    5397,
+    19227,
+    17764,
+    10129,
+    2779,
+    20880,
+    3871,
+    10934,
+    7878,
+    27108,
+    6335,
+    15238,
+    14142,
+    5520,
+    21793,
+    13907,
+    6449,
+    21095,
+    6112
+   ],
+   "annual_m": [
+    375,
+    468,
+    1504,
+    1805,
+    1355,
+    772,
+    911,
+    2296,
+    2328,
+    1519,
+    551,
+    2772,
+    547,
+    1217,
+    978,
+    3560,
+    969,
+    2119,
+    1874,
+    849,
+    2817,
+    1559,
+    885,
+    2787,
+    851
+   ],
+   "annual_v": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    20736,
+    3871,
+    10934,
+    7878,
+    27108,
+    6335,
+    15238,
+    14142,
+    5520,
+    21793,
+    13907,
+    6449,
+    19836,
+    6129
+   ],
+   "cells": 87
+  }
+ },
+ "persistent_mask": {
+  "persistent_bins": 1246,
+  "removed_detections": 308099,
+  "removed_share_pct": 4.02,
+  "removed_by_sensor_pct": {
+   "terra": 4.42,
+   "aqua": 3.44,
+   "viirs": 4.11
+  },
+  "top": [
+   {
+    "lat": 22.02,
+    "lon": 83.74,
+    "n": 1314
+   },
+   {
+    "lat": 24.14,
+    "lon": 82.56,
+    "n": 1287
+   },
+   {
+    "lat": 25.02,
+    "lon": 87.36,
+    "n": 1264
+   },
+   {
+    "lat": 22.1,
+    "lon": 83.52,
+    "n": 1077
+   },
+   {
+    "lat": 23.76,
+    "lon": 86.36,
+    "n": 1041
+   },
+   {
+    "lat": 20.94,
+    "lon": 85.0,
+    "n": 1015
+   },
+   {
+    "lat": 20.96,
+    "lon": 86.0,
+    "n": 991
+   },
+   {
+    "lat": 21.76,
+    "lon": 83.82,
+    "n": 985
+   },
+   {
+    "lat": 22.32,
+    "lon": 82.52,
+    "n": 979
+   },
+   {
+    "lat": 22.32,
+    "lon": 82.56,
+    "n": 944
+   },
+   {
+    "lat": 22.32,
+    "lon": 82.54,
+    "n": 936
+   },
+   {
+    "lat": 20.96,
+    "lon": 85.14,
+    "n": 903
+   },
+   {
+    "lat": 18.72,
+    "lon": 79.52,
+    "n": 897
+   },
+   {
+    "lat": 23.82,
+    "lon": 84.94,
+    "n": 874
+   },
+   {
+    "lat": 24.14,
+    "lon": 82.6,
+    "n": 860
+   }
+  ]
+ },
+ "leave_one_year_out_week": {
+  "india": {
+   "Ember stratified": {
+    "n": 414,
+    "bias_ratio": 0.958,
+    "mae": 1028.0,
+    "nmae": 0.133,
+    "r_log": 0.986,
+    "r": 0.979,
+    "spearman": 0.986,
+    "median_abs_error": 353.14,
+    "variance_ratio": 0.97
+   },
+   "no correction": {
+    "n": 414,
+    "bias_ratio": 0.177,
+    "mae": 6368.07,
+    "nmae": 0.823,
+    "r_log": 0.984,
+    "r": 0.969
+   }
+  },
+  "kerala": {
+   "Ember stratified": {
+    "n": 297,
+    "bias_ratio": 1.02,
+    "mae": 20.99,
+    "nmae": 0.318,
+    "r_log": 0.868,
+    "r": 0.967,
+    "spearman": 0.852,
+    "median_abs_error": 7.33,
+    "variance_ratio": 1.35
+   },
+   "no correction": {
+    "n": 297,
+    "bias_ratio": 0.139,
+    "mae": 56.95,
+    "nmae": 0.863,
+    "r_log": 0.889,
+    "r": 0.977
+   }
+  },
+  "wayanad": {
+   "Ember stratified": {
+    "n": 144,
+    "bias_ratio": 1.092,
+    "mae": 9.2,
+    "nmae": 0.676,
+    "r_log": 0.768,
+    "r": 0.84,
+    "spearman": 0.655,
+    "median_abs_error": 3.66,
+    "variance_ratio": 1.36
+   },
+   "no correction": {
+    "n": 144,
+    "bias_ratio": 0.202,
+    "mae": 10.89,
+    "nmae": 0.801,
+    "r_log": 0.818,
+    "r": 0.89
+   }
+  },
+  "tarn_taran": {
+   "Ember stratified": {
+    "n": 336,
+    "bias_ratio": 1.005,
+    "mae": 52.69,
+    "nmae": 0.24,
+    "r_log": 0.876,
+    "r": 0.962,
+    "spearman": 0.822,
+    "median_abs_error": 10.0,
+    "variance_ratio": 1.04
+   },
+   "no correction": {
+    "n": 336,
+    "bias_ratio": 0.22,
+    "mae": 171.72,
+    "nmae": 0.782,
+    "r_log": 0.91,
+    "r": 0.963
+   }
+  },
+  "punjab_haryana": {
+   "Ember stratified": {
+    "n": 403,
+    "bias_ratio": 1.012,
+    "mae": 315.5,
+    "nmae": 0.198,
+    "r_log": 0.928,
+    "r": 0.977,
+    "spearman": 0.945,
+    "median_abs_error": 38.73,
+    "variance_ratio": 0.98
+   },
+   "no correction": {
+    "n": 403,
+    "bias_ratio": 0.217,
+    "mae": 1247.14,
+    "nmae": 0.783,
+    "r_log": 0.938,
+    "r": 0.974
+   }
+  },
+  "northeast": {
+   "Ember stratified": {
+    "n": 389,
+    "bias_ratio": 1.031,
+    "mae": 160.24,
+    "nmae": 0.139,
+    "r_log": 0.958,
+    "r": 0.987,
+    "spearman": 0.97,
+    "median_abs_error": 24.48,
+    "variance_ratio": 1.12
+   },
+   "no correction": {
+    "n": 389,
+    "bias_ratio": 0.28,
+    "mae": 829.05,
+    "nmae": 0.72,
+    "r_log": 0.975,
+    "r": 0.982
+   }
+  },
+  "central": {
+   "Ember stratified": {
+    "n": 388,
+    "bias_ratio": 0.921,
+    "mae": 306.68,
+    "nmae": 0.186,
+    "r_log": 0.952,
+    "r": 0.965,
+    "spearman": 0.976,
+    "median_abs_error": 78.25,
+    "variance_ratio": 1.03
+   },
+   "no correction": {
+    "n": 388,
+    "bias_ratio": 0.155,
+    "mae": 1391.49,
+    "nmae": 0.845,
+    "r_log": 0.961,
+    "r": 0.966
+   }
+  },
+  "odisha": {
+   "Ember stratified": {
+    "n": 344,
+    "bias_ratio": 0.826,
+    "mae": 198.63,
+    "nmae": 0.257,
+    "r_log": 0.949,
+    "r": 0.947,
+    "spearman": 0.96,
+    "median_abs_error": 24.7,
+    "variance_ratio": 0.76
+   },
+   "no correction": {
+    "n": 344,
+    "bias_ratio": 0.108,
+    "mae": 690.32,
+    "nmae": 0.893,
+    "r_log": 0.958,
+    "r": 0.961
+   }
+  },
+  "uttarakhand": {
+   "Ember stratified": {
+    "n": 338,
+    "bias_ratio": 0.996,
+    "mae": 84.28,
+    "nmae": 0.268,
+    "r_log": 0.923,
+    "r": 0.985,
+    "spearman": 0.949,
+    "median_abs_error": 21.19,
+    "variance_ratio": 1.45
+   },
+   "no correction": {
+    "n": 338,
+    "bias_ratio": 0.132,
+    "mae": 272.92,
+    "nmae": 0.868,
+    "r_log": 0.927,
+    "r": 0.988
+   }
+  }
+ },
+ "loglog": {
+  "slope": 0.96,
+  "intercept": 1.537,
+  "n": 68660
+ },
+ "modis_blind": {
+  "cellmonths_share_pct": 55.6,
+  "viirs_share_pct": 10.4
+ },
+ "platform_ratio": [
+  {
+   "year": 2012,
+   "v_over_terra": 18.65,
+   "v_over_aqua": 7.31
+  },
+  {
+   "year": 2013,
+   "v_over_terra": 20.07,
+   "v_over_aqua": 7.47
+  },
+  {
+   "year": 2014,
+   "v_over_terra": 20.27,
+   "v_over_aqua": 7.89
+  },
+  {
+   "year": 2015,
+   "v_over_terra": 20.52,
+   "v_over_aqua": 7.66
+  },
+  {
+   "year": 2016,
+   "v_over_terra": 23.19,
+   "v_over_aqua": 8.39
+  },
+  {
+   "year": 2017,
+   "v_over_terra": 20.39,
+   "v_over_aqua": 7.97
+  },
+  {
+   "year": 2018,
+   "v_over_terra": 19.45,
+   "v_over_aqua": 7.99
+  },
+  {
+   "year": 2019,
+   "v_over_terra": 16.9,
+   "v_over_aqua": 8.31
+  },
+  {
+   "year": 2020,
+   "v_over_terra": 17.56,
+   "v_over_aqua": 7.21
+  },
+  {
+   "year": 2021,
+   "v_over_terra": 19.78,
+   "v_over_aqua": 7.9
+  },
+  {
+   "year": 2022,
+   "v_over_terra": 17.63,
+   "v_over_aqua": 8.3
+  },
+  {
+   "year": 2023,
+   "v_over_terra": 19.52,
+   "v_over_aqua": 8.13
+  },
+  {
+   "year": 2024,
+   "v_over_terra": 19.38,
+   "v_over_aqua": 8.57
+  },
+  {
+   "year": 2025,
+   "v_over_terra": 18.42,
+   "v_over_aqua": 7.51
+  }
+ ],
+ "agreement": {
+  "india": {
+   "weeks": 307,
+   "agreement_pct": 84.0,
+   "weighted_kappa": 0.691,
+   "onset_mae_weeks": 0.15,
+   "peak_mae_weeks": 0.62,
+   "peak_median_weeks": 0.0,
+   "seasons": 13,
+   "step_raw": 5.69,
+   "step_harmonized": 1.1,
+   "step_modis_only": 1.02
+  },
+  "kerala": {
+   "weeks": 221,
+   "agreement_pct": 81.4,
+   "weighted_kappa": 0.536,
+   "onset_mae_weeks": 1.0,
+   "peak_mae_weeks": 1.38,
+   "peak_median_weeks": 0.0,
+   "seasons": 13,
+   "step_raw": 7.12,
+   "step_harmonized": 1.04,
+   "step_modis_only": 0.99
+  },
+  "wayanad": {
+   "weeks": 114,
+   "agreement_pct": 73.7,
+   "weighted_kappa": 0.343,
+   "onset_mae_weeks": 2.83,
+   "peak_mae_weeks": 2.58,
+   "peak_median_weeks": 1.0,
+   "seasons": 12,
+   "step_raw": 3.57,
+   "step_harmonized": 0.68,
+   "step_modis_only": 0.8
+  },
+  "tarn_taran": {
+   "weeks": 268,
+   "agreement_pct": 72.4,
+   "weighted_kappa": 0.426,
+   "onset_mae_weeks": 0.08,
+   "peak_mae_weeks": 5.69,
+   "peak_median_weeks": 0.0,
+   "seasons": 13,
+   "step_raw": 5.23,
+   "step_harmonized": 1.19,
+   "step_modis_only": 1.14
+  },
+  "punjab_haryana": {
+   "weeks": 307,
+   "agreement_pct": 71.3,
+   "weighted_kappa": 0.475,
+   "onset_mae_weeks": 0.54,
+   "peak_mae_weeks": 2.23,
+   "peak_median_weeks": 0.0,
+   "seasons": 13,
+   "step_raw": 4.82,
+   "step_harmonized": 1.08,
+   "step_modis_only": 1.05
+  },
+  "northeast": {
+   "weeks": 307,
+   "agreement_pct": 81.8,
+   "weighted_kappa": 0.577,
+   "onset_mae_weeks": 0.31,
+   "peak_mae_weeks": 0.23,
+   "peak_median_weeks": 0.0,
+   "seasons": 13,
+   "step_raw": 3.17,
+   "step_harmonized": 0.81,
+   "step_modis_only": 0.87
+  },
+  "central": {
+   "weeks": 301,
+   "agreement_pct": 78.7,
+   "weighted_kappa": 0.654,
+   "onset_mae_weeks": 0.62,
+   "peak_mae_weeks": 0.08,
+   "peak_median_weeks": 0.0,
+   "seasons": 13,
+   "step_raw": 7.05,
+   "step_harmonized": 1.17,
+   "step_modis_only": 1.05
+  },
+  "odisha": {
+   "weeks": 245,
+   "agreement_pct": 75.1,
+   "weighted_kappa": 0.616,
+   "onset_mae_weeks": 0.46,
+   "peak_mae_weeks": 0.54,
+   "peak_median_weeks": 0.0,
+   "seasons": 13,
+   "step_raw": 11.18,
+   "step_harmonized": 1.45,
+   "step_modis_only": 1.14
+  },
+  "uttarakhand": {
+   "weeks": 250,
+   "agreement_pct": 86.0,
+   "weighted_kappa": 0.737,
+   "onset_mae_weeks": 1.15,
+   "peak_mae_weeks": 2.62,
+   "peak_median_weeks": 0.0,
+   "seasons": 13,
+   "step_raw": 9.27,
+   "step_harmonized": 1.28,
+   "step_modis_only": 1.19
+  }
+ }
+}

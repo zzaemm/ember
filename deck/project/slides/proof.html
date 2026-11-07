@@ -1,0 +1,31 @@
+<section id="proof" data-transition="fade" style="background:#12161c;color:#eef0ea;font-family:'Source Sans 3', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<h2 style="font-family:'Familjen Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;color:#eef0ea">Tested on years it never saw</h2>
+<div style="display:grid;grid-template-columns:960px 1fr;gap:56px;align-items:start">
+<div style="position:relative;width:960px;height:500px">
+<svg aria-label="Yearly detections in India 2001 to 2025. The raw joined record jumps sharply at 2012. The harmonized record has no such step." width="960" height="460" viewBox="0 0 960 460" style="width:960px;height:460px">
+<line x1="60" x2="900" y1="440" y2="440" stroke="#566070" stroke-width="2"/>
+<line x1="60" x2="900" y1="240" y2="240" stroke="#2d3540" stroke-width="2"/>
+<line x1="60" x2="900" y1="40" y2="40" stroke="#2d3540" stroke-width="2"/>
+<line x1="427" x2="427" y1="30" y2="440" stroke="#b9c0c8" stroke-width="2" stroke-dasharray="6 6"/>
+<path d="M60,429L95,424L130,406L165,401L200,402L235,400L270,395L305,397L340,385L375,394L410,397L445,152L480,210L515,186L550,218L585,115L620,163L655,139L690,199L725,216L760,65L795,171L830,179L865,194L900,144" fill="none" stroke="#6db2e6" stroke-width="4" stroke-dasharray="10 6"/>
+<path d="M60,228L95,292L130,274L165,254L200,255L235,253L270,214L305,213L340,143L375,201L410,216L445,143L480,210L515,186L550,218L585,115L620,163L655,139L690,197L725,216L760,65L795,170L830,179L865,184L900,142" fill="none" stroke="#f0954a" stroke-width="5"/>
+</svg>
+<p style="position:absolute;left:0;top:18px;width:58px;font-size:24px;color:#b9c0c8">600k</p>
+<p style="position:absolute;left:0;top:218px;width:58px;font-size:24px;color:#b9c0c8">300k</p>
+<p style="position:absolute;left:30px;top:418px;width:28px;font-size:24px;color:#b9c0c8">0</p>
+<p style="position:absolute;left:40px;top:456px;width:80px;font-size:24px;color:#b9c0c8">2001</p>
+<p style="position:absolute;left:395px;top:456px;width:80px;font-size:24px;color:#b9c0c8">2012</p>
+<p style="position:absolute;left:860px;top:456px;width:80px;font-size:24px;color:#b9c0c8">2025</p>
+<p style="position:absolute;left:90px;top:170px;width:300px;font-size:26px;font-weight:600;color:#f0954a">Corrected</p>
+<p style="position:absolute;left:90px;top:345px;width:300px;font-size:26px;font-weight:600;color:#6db2e6">Raw records joined</p>
+<p style="position:absolute;left:435px;top:404px;width:280px;font-size:24px;color:#b9c0c8">VIIRS begins</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:24px">
+<div><p style="font-family:'Familjen Grotesk', Arial, sans-serif;font-size:64px;font-weight:700;line-height:1.05;color:#f0954a">0.18 → 1.03</p><p style="font-size:28px;line-height:1.25;color:#eef0ea">Total compared with real VIIRS</p></div>
+<div><p style="font-family:'Familjen Grotesk', Arial, sans-serif;font-size:64px;font-weight:700;line-height:1.05;color:#f0954a">82% → 12%</p><p style="font-size:28px;line-height:1.25;color:#eef0ea">Typical weekly error, all India</p></div>
+<div><p style="font-family:'Familjen Grotesk', Arial, sans-serif;font-size:64px;font-weight:700;line-height:1.05;color:#f0954a">5.69 → 1.10</p><p style="font-size:28px;line-height:1.25;color:#eef0ea">Step at the 2012 join; MODIS alone shows 1.02</p></div>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#b9c0c8">Learned on 2012–2019, tested on 2020–2025. Leaving out each year of 2012–2019 in turn gives 13% weekly error.</p>
+<aside>SPEAKER 3 (about 50 seconds). A method that is only tested on its own training data proves nothing. So we learned the correction from 2012 to 2019 and tested it on 2020 to 2025, which it never saw. Uncorrected MODIS totals reach only 18 percent of VIIRS. Corrected, they reach 103 percent. Typical weekly error for India falls from 82 percent to 12 percent. Look at the chart: the blue line is the raw join, with its cliff at 2012. The orange line is ours. The step falls from 5.69 to 1.10, close to the 1.02 that MODIS shows alone. We also checked for satellite orbit drift, and the error stayed between 1.02 and 1.04 across the test periods. We left out each training year in turn too, and got 13 percent. Be ready to say this: before 2012 cannot be tested directly, because VIIRS was not flying.</aside>
+</section>

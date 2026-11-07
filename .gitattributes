@@ -1,0 +1,5 @@
+# Keep generated data byte-for-byte, and leave it out of readable diffs.
+app/data/grid.txt -text -diff
+app/data/meta.json -text -diff
+app/data/land.json -text -diff
+*.png binary

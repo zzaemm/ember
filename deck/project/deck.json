@@ -1,0 +1,21 @@
+{
+  "v": 4,
+  "createdOnFiles": {"v": 1, "at": "2026-11-07T02:30:00Z"},
+  "lists": "css",
+  "title": "Ember: One Fire Calendar from Two Satellite Records",
+  "cover": "cover",
+  "order": ["cover", "plain", "gap", "bamap", "users", "views", "sensors", "method", "proof", "regions", "kerala", "punjab", "reasons", "unusual", "central", "arch", "limits", "close", "qa", "sources"],
+  "sections": {
+    "s1": {"description": "Speaker 1: the problem, the people who need the answer, and our three perspectives.", "start": "cover"},
+    "s2": {"description": "Speaker 2: why the sensors disagree and how we harmonize them.", "start": "sensors"},
+    "s3": {"description": "Speaker 3: the test on years the method never saw.", "start": "proof"},
+    "s4": {"description": "Speaker 4: the live calendar and what it finds.", "start": "kerala"},
+    "s5": {"description": "Speaker 5: how it is built, its limits and what comes next.", "start": "arch"},
+    "s6": {"description": "Backup slides for judge questions and sources.", "start": "qa"}
+  },
+  "faces": {
+    "familjen-grotesk": {"family": "Familjen Grotesk", "href": "https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap"},
+    "source-sans-3": {"family": "Source Sans 3", "href": "https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap"}
+  },
+  "designSystems": []
+}

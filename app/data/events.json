@@ -1,0 +1,292 @@
+{
+ "_note": "Hand-checked summaries with links to the original reporting. Satellite comparisons are calculated live by the app. Counts in news reports use different methods from satellite detections.",
+ "regions": {
+  "india": {
+   "why": "Most fires are started by people, often while farming or clearing land, and hot, dry months provide the fuel. A Forest Survey of India study attributes over 95% of incidents to human activity.",
+   "source": {
+    "name": "Mongabay India",
+    "url": "https://india.mongabay.com/2020/01/most-forest-fires-in-india-on-account-of-human-activity/"
+   },
+   "events": [
+    {
+     "year": 2021,
+     "from": [
+      3,
+      1
+     ],
+     "to": [
+      4,
+      15
+     ],
+     "when": "Mar–Apr 2021",
+     "title": "Major fires in several states at once",
+     "summary": "Odisha’s Similipal and Uttarakhand’s forests both burned that spring, after a very dry start to the year.",
+     "outlet": "Mongabay India",
+     "url": "https://india.mongabay.com/2022/04/one-year-of-similipal-forest-fire-the-hits-and-misses/"
+    }
+   ]
+  },
+  "kerala": {
+   "why": "The hot months dry out undergrowth and bamboo, so fires spread easily. Officials and activists say most forest fires here are started by people, not lightning.",
+   "source": {
+    "name": "Scroll.in",
+    "url": "https://scroll.in/article/922614/not-natural-why-is-kerala-seeing-more-forest-fires-this-year"
+   },
+   "events": [
+    {
+     "year": 2017,
+     "from": [
+      1,
+      15
+     ],
+     "to": [
+      3,
+      31
+     ],
+     "when": "Early 2017",
+     "title": "Drought year brings hundreds of fires",
+     "summary": "After weak monsoons in 2016, the state’s forests minister reported about 440 fires and 2,100 hectares burned.",
+     "outlet": "Asia Times",
+     "url": "https://asiatimes.com/2018/08/drought-and-forest-fires-preceded-keralas-devastating-flood/"
+    },
+    {
+     "year": 2019,
+     "from": [
+      2,
+      1
+     ],
+     "to": [
+      3,
+      31
+     ],
+     "when": "Feb 2019",
+     "title": "150 hectares burn in Wayanad’s Banasura Hills",
+     "summary": "Authorities filed a case of “unnatural fire”, with no arrests at the time of the report.",
+     "outlet": "Onmanorama",
+     "url": "https://onmanorama.com/news/kerala/2019/03/28/forest-fire-kerala-department-foul-play.html"
+    },
+    {
+     "year": 2025,
+     "from": [
+      2,
+      1
+     ],
+     "to": [
+      3,
+      15
+     ],
+     "when": "Feb 2025",
+     "title": "Fire on Kambamala hill, Wayanad",
+     "summary": "About 10 acres reportedly burned. A fire this size barely changes a statewide total, which shows why this calendar suits seasons and not single fires.",
+     "outlet": "Onmanorama",
+     "url": "https://onmanorama.com/news/kerala/2025/02/17/wildfire-spread-wayanad-kambamala-forest-firefighting-efforts-underway.html"
+    }
+   ]
+  },
+  "punjab_haryana": {
+   "why": "Farmers burn leftover crop stubble to clear fields quickly between harvests: wheat stubble around April and May, and paddy stubble around October and November.",
+   "source": {
+    "name": "Down To Earth",
+    "url": "https://www.downtoearth.org.in/air/unending-paddy-burning-in-punjab-haryana-and-uttar-pradesh-56207"
+   },
+   "events": [
+    {
+     "year": 2016,
+     "from": [
+      10,
+      15
+     ],
+     "to": [
+      11,
+      15
+     ],
+     "when": "Oct–Nov 2016",
+     "title": "Crop fires feed Delhi’s smog",
+     "summary": "Paddy burning continued while smog covered Delhi. Weather and Diwali fireworks also contributed.",
+     "outlet": "Down To Earth",
+     "url": "https://www.downtoearth.org.in/air/unending-paddy-burning-in-punjab-haryana-and-uttar-pradesh-56207"
+    },
+    {
+     "year": 2024,
+     "from": [
+      10,
+      8
+     ],
+     "to": [
+      11,
+      18
+     ],
+     "when": "2020–2024",
+     "title": "Burning reportedly moves later in the day",
+     "summary": "An ISRO-linked study reported that the peak moved from about 1:30 pm to about 5 pm, after the satellites pass. Punjab officials dispute this, but it means fewer detections may not equal less burning.",
+     "outlet": "The Tribune",
+     "url": "https://www.tribuneindia.com/news/haryana/farmers-shift-stubble-burning-time-to-dodge-satellite-tracking-isro-study"
+    },
+    {
+     "year": 2025,
+     "from": [
+      10,
+      8
+     ],
+     "to": [
+      11,
+      18
+     ],
+     "when": "Autumn 2025",
+     "title": "Official farm-fire counts fall sharply",
+     "summary": "Reports described a marked decline in stubble-burning cases in both Punjab and Haryana.",
+     "outlet": "ThePrint",
+     "url": "https://theprint.in/india/punjab-haryana-saw-marked-decline-in-stubble-burning-cases-this-year-data/2804357"
+    }
+   ]
+  },
+  "northeast": {
+   "why": "Many fires come from jhum, or slash-and-burn farming, where hill plots are cleared before planting. In Mizoram, most reported forest fires happen in March.",
+   "source": {
+    "name": "Down To Earth",
+    "url": "https://www.downtoearth.org.in/natural-disasters/fires-rage-on-in-mizoram-s-lawngtlai-under-control-elsewhere-76701"
+   },
+   "events": [
+    {
+     "year": 2021,
+     "from": [
+      4,
+      15
+     ],
+     "to": [
+      5,
+      5
+     ],
+     "when": "Apr 2021",
+     "title": "Fires spread across south Mizoram",
+     "summary": "Air Force helicopters joined the response. One serious fire can matter greatly to local people while barely changing the total for this wide region.",
+     "outlet": "Down To Earth",
+     "url": "https://www.downtoearth.org.in/natural-disasters/forest-fire-in-two-districts-of-mizoram-iaf-helicopters-to-help-put-it-down-76671"
+    }
+   ]
+  },
+  "central": {
+   "why": "Spring fires burn through dry forest, and collectors of tendu leaves and mahua flowers sometimes use fire. Autumn fires are increasingly crop stubble, as more farmers grow paddy.",
+   "source": {
+    "name": "Down To Earth",
+    "url": "https://www.downtoearth.org.in/agriculture/dte-ground-report-why-has-madhya-pradeshs-sheopur-recorded-the-most-stubble-burning-incidents-this-year"
+   },
+   "events": [
+    {
+     "year": 2025,
+     "from": [
+      10,
+      8
+     ],
+     "to": [
+      11,
+      18
+     ],
+     "when": "Autumn 2025",
+     "title": "Madhya Pradesh tops the farm-fire count",
+     "summary": "Reports placed Madhya Pradesh ahead of Punjab for the second year running. A ground report links it to farmers in Sheopur switching to paddy after rain damaged soybean and black gram.",
+     "outlet": "Down To Earth",
+     "url": "https://www.downtoearth.org.in/air/madhya-pradesh-leads-in-farm-stubble-burning-for-second-year-uttar-pradesh-and-punjab-follow"
+    }
+   ]
+  },
+  "odisha": {
+   "why": "A long dry season leaves forests full of dry leaves. Reported causes include burning leaf litter to collect mahua flowers and hunters setting fires, though the cause of a single fire is often unconfirmed.",
+   "source": {
+    "name": "Down To Earth",
+    "url": "https://www.downtoearth.org.in/natural-disasters/odisha-had-half-of-india-s-wildfires-on-march-13-poachers-may-be-to-blame-88203"
+   },
+   "events": [
+    {
+     "year": 2021,
+     "from": [
+      2,
+      15
+     ],
+     "to": [
+      3,
+      20
+     ],
+     "when": "Feb–Mar 2021",
+     "title": "Similipal burns for over 10 days",
+     "summary": "Fires reportedly affected close to a third of the area of this tiger reserve, during a dry spell.",
+     "outlet": "Mongabay India",
+     "url": "https://india.mongabay.com/2022/04/one-year-of-similipal-forest-fire-the-hits-and-misses/"
+    },
+    {
+     "year": 2023,
+     "from": [
+      3,
+      1
+     ],
+     "to": [
+      3,
+      25
+     ],
+     "when": "Mar 2023",
+     "title": "Odisha leads India in large fires",
+     "summary": "Forest Survey of India data showed 642 large fire incidents in one week, after a dry spell since October.",
+     "outlet": "Down To Earth",
+     "url": "https://www.downtoearth.org.in/news/natural-disasters/odisha-experiencing-the-country-s-worst-forest-fires-again-642-incidents-in-march-88144"
+    }
+   ]
+  },
+  "uttarakhand": {
+   "why": "Before the monsoon, dry chir pine needles cover the forest floor and catch fire easily. Reported sparks include cigarette ends, campfires and burning debris.",
+   "source": {
+    "name": "India TV News",
+    "url": "https://www.indiatvnews.com/news/india/uttarakhand-forest-fires-explained-prevention-nainital-pauri-garhwal-blazes-haldwani-ramnagar-forest-indian-air-force-iaf-kumaon-harish-rawat-2024-04-29-928569"
+   },
+   "events": [
+    {
+     "year": 2016,
+     "from": [
+      4,
+      1
+     ],
+     "to": [
+      5,
+      15
+     ],
+     "when": "Apr–May 2016",
+     "title": "Air Force helicopters fight the fires",
+     "summary": "Disaster response teams and helicopters were sent in as fires spread across the hills, until rain helped bring them under control.",
+     "outlet": "Deccan Chronicle",
+     "url": "https://www.deccanchronicle.com/nation/current-affairs/300416/uttarakhand-forest-fires-national-disaster-response-force-teams-sent-in.html"
+    },
+    {
+     "year": 2021,
+     "from": [
+      1,
+      1
+     ],
+     "to": [
+      4,
+      30
+     ],
+     "when": "Jan–Apr 2021",
+     "title": "A very dry winter brings early fires",
+     "summary": "Fires flared across Nainital, Almora and Tehri, and the Centre sent helicopters to help.",
+     "outlet": "Onmanorama",
+     "url": "https://www.onmanorama.com/news/india/2021/04/07/forest-fires-uttarakhand.html"
+    },
+    {
+     "year": 2024,
+     "from": [
+      4,
+      15
+     ],
+     "to": [
+      5,
+      15
+     ],
+     "when": "Apr–May 2024",
+     "title": "Five dead as fires spread",
+     "summary": "Officials reported five deaths and about 1,300 hectares affected by 9 May.",
+     "outlet": "Scroll.in",
+     "url": "https://scroll.in/latest/1067683/five-dead-1300-hectares-of-land-affected-in-uttarakhand-forest-fires-say-officials"
+    }
+   ]
+  }
+ }
+}

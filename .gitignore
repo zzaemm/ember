@@ -1,0 +1,19 @@
+# Raw and intermediate data. These can be downloaded and rebuilt (see README).
+*.npz
+*.npz.audit.json
+firms_raw/
+landmap_raw/
+*_India.csv
+land-50m.json
+
+# Python
+__pycache__/
+*.pyc
+
+# Local tool and system files
+.claude/
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store
