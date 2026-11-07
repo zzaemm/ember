@@ -1,0 +1,2 @@
+app/data/grid.txt -text -diff
+app/data/meta.json -text -diff
