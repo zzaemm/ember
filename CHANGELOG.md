@@ -2,6 +2,17 @@
 
 Each version below has a Git tag and a GitHub release. See "Working with versions" in `README.md` for how to open one.
 
+## v5.1: Search only
+
+Tag: `v5.1`.
+
+- Removed the region buttons. The search box finds any town, district or state, and a Clear button beside it returns to all of India.
+- Searching a state without a ready-made region now says "the area around the centre of" it.
+- A failed download of the place list no longer breaks search until the page is reloaded.
+- "No satellite records near" a place now clears the previous place's charts.
+- `details.html#accuracy` keeps its address.
+- Search logic moved to `app/search.js`, with a self-check in `tests/search.test.js`.
+
 ## v5.0: Redesign, search and the headline numbers
 
 Tag: `v5.0`.

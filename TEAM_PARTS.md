@@ -25,7 +25,7 @@ Speaker 4 has the most time and risk, so choose your most confident presenter.
 1. **Open the site:** the before and after maps play 2008 to 2014 by themselves, then stop on 2011. Point at the headline numbers: a 5.7× jump when the records are joined, 1.1× after correction. Then point at the trend line under the maps.
 2. **Scroll once to Fire calendar by place, Kerala:** read the sentence (fires are detected most often from 12 Feb to 18 Mar), then point to the two charts and the notes on the right.
 3. **Search:** type "Wayanad" or "Palakkad" in Town or district and pick it. Its calendar appears, with its accuracy.
-4. **Punjab & Haryana:** press the region. The peak moves to 22 Oct to 11 Nov. Say detections fell, and we do not claim burning fell equally.
+4. **Punjab:** press Clear, then search "Punjab". The peak moves to 22 Oct to 11 Nov. Say detections fell, and we do not claim burning fell equally.
 5. **Limits section:** show the by-region accuracy chart, where 1.00 is a perfect match.
 6. **Data page:** choose Uttarakhand, press **Unusual weeks**, and hover over the week of 30 Apr in the 2024 row.
 

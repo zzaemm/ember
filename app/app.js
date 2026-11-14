@@ -98,7 +98,7 @@ function setAOI(cells,name,id,shape){
   S.cells=cells; S.name=name; S.id=id||null; aoiSet=new Set(cells); S.shape=shape||(id?(M.regions.find(r=>r.id===id)||{}).poly||null:null);
   stats = id && S.cache.has(id) ? S.cache.get(id) : compute(cells,name);
   if(id) S.cache.set(id,stats);
-  if(id){ try{ history.replaceState(null,'',location.search+'#'+id); }catch(e){} }
+  if(id&&location.hash!=='#accuracy'){ try{ history.replaceState(null,'',location.search+'#'+id); }catch(e){} }
   const sel=$('region'); if(sel) sel.value=id||'';
   renderAll();
 }
@@ -319,7 +319,6 @@ function renderAll(){ if(PAGE==='overview'){ renderOverview(); return; } renderF
 /* ---------- overview: the plain-language page ---------- */
 const HIDDEN = ['wayanad','tarn_taran'];
 const shortName = n => n.replace(' (approx.)','').replace('Central India: MP & Chhattisgarh','Central India').replace(/ area$/,'');
-const CHIPS = ['kerala','punjab_haryana','northeast','central','uttarakhand','odisha','india'];
 function nowWeek(){ const n=new Date(), d=Math.floor((Date.UTC(n.getUTCFullYear(),n.getUTCMonth(),n.getUTCDate())-Date.UTC(n.getUTCFullYear(),0,1))/864e5); return {b:Math.min(51,Math.floor(d/7)),month:n.toLocaleString('en-GB',{month:'long',timeZone:'UTC'})}; }
 function drawSmallMap(){
   const cv=$('smap'), B=baseMap(cv,VB0); if(!B) return; const {g,P,path}=B;
@@ -376,7 +375,7 @@ function drawBA(){
 /* Yearly totals for India: the records joined as they are, and after correction, with the shown year marked. */
 function drawTrend(){
   const box=$('ba-trend'), Wd=box.clientWidth; if(!Wd) return; box.innerHTML='';
-  const H=Wd<480?84:84, L=4, R=4, T=12, B=20, raw=[...S.yrRawTotal], fix=[...S.yrFixTotal], mx=Math.max(...raw,...fix)||1;
+  const H=84, L=4, R=4, T=12, B=20, raw=[...S.yrRawTotal], fix=[...S.yrFixTotal], mx=Math.max(...raw,...fix)||1;
   const x=i=>L+i/(NY-1)*(Wd-L-R), y=v=>T+(H-T-B)*(1-v/mx);
   const root=svg('svg',{viewBox:`0 0 ${Wd} ${H}`,width:Wd,height:H,role:'img','aria-label':`Yearly fires detected across India. Joined as they are, the count jumps ${V.agreement.india.step_raw.toFixed(1)} times at 2012; after correction the step is ${V.agreement.india.step_harmonized.toFixed(1)} times.`},box);
   const path=a=>'M'+a.map((v,i)=>x(i).toFixed(1)+','+y(v).toFixed(1)).join('L');
@@ -423,7 +422,9 @@ function baPlay(on){
 function renderOverview(){
   if(PAGE!=='overview'||!stats) return;
   const st=stats, name=shortName(S.name), nw=nowWeek(), enough=st.core&&st.total>=30;
-  [...$('chips').children].forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===S.id));
+  // the search box names the place on show; Clear appears once anything but all of India is picked
+  const q=$('place-q'); if(document.activeElement!==q) q.value=S.id==='india'?'':shortName(S.name).replace(/^the area around (the centre of )?/,'').replace(/ district \(approx\.\)$/,'');
+  $('place-clear').hidden=S.id==='india';
   drawSmallMap(); renderWhy();
   $('ans-place').textContent=`Fire calendar for ${name}`;
   if(!enough){ $('ans-title').textContent='Too few fires were detected here to build a calendar.'; $('ans-sub').textContent='Try a larger or different area.'; $('ans-now').textContent='Not enough records to say.'; $('ans-rel').textContent='Not enough records to say.'; $('weekchart').innerHTML=''; $('weekleg').innerHTML=''; }
@@ -445,30 +446,26 @@ function pickAround(lat,lon){
 }
 function setDetailTab(id){ document.querySelectorAll('.dtabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.d===id)); ['d-cal','d-trend','d-acc'].forEach(s=>{ $(s).hidden=s!==id; }); if(id==='d-cal'){ drawMap(); drawCal(); } }
 /* Town and district search, from the GeoNames list (loaded on first use). */
-const PRESET_STATE={'Kerala':'kerala','Odisha':'odisha','Uttarakhand':'uttarakhand','Punjab':'punjab_haryana','Haryana':'punjab_haryana'};
-async function loadPlaces(){ if(!S.places) S.places=fetch('data/places.json').then(r=>r.json()).then(d=>d.places); return S.places; }
+async function loadPlaces(){ if(!S.places) S.places=fetch('data/places.json').then(r=>r.json()).then(d=>d.places).catch(e=>{ S.places=null; throw e; }); return S.places; }
 function pickPlace(p){
-  const [name,lat,lon,kind,state]=p, preset=kind==='state'&&PRESET_STATE[name];
-  if(preset){ const r=M.regions.find(x=>x.id===preset); setAOI(r.cells,r.name,r.id); return; }
-  const rad=kind==='state'?1.0:kind==='district'?.45:.3, cells=[]; for(let i=0;i<nCells;i++) if(Math.abs(C.lat[i]-lat)<=rad&&Math.abs(C.lon[i]-lon)<=rad) cells.push(i);
-  if(!cells.length){ $('ans-place').textContent=`No satellite records near ${name}`; return; }
-  setAOI(cells, kind==='town'?`the area around ${name}`:kind==='district'?`${name} district (approx.)`:`${name} (approx.)`, null, rectPoly(lat-rad,lat+rad,lon-rad,lon+rad));
+  const [name,lat,lon]=p, a=placeArea(p);
+  if(a.preset){ const r=M.regions.find(x=>x.id===a.preset); setAOI(r.cells,r.name,r.id); return; }
+  const rad=a.rad, cells=[]; for(let i=0;i<nCells;i++) if(Math.abs(C.lat[i]-lat)<=rad&&Math.abs(C.lon[i]-lon)<=rad) cells.push(i);
+  if(!cells.length){ $('ans-place').textContent=`No satellite records near ${name}`; for(const id of ['ans-title','ans-sub','weekchart','yearchart']) $(id).innerHTML=''; return; }
+  setAOI(cells, a.label, null, rectPoly(lat-rad,lat+rad,lon-rad,lon+rad));
 }
 function initSearch(){
   const q=$('place-q'), list=$('place-list'); let hits=[], sel=-1;
   const close=()=>{ list.hidden=true; q.setAttribute('aria-expanded','false'); sel=-1; };
   const show=()=>{ list.innerHTML=hits.map((p,i)=>`<li role="presentation"><button type="button" role="option" id="opt-${i}" aria-selected="${i===sel}" data-i="${i}">${esc(p[0])} <span>${p[3]==='town'?'town':p[3]}${p[4]&&p[3]!=='state'?', '+esc(p[4]):''}</span></button></li>`).join(''); list.hidden=!hits.length; q.setAttribute('aria-expanded',String(!!hits.length)); if(sel>=0) q.setAttribute('aria-activedescendant','opt-'+sel); else q.removeAttribute('aria-activedescendant'); };
   q.addEventListener('focus',loadPlaces,{once:true});
-  q.addEventListener('input',async()=>{ const t=q.value.trim().toLowerCase(); if(t.length<2){ hits=[]; close(); return; } const all=await loadPlaces(), rank={district:0,state:0,town:1};
-    const starts=all.filter(p=>p[0].toLowerCase().startsWith(t)), inside=all.filter(p=>!p[0].toLowerCase().startsWith(t)&&p[0].toLowerCase().includes(t));
-    hits=[...starts.sort((a,b)=>rank[a[3]]-rank[b[3]]),...inside].slice(0,6); sel=-1; show(); });
+  q.addEventListener('input',async()=>{ if(q.value.trim().length<2){ hits=[]; close(); return; } hits=matchPlaces(await loadPlaces(),q.value); sel=-1; show(); });
   q.addEventListener('keydown',e=>{ if(list.hidden) return; if(e.key==='ArrowDown'){ sel=Math.min(hits.length-1,sel+1); show(); e.preventDefault(); } else if(e.key==='ArrowUp'){ sel=Math.max(0,sel-1); show(); e.preventDefault(); } else if(e.key==='Enter'&&hits.length){ const p=hits[Math.max(0,sel)]; q.value=p[0]; close(); pickPlace(p); e.preventDefault(); } else if(e.key==='Escape'){ close(); } });
   list.addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; const p=hits[+b.dataset.i]; q.value=p[0]; close(); pickPlace(p); });
   document.addEventListener('click',e=>{ if(!e.target.closest('.search')) close(); });
 }
 function initOverview(){
-  $('chips').innerHTML=CHIPS.map(id=>{ const r=M.regions.find(x=>x.id===id); return `<button class="chip" type="button" data-id="${id}" aria-pressed="false">${esc(shortName(r.name))}</button>`; }).join('');
-  $('chips').onclick=e=>{ const id=e.target.dataset&&e.target.dataset.id; if(!id) return; $('place-q').value=''; const r=M.regions.find(x=>x.id===id); setAOI(r.cells,r.name,r.id); };
+  $('place-clear').onclick=()=>{ const r=M.regions.find(x=>x.id==='india'); setAOI(r.cells,r.name,r.id); $('place-q').value=''; $('place-q').focus(); };
   $('smap').addEventListener('click',e=>{ const cv=$('smap'), rect=cv.getBoundingClientRect(), P=mapProj(cv,VB0); pickAround(P.ilat(e.clientY-rect.top),P.ilon(e.clientX-rect.left)); });
   S.baYear=2011; $('ba-slider').addEventListener('input',e=>{ baPlay(false); S.baYear=+e.target.value; drawBA(); }); $('ba-play').onclick=()=>baPlay(!S.baTimer);
   heroFacts(); initSearch();
@@ -505,10 +502,10 @@ load().then(()=>{
   addEventListener('hashchange',()=>{ const h=location.hash.slice(1), r=M.regions.find(x=>x.id===h); if(r&&r.id!==S.id) setAOI(r.cells,r.name,r.id); if(h==='accuracy'&&PAGE==='details') setDetailTab('d-acc'); });
   const r=M.regions.find(x=>x.id===id)||M.regions.find(x=>x.id===q.get('area'))||M.regions.find(x=>x.id==='kerala');
   if(PAGE==='overview'){
-    S.view='overview'; initOverview(); setAOI(r.cells,r.name,r.id); drawBA();
+    initOverview(); setAOI(r.cells,r.name,r.id); drawBA();
     if(!q.get('still')) baIntro();
   } else {
-    S.view='details'; initControls(); initMap(); initCal(); renderProof(); setAOI(r.cells,r.name,r.id);
+    initControls(); initMap(); initCal(); renderProof(); setAOI(r.cells,r.name,r.id);
     if(id==='accuracy') setDetailTab('d-acc'); const t=q.get('tab'); if(t) setDetailTab(t);
   }
 }).catch(e=>{ console.error(e); const el=$('ans-title')||$('h-cal'); if(el) el.innerHTML='The hotspot data could not load. If you opened this file directly, start a local server in the <code>app</code> folder with <code>python -m http.server 8000</code>, then open <code>http://localhost:8000</code>.'; });
